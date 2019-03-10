@@ -1,0 +1,24 @@
+<div class="row">
+  <button
+          class="btn btn-primary btn-margin"
+          routerLink="/">
+    Home
+  </button>
+
+  <button
+          class="btn btn-primary btn-margin"
+          *ngIf="!authenticationService.isAuthenticated()"
+          (click)="authenticationService.login()">
+    Log In
+  </button>
+
+  <button
+          class="btn btn-primary btn-margin"
+          *ngIf="authenticationService.isAuthenticated()"
+          (click)="authenticationService.logout()">
+    Log Out
+  </button>
+</div>
+<p>
+  home works!
+</p>

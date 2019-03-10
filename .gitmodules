@@ -1,0 +1,4 @@
+[submodule "texture"]
+	path = texture
+	url = https://github.com/InSilicoLabs/texture
+	branch = dmc_v1

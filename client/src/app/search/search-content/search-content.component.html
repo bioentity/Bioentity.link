@@ -1,0 +1,13 @@
+<ngb-accordion *ngIf="lexica" activeIds="lexica" #acc="ngbAccordion">
+	<ngb-panel title="Lexica" id="lexica">
+		<template ngbPanelContent>
+			<div *ngFor="let lex of lexica" class="card">
+				<div class="card-block">
+					<h4 class="card-title">{{lex.publicName}}</h4>
+					<h6 class="card-subtitle mb-2 text-muted">{{lex.externalModId}}</h6>
+					<p class="card-text">{{lex.synonym}}</p>
+				</div>
+			</div>
+		</template>
+	</ngb-panel>
+</ngb-accordion>

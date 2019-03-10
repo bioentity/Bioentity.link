@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-3">
+    <key-word-list (selectedKWS)="selectKeyWordSet($event)"></key-word-list>
+  </div>
+  <div class="col-md-5">
+    <key-word-content [selectedKWS]="selectedKWS"></key-word-content>
+  </div>
+  <div class="col-md-4">
+    <key-word-detail [selectedKWS]="selectedKWS"></key-word-detail>
+  </div>
+</div>
+

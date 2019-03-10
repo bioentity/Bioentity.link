@@ -1,0 +1,48 @@
+<div *ngIf="selectedPub" class="row col-12">
+    <div class="mr-2">Journal <span class="badge badge-default">{{selectedPub.journal | uppercase}}</span></div>
+    <div class="mr-2" *ngIf="showAdminGenetics()">
+        Caltech
+        <a target="_blank" class="btn btn-sm btn-info fa fa-external-link" href="http://textpresso-dev.cacr.caltech.edu/gsa/worm/entity_link_tables/{{selectedPub.fileName.split('.')[0]}}.html">
+            Links
+        </a>
+        <a target="_blank" class="btn btn-sm btn-info fa fa-external-link" href="http://textpresso-dev.cacr.caltech.edu/cgi-bin/gsa/worm/edit.pl?docid={{selectedPub.fileName.split('.')[0]}}">
+            Editor
+        </a>
+        <!--http://textpresso-dev.cacr.caltech.edu/cgi-bin/gsa/worm/edit.pl?docid=200592-->
+    </div>
+    <div class="mr-2 outlineLinks">
+        <a class="btn btn-sm btn-outline-info" href="/#/publication/{{selectedPub.doi}}">
+            DOI <span class="badge badge-default">{{selectedPub.doi}}</span>
+        </a>
+        <a target="_blank" class="btn btn-sm btn-info fa fa-external-link" href="https://doi.org/{{selectedPub.doi}}">
+        </a>
+    </div>
+    <div class="mr-2">Received <span class="badge badge-default">{{selectedPub.ingested | date: 'MMM dd, yyyy'}}</span>
+    </div>
+    <div class="mr-2">Last Edited <span
+            class="badge badge-default">{{selectedPub.lastEdited | date: 'MMM dd, yyyy'}}</span>
+    </div>
+    <div class="mr-2" *ngIf="selectedPub.finalized">Sent to Server <span class="badge badge-default">{{selectedPub.finalized | date: 'MMM dd, yyyy'}}</span>
+    </div>
+    <div class="mr-2 outlineLinks">
+        {{selectedPub.fileName}}
+        <a href="#/publication/{{selectedPub.doi}}" (click)="exportPub()" title="Download"
+           class="btn-outline btn-secondary link-hover primary-download btn btn-sm fa fa-download">
+        </a>
+        <a *ngIf="isAdmin()" href="#/publication/{{selectedPub.doi}}" (click)="exportRawPub()" title="Download Raw"
+           class="btn-outline btn-secondary warning-download link-hover btn btn-sm fa fa-download">
+        </a>
+        <a *ngIf="selectedPub.githubLink" href="{{selectedPub.githubLink}}"  title="Github"
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-github">
+        </a>
+        <a *ngIf="!selectedPub.githubLink" (click)="githubLink(selectedPub)"  title="Github"
+           class="btn-outline btn-warning warning-download link-hover btn btn-sm fa fa-github">
+        </a>
+    </div>
+</div>
+
+
+<iframe width="100%;" height="1000px" [src]='iframesrc' frameborder=0 allowfullscreen></iframe>
+
+
+

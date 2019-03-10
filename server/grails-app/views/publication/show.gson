@@ -1,0 +1,14 @@
+import com.insilico.dmc.publication.Publication
+
+model {
+    Publication publication
+}
+json {
+    id publication.id
+    doi publication.doi
+    fileName publication.fileName
+//    title publication?.preBody?.titleText
+//    abstractText publication?.preBody?.abstractText
+//    body tmpl.section(publication?.body?.sections)
+    hal.links(publication)
+}

@@ -1,0 +1,58 @@
+.sc-ext-link { 
+/*	color: #2079DC;*/
+	color: black;
+ }
+
+.ext-link-background {
+	background-color: aqua;
+}
+
+.ext-link-green {
+/*	border-radius: .25rem;
+	background-color: #28a745;
+	color: #fff;
+	padding: .15rem;*/
+	color: #28a745;
+	border-bottom: 3px solid #28a745;
+}
+
+.ext-link-yellow {
+/*	border-radius: .25rem;
+	background-color: #ffc107;
+	color: #fff;
+	padding: .15rem;*/
+	/* actually is blue */
+	color: #0275d8;
+	border-bottom: 3px solid #0275d8;
+}
+
+.ext-link-superscript .sc-superscript {
+	color: #0275d8;
+	border-bottom: 3px solid #0275d8;
+}
+
+.ext-link-red {
+/*	border-radius: .25rem;
+	background-color: #dc3545;
+	color: #fff;
+	padding: .15rem;
+	border-bottom: 3px solid #dc3545;*/
+	color: #dc3545;
+}
+
+.ext-link-select {
+	background: transparent;
+	font-color: white;
+}
+
+.ext-link-focus {
+/*	border: 2px solid black;*/
+	padding: .15rem;
+	background: #ffc107;
+}
+
+.sc-prose-editor-overlay-tools > .se-active-tools {
+  border-radius: 5px;
+  background: #5bc0de;
+  padding: 5px;
+}

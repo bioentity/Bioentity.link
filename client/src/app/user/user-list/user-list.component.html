@@ -1,0 +1,88 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="user-list">
+  <ngb-panel title="Add User" id="add-user">
+    <template ngbPanelContent>
+      <div class="form-group row">
+        <label for="class-name" class="col-4 col-form-label">GH User Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control" [(ngModel)]="addUser.username">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="class-name" class="col-4 col-form-label">Email</label>
+        <div class="col-8">
+          <input type="text" class="form-control" [(ngModel)]="addUser.email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="class-name" class="col-4 col-form-label">First Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control" [(ngModel)]="addUser.firstName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="class-name" class="col-4 col-form-label">Last Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control" [(ngModel)]="addUser.lastName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="class-name" class="col-4 col-form-label">Role</label>
+        <div class="col-8">
+          <select type="text" class="form-control" [(ngModel)]="addUser.defaultRole">
+            <option *ngFor="let role of roles" [ngValue]="role">
+              {{role.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-6">
+          <button class="btn btn-primary" (click)="addNewUser(); acc.toggle('add-user')">Save
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-secondary" (click)="acc.toggle('add-user')">Cancel</button>
+        </div>
+      </div>
+    </template>
+  </ngb-panel>
+
+
+  <ngb-panel title="User List" id="user-list">
+    <template ngbPanelContent>
+      <select class="form-control" (ngModelChange)="getUsersWithFilter($event);" [(ngModel)]="userFilter">
+        <option *ngFor="let filter of filters" [ngValue]="filter">
+           {{filter}}
+        </option>
+      </select>
+      <ul class="list-group">
+        <li *ngFor="let user of users"
+            class="list-group-item list-group-item-action justify-content-between">
+          <a [routerLink]="['/user',user.username]" >
+            {{user.firstName}} {{user.lastName}}
+              <!--({{user.username}})-->
+          </a>
+          <a *ngIf="user.active" title="Deactivate" class="btn btn-sm btn-danger" href="#" role="button" (click)="deactivate(user,userFilter)">&times;</a>
+          <a *ngIf="!user.active" title="Activate" class="btn btn-sm btn-info" href="#" role="button" (click)="activate(user,userFilter)">+</a>
+        </li>
+      </ul>
+    </template>
+  </ngb-panel>
+</ngb-accordion>
+
+<ng-template #deleteuser let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to inactivate User {{removeId}}?</p>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="confirmDelete(); c()">Delete</button>
+    <button type="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+  </div>
+</ng-template>

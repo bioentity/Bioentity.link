@@ -1,0 +1,283 @@
+<div class="scroll-panel">
+    <!--commandDetailId,-->
+    <ngb-accordion *ngIf="selectedPub" activeIds="publicationLinksId,curationId" id="publicationDetailsPanelId">
+        <ngb-panel title="Curation" id="curationId">
+            <template ngbPanelContent>
+                <div class="card-block">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>My Curation Status
+                                <div class="badge badge-default"
+                                     *ngIf="ownCurator && ownCurator?.status != 'ASSIGNABLE'">
+                                    {{ownCurator?.status}}
+                                </div>
+                            </h5>
+                        </div>
+                        <div class="card-body" style="padding: 10px;">
+                            <button role="button"
+                                    *ngIf="!ownCurator || ownCurator === null || ownCurator.status === 'ASSIGNABLE'"
+                                    (click)="assignAnnotation(processing)" class="btn btn-info">Self-Assign
+                            </button>
+                            <button role="button"
+                                    *ngIf="!ownCurator || ownCurator === null || ownCurator.status === 'ASSIGNABLE'"
+                                    (click)="startAnnotation(processing)" class="btn btn-info">Start
+                            </button>
+                            <button role="button" *ngIf="ownCurator && ownCurator.status === 'ASSIGNED'"
+                                    (click)="startAnnotation(processing)" class="btn btn-info">(Assigned) Start
+                            </button>
+                            <button role="button" *ngIf="ownCurator && ownCurator.status === 'ASSIGNED'"
+                                    (click)="unassignAnnotation(processing)" class="btn btn-info">Unassign
+                            </button>
+                            <button role="button" *ngIf="ownCurator && ownCurator.status === 'STARTED'"
+                                    (click)="finishAnnotation(processing)" class="btn btn-info">Finish
+                            </button>
+                            <button role="button" *ngIf="ownCurator && ownCurator.status === 'FINISHED'"
+                                    (click)="resumeAnnotation(processing)" class="btn btn-info">
+                                Resume
+                                Annotating
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            Assign
+                        </div>
+                        <div class="card-body" style="padding-top: 10px; padding-right: 5px;">
+                            <ul>
+                                <li *ngFor="let curator of assignableCurators" style="padding-top: 10px;">
+                                    <a routerLink="/user/{{curator.username}}">{{curator.username}}</a>
+                                    <button role="button" style="margin-left: 30px;" class="btn-primary btn btn-sm"
+                                            (click)="assignUser(curator,processing)">Assign
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" *ngIf="selectedPub.status !== 'INGESTED'">
+                        <div class="card-header">
+                            Send to Publisher
+                        </div>
+                        <div *ngIf="selectedPub.status !== 'CURATOR_FINISHED'" class="card-body" style="padding: 10px;">
+                            <button role="button"
+                                    (click)="sendToPublisher(processing)" class="btn btn-warning">
+                                Send to Publisher as Ready
+                            </button>
+                        </div>
+                        <div *ngIf="selectedPub.status === 'CURATOR_FINISHED'" class="card-body" style="padding: 10px;">
+                            <div class="alert-info alert">
+                                With Publisher
+                            </div>
+                            <button role="button"
+                                    (click)="cancelSendToPublisher(processing)" class="btn btn-warning pull-right">
+                                Retrieve from publisher
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body" *ngIf="assignedCurators.length>0">
+                        <h5>Assigned</h5>
+                        <ul>
+                            <li *ngFor="let curator of assignedCurators" style="padding-top: 10px;">
+                                <a routerLink="/user/{{curator.username}}">{{curator.username}}</a>
+                                <button role="button" class="btn-danger btn btn-sm" style="margin-left: 30px;"
+                                        (click)="unassignUser(curator,processing)">Unassign
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body" *ngIf="activeCurators.length>0">
+                        <h5>Curating</h5>
+                        <ul>
+                            <li *ngFor="let curator of activeCurators">
+                                <a routerLink="/user/{{curator.username}}">{{curator.username}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body" *ngIf="finishedCurators.length>0">
+                        <h5>Finish Individual Curation</h5>
+                        <ul>
+                            <!--<ul *ngIf="curators?.done; else no_done">-->
+                            <li *ngFor="let curator of finishedCurators">
+                                <div *ngIf="!curator.self">
+                                    <a routerLink="/user/{{curator.username}}">{{curator.username}}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 *ngIf="!curationComments || curationComments.length==0">Curation Notes</h5>
+                        <h5 *ngIf="curationComments && curationComments.length>0">
+                            <a [href]="curationComments[0].issueUrl">
+                                <i class="fa fa-external-link"></i>
+                                Curation Notes
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="card-body" *ngIf="curationComments">
+                        <ul>
+                            <li *ngFor="let comment of curationComments">
+                                <a [href]="comment.url">
+                                    {{comment.comment}}
+                                    {{comment.date}}
+                                </a>
+                                <a [href]="comment.authorLink">
+                                    {{comment.authorName}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+        </ngb-panel>
+        <ngb-panel title="Links" id="publicationLinksId">
+            <template ngbPanelContent>
+                <div>
+                    <table class="col-12">
+                        <tr>
+                            <td colspan="2">
+                                <div class="statusButton">
+                                    {{getStatusString() | titlecase | replaceAll: '_': ' ' }}
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <select class="form-inline col-12" [(ngModel)]="selectedKeyWordSet">
+                                    <!--<option *ngFor="let keyWordSet of keyWordSets" [ngValue]="keyWordSet">{{keyWordSet.id}}</option>-->
+                                    <option *ngFor="let keyWordSet of keyWordSets" [ngValue]="keyWordSet">
+                                        {{keyWordSet.name ? keyWordSet.name: keyWordSet.id}}
+                                        ({{keyWordSet.keyWordCount}})
+                                    </option>
+ 	                        </select>
+     					   </td>
+
+                            <td>
+                                <button role="button" *ngIf="!linking && selectedKeyWordSet" role="button"
+                                        class="form-inline btn btn-sm btn-primary col-12"
+                                        (click)="applyKeyWordSet(content)">Link
+                                </button>
+                               <button *ngIf="!linking && !selectedKeyWordSet"
+                                        class="form-inline btn btn-sm btn-primary col-12 disabled"
+                                >
+                                    Select Set to Link
+                                </button>
+       
+		                         <div *ngIf="linking">Linking ...</div>
+                            </td>       
+                 </tr>
+					<tr>
+						<td colspan="2" align="right">
+							<input type="checkbox" class="form-check-input" id="italicCheck" [(ngModel)]="linkItalics" />
+							<label class="form-check-label" for="italicCheck">Italic only</label>
+						</td>
+					</tr>
+					
+                            
+
+
+                        <tr *ngIf="selectedKeyWordSet">
+                            <td colspan="2">
+                                Words {{selectedKeyWordSet.keyWordCount}}
+                                <ul>
+                                    <li *ngFor="let source of selectedKeyWordSet.sources">
+                                        {{source.source }} -
+                                        {{source.species.name }}
+                                        ({{source.className}})
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr *ngIf="isMarkupApplied()">
+                            <td>
+                                <a *ngFor="let markupSource of markupSources"
+                                   [routerLink]="['/keyWord',markupSource.uuid]">
+                                    {{markupSource?.name}}
+                                </a>
+                            </td>
+                            <td>
+                                <button role="button" class="form-inline btn btn-primary btn-sm"
+                                        (click)="revertPub()">Revert
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="isMarkupApplied()">
+                            <td colspan="2">
+                                <ul *ngFor="let markupSource of markupSources">
+                                    <li *ngFor="let source of findKeyWordSet(markupSource)?.sources">
+                                        <a [routerLink]="['/lexica',source.id]">
+                                            {{source.source}}
+                                            {{source.species.name }}
+                                            ({{source.className}})
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <hr/>
+                <tr *ngIf="selectedPub.status !== 'INGESTED'">
+                    <td colspan="1">
+                        <button role="button"  role="button"
+                                class="form-inline btn btn-sm btn-primary col-12"
+                                (click)="validateLinks(processing)">
+                            {{linkValidationJson ? "Revalidate" : "Validate"}}
+                            Links
+                        </button>
+                        Last Check: {{linkValidationJson && linkValidationJson.checkDate ? linkValidationJson.checkDate :'None'}}
+                    </td>
+                    <td *ngIf="linkValidationJson && linkValidationJson.invalidLinks && linkValidationJson.invalidLinks.length==0">
+                        <span class="offset-1 alert-success alert">All&nbsp;{{linkValidationJson.validLinks.length}}&nbsp;Link(s)&nbsp;Validated</span>
+                    </td>
+                    <td *ngIf="linkValidationJson && linkValidationJson.invalidLinks && linkValidationJson.invalidLinks.length>0">
+                        <span class="offset-1 alert-warning alert">{{linkValidationJson.invalidLinks.length}}&nbsp;Link(s)&nbsp;Not&nbsp;Validated</span>
+                        <hr/>
+                        <ul>
+                            <li *ngFor="let link of linkValidationJson.invalidLinks">
+                                <a [href]="link.link">{{link.name}}</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td colspan="2" *ngIf="!linkValidationJson">
+                        <span class="offset-1 alert-warning alert">Unchecked&nbsp;Links</span>
+                    </td>
+                </tr>
+                <hr/>
+                <publication-statistics *ngIf="selectedPub.status != 'INGESTED' " [selectedPub]="selectedPub"
+                                        [fullscreen]="fullscreen" [updateLinks]="updateLinks"
+                                        [expand]="expand"></publication-statistics>
+            </template>
+        </ngb-panel>
+        <ngb-panel title="Pub Index" id="publicationIndexId">
+            <template ngbPanelContent>
+                <publication-index #publicationIndex [selectedPub]="selectedPub" [fullscreen]="fullscreen"
+                                   [expand]="expand"></publication-index>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
+
+<ng-template #processing let-c="close" let-d="dismiss">
+    <!--<div class="modal-header">-->
+    <!--<h4 class="modal-title">Processing</h4>-->
+    <!--</div>-->
+    <div class="modal-body">
+        <p>Processing <i class="fa fa-refresh fa-spin"></i></p>
+    </div>
+</ng-template>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Linking publication</h4>
+    </div>
+    <div class="modal-body">
+        <p>Applying {{selectedKeyWordSet.name}} <i class="fa fa-refresh fa-spin"></i></p>
+    </div>
+</ng-template>

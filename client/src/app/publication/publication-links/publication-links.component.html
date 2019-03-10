@@ -1,0 +1,40 @@
+<table class="table" *ngIf="linkedWords && linkedWords.length>0">
+  <thead>
+  <tr>
+    <th>
+      Class
+    </th>
+    <th>
+      Name
+    </th>
+    <th>
+      #
+    </th>
+    <th>
+      Link
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let keyWord of linkedWords">
+    <td>
+      <div class="small">{{getClasses(keyWord)}}</div>
+    </td>
+    <td nowrap="">
+      {{keyWord.value}}
+    </td>
+    <td>
+      {{keyWord.markups.length}}
+    </td>
+    <td>
+      <div *ngFor="let link of getLinks(keyWord)" class="outlineLinks">
+        <a class="small" href="{{link}}" target="_blank">{{link}}</a>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div *ngIf="linkedWords && linkedWords.length==0">
+  None
+</div>
+

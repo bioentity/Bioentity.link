@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v2.3 20070202//EN" "journalpublishing.dtd">
+<article article-type="research-article" dtd-version="2.3" xml:lang="EN" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+<front>
+<journal-meta>
+<journal-id journal-id-type="hwp">genetics</journal-id>
+<journal-id journal-id-type="pmc">genetics</journal-id>
+<journal-id journal-id-type="publisher-id">genetics</journal-id>
+<journal-title>Genetics</journal-title>
+<abbrev-journal-title abbrev-type="full">Genetics</abbrev-journal-title>
+<issn pub-type="ppub">0016-6731</issn>
+<issn pub-type="epub">1943-2631</issn>
+<publisher><publisher-name>Genetics Society of America</publisher-name></publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">GEN_185322</article-id>
+<article-id pub-id-type="doi">10.1534/genetics.115.185322</article-id>
+<article-categories><subj-group subj-group-type="heading"><subject>Investigation</subject></subj-group>
+</article-categories>
+<title-group>
+<article-title>Developmental Wiring of Specific Neurons Is Regulated by RET-1/Nogo-A in <italic>Caenorhabditis elegans</italic></article-title>
+<?RFL  N. Torpe <italic>et al.</italic>?>
+<?RFR  Nogo-A Controls Axon Guidance in <italic>C. elegans</italic>?>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author"><name><surname>Torpe</surname><given-names>Nanna</given-names></name><xref ref-type="aff" rid="aff1">&#x002A;</xref><xref ref-type="fn" rid="afn1"><sup>1</sup></xref></contrib><contrib contrib-type="author"><name><surname>N&#x00F8;rgaard</surname><given-names>Steffen</given-names></name><xref ref-type="aff" rid="aff1">&#x002A;</xref><xref ref-type="aff" rid="aff2"><sup>&#x2020;</sup></xref><xref ref-type="fn" rid="afn1"><sup>1</sup></xref></contrib><contrib contrib-type="author"><name><surname>H&#x00F8;ye</surname><given-names>Anette M.</given-names></name><xref ref-type="aff" rid="aff1">&#x002A;</xref></contrib><contrib contrib-type="author" corresp="yes"><name><surname>Pocock</surname><given-names>Roger</given-names></name><uri content-type="orcid">http://orcid.org/0000-0002-5515-3608</uri><xref ref-type="aff" rid="aff1">&#x002A;</xref><xref ref-type="aff" rid="aff2"><sup>&#x2020;</sup></xref><xref ref-type="corresp" rid="cor1"><sup>2</sup></xref></contrib>
+<aff id="aff1"><label>&#x002A;</label>Biotech Research and Innovation Centre, University of Copenhagen, Denmark</aff>
+<aff id="aff2"><label>&#x2020;</label>Development and Stem Cells Program, Monash Biomedicine Discovery Institute and Department of Anatomy and Developmental Biology, Monash University, Melbourne, Victoria 3800, Australia</aff>
+</contrib-group>
+<author-notes>
+<fn id="afn1" fn-type="equal"><label>1</label><p>These authors contributed equally to this work.</p></fn>
+<corresp id="cor1"><label>2</label>Corresponding author: Development and Stem Cells Program, Monash Biomedicine Discovery Institute and Department of Anatomy and Developmental Biology, Bldg. 75, Level 3, Room 328a, 15 Innovation Walk, Monash University, Melbourne, VIC 3800, Australia. E-mail: <email>roger.pocock@monash.edu</email></corresp></author-notes>
+<pub-date pub-type="epub-ppub"><month>01</month><year>2017</year></pub-date>
+<pub-date pub-type="epub"><day>7</day><month>11</month><year>2017</year></pub-date>
+<volume>7</volume>
+<issue>1</issue>
+<fpage>0</fpage>
+<lpage>0</lpage>
+<history>
+<date date-type="received"><day>24</day><month>11</month><year>2015</year></date><date date-type="accepted"><day>01</day><month>11</month><year>2016</year></date>
+</history>
+<permissions>
+<copyright-statement>Copyright &#x00A9; 2017 by the Genetics Society of America</copyright-statement>
+<copyright-year>2017</copyright-year>
+</permissions>
+<self-uri xlink:title="pdf" xlink:href="GEN_185322.pdf"/>
+<abstract>
+<p>Nogo-A is a membrane-bound protein that functions to inhibit neuronal migration, adhesion, and neurite outgrowth during development. In the mature nervous system, Nogo-A stabilizes neuronal wiring to inhibit neuronal plasticity and regeneration after injury. Here, we show that RET-1, the sole Nogo-A homolog in <italic>Caenorhabditis elegans</italic>, is required to control developmental wiring of a specific subset of<!-- Q1 --> neurons<!-- DBComment1 -->. In <italic>ret-1</italic> deletion mutant animals, specific ventral nerve cord axons are misguided where they fail to respect the ventral midline boundary. We found that <italic>ret-1</italic> is expressed in multiple neurons during development<!-- Q2 -->, and, through mosaic analysis, showed that <italic>ret-1</italic> controls axon guidance in a cell-autonomous manner<!-- DBComment2 -->. Finally, as in mammals, <italic>ret-1</italic> regulates ephrin expression, and dysregulation of the ephrin ligand VAB-2 is partially responsible for the <italic>ret-1</italic> mutant axonal defects. Together, our data present a previously unidentified function for RET-1 in the nervous system of <italic>C. elegans</italic>.<!-- Q3 --><!-- Q4 --><!-- Q5 --><!-- Q6 --><!-- Q7 --><!-- Q8 --></p>
+</abstract>
+<kwd-group>
+<kwd>axon guidance</kwd><kwd>Nogo-A</kwd><kwd><italic>C. elegans</italic></kwd><kwd>ephrin</kwd>
+</kwd-group>
+<counts>
+<fig-count count="4"/>
+<table-count count="2"/>
+<equation-count count="0"/>
+<ref-count count="39"/>
+<page-count count="0"/></counts>
+<!--*Biotech Research and Innovation Centre, University of Copenhagen, Denmark and <sup>&#x2020;</sup>Development and Stem Cells Program, Monash Biomedicine Discovery Institute and Department of Anatomy and Developmental Biology, Monash University, Melbourne, Victoria 3800, Australia-->
+</article-meta>
+</front>
+<body>
+<p>THE establishment and maintenance of neuronal circuits is driven by the ability of neurons to receive and process cues from other neurons, glia, and the extracellular matrix (ECM) (<xref ref-type="bibr" rid="bib30">Tessier-Lavigne and Goodman 1996</xref>; <xref ref-type="bibr" rid="bib38">Yu and Bargmann 2001</xref>)<!-- DBComment3 --> <!-- DBComment4 --> <!-- DBComment5 --> <!-- DBComment6 --> <!-- DBComment7 --> <!-- DBComment8 -->. Axon guidance is particularly reliant on the correct organization of molecular cues, since axons often extend projections over long distances with many intermediate targets (<xref ref-type="bibr" rid="bib16">Garel and Rubenstein 2004</xref>). Axon guidance cues generally function as either repellents or attractants depending on the complement of receptors that are presented on axonal growth cones. There is also a complex milieu of axon guidance cues that extending growth cones encounter during development. This means that precise spatial and temporal regulation of these cues is required to ensure faithful development of the nervous system. Recently, dysregulation of axon guidance proteins has also been implicated in several neurological disorders, such as amyotrophic lateral sclerosis (ALS), Alzheimer&#x2019;s disease (AD), and Parkinson&#x2019;s disease (PD) (<xref ref-type="bibr" rid="bib21">Nugent <italic>et al.</italic> 2012</xref>; <xref ref-type="bibr" rid="bib10">Ciss&#x00E9; and Checler 2015</xref>; <xref ref-type="bibr" rid="bib32">Van Battum <italic>et al.</italic> 2015</xref>).</p>
+<p>Reticulons (RTNs) are membrane-bound proteins located on the cell surface and the endoplasmic reticulum (ER), where they are involved in bending and shaping of the ER membrane and in trafficking from the ER to the Golgi apparatus (<xref ref-type="bibr" rid="bib37">Yang and Strittmatter 2007</xref>; <xref ref-type="bibr" rid="bib23">O&#x2019;Sullivan <italic>et al.</italic> 2012</xref>). RTNs are characterized by a carboxy terminal reticulon homology domain (RHD), which comprises two long hydrophobic regions flanking a hydrophilic loop. Four genes encode RTN proteins in mammals: RTN1, RTN2, RTN3 and RTN4/Nogo (<xref ref-type="bibr" rid="bib22">Oertle <italic>et al.</italic> 2003</xref>; <xref ref-type="bibr" rid="bib12">Di Sano <italic>et al.</italic> 2012</xref>). Dysregulation of the neurite outgrowth inhibitory molecule RTN4/Nogo is implicated in ALS and multiple sclerosis (MS) (<xref ref-type="bibr" rid="bib5">Bros-Facer <italic>et al.</italic> 2014</xref>; <xref ref-type="bibr" rid="bib28">Schmandke <italic>et al.</italic> 2014</xref>). ALS patients, and mouse models of ALS (SOD-1G86R), show an upregulation of Nogo in skeletal muscle, and, as such, Nogo is used as a prognostic biomarker, successfully identifying patients progressing from lower motor neuron syndrome to ALS (<xref ref-type="bibr" rid="bib13">Dupuis <italic>et al.</italic> 2002</xref>; <xref ref-type="bibr" rid="bib27">Pradat <italic>et al.</italic> 2007</xref>). The most widely studied RTN is Nogo-A, a multifunctional protein implicated in numerous developmental processes such as cell migration, central nervous system (CNS) plasticity, and neuronal regeneration. The role of Nogo-A in spinal cord injury has also been extensively studied, initially due to the identification of Nogo-A as one of the major neurite growth inhibitory components of myelin in the CNS (<xref ref-type="bibr" rid="bib7">Caroni and Schwab 1988a</xref>,<xref ref-type="bibr" rid="bib8">b</xref>). Inhibitors of Nogo-A and the Nogo-A receptor, NgR1, were subsequently shown to enhance regenerative sprouting and growth of damaged fibers after spinal cord injury (<xref ref-type="bibr" rid="bib15">Freund <italic>et al.</italic> 2006</xref>). Consequently, several clinical studies are currently being performed, by Novartis (ATI 355) and GlaxoSmithKline (Ozanezumab), using such inhibitors to treat spinal cord injury, ALS, and multiple sclerosis. Despite the implication of Nogo-A in neurogenerative disease, only a few reports have studied the role of Nogo-A in neuronal development (<xref ref-type="bibr" rid="bib33">Wang <italic>et al.</italic> 2008</xref>, <xref ref-type="bibr" rid="bib34">2010</xref>; <xref ref-type="bibr" rid="bib25">Pinz&#x00F3;n-Olejua <italic>et al.</italic> 2014</xref>).</p>
+<p>In this study, we have used the invertebrate model system <italic>Caenorhabditis elegans</italic> to dissect Nogo-A functions in neuronal development. In <italic>C. elegans</italic>, there is a single Nogo-A homolog called RET-1. Previous studies have shown that knockdown of <italic>ret-1</italic> through RNA-mediated interference (RNAi) interferes with ER formation during mitosis, and it has further been shown to interact with a regulator of endocytic recycling, RME-1 (<xref ref-type="bibr" rid="bib19">Iwahashi <italic>et al.</italic> 2002</xref>; <xref ref-type="bibr" rid="bib2">Audhya <italic>et al.</italic> 2007</xref>). Here, we show that <italic>ret-1</italic> is highly expressed in the left and right ventral nerve cord (VNC), the embryonic motor neurons (eMNs), and the hermaphrodite specific neurons (HSN) in <italic>C. elegans</italic>. We subsequently performed single neuron resolution analysis of developed axons in <italic>ret-1</italic> loss-of-function mutant animals. We found that <italic>ret-1</italic> is required for the correct extension of the PVP and PVQ interneurons and the HSN motor neurons&#x2014;these axons fail to respect the ventral midline, and inappropriately cross over to the contralateral side in <italic>ret-1</italic> mutant animals. Ephrin signaling is known to play a prominent role in VNC axon guidance. Interestingly, we found that <italic>ret-1</italic> mutant HSN guidance defects are dependent on expression of the ephrin ligand VAB-2. The suppression of the <italic>ret-1</italic> mutant HSN axon guidance defects by loss of VAB-2 is dependent on the Eph receptor VAB-1. This suggests that inappropriate spatial or temporal expression of VAB-2 causes defective ephrin signaling leading to axon guidance defects in <italic>ret-1</italic> mutant animals. Therefore, our findings indicate a function for this gene family that is conserved, and lays the foundation for further studies on the function of RET-1 in the genetically tractable nematode system.</p>
+<sec id="s1" sec-type="materials|methods">
+<title>Materials and Methods</title>
+<sec id="s2">
+<title><italic>Caenorhabditis elegans</italic> maintenance</title>
+<p>All <italic>C. elegans</italic> strains were cultured at 20&#x00B0; as previously described (<xref ref-type="bibr" rid="bib4">Brenner 1974</xref>). All strains generated and used in this study are detailed in Supplemental Material, <ext-link ext-link-type="uri" xlink:href="http://www.genetics.org/lookup/suppl/doi:10.1534/genetics.115.185322/-/DC1/TableS1.pdf">Table S1</ext-link>.</p>
+</sec>
+<sec id="s3">
+<title>Mosaic analysis</title>
+<p>For mosaic analysis, transgenic animals were generated by injecting <italic>rgef-1<sup>prom</sup></italic>::<italic>ret-1 isoform g.2 cDNA</italic>, <italic>tph-1<sup>prom</sup></italic>::<italic>mCherry</italic> and <italic>myo-2<sup>prom</sup></italic>::<italic>mCherry</italic> into <italic>ret-1(gk242)</italic>; <italic>zdIs13</italic> animals. A transgenic line was selected that exhibited complete HSN axon guidance rescue. Transgenic animals from this line were then scored for phenotypic rescue of the HSN axon guidance defects in the presence or absence of the rescuing array in the HSN neurons by detection of <italic>mCherry</italic> fluorescence.</p>
+</sec>
+<sec id="s4">
+<title>DNA constructs and transgenic lines</title>
+<p>Rescue constructs were injected into the <italic>ret-1(gk242)</italic> mutant background at 5&#x2013;15&#x00A0;ng/&#x00B5;l with <italic>myo-2<sup>prom</sup></italic>::<italic>mCherry</italic> (5&#x00A0;ng/&#x00B5;l) as injection marker. Expression constructs were injected into the N2 background at 50&#x00A0;ng/&#x00B5;l with <italic>myo-2<sup>prom</sup></italic>::<italic>mCherry</italic> (5&#x00A0;ng/&#x00B5;l) as injection marker. The 9 kb <italic>ret-1</italic> rescuing PCR fragment was injected into <italic>ret-1(gk242)</italic> at 1&#x00A0;ng/&#x00B5;l with <italic>myo-2<sup>prom</sup></italic>::<italic>mCherry</italic> (5 ng/&#x00B5;l) as injection marker.</p>
+</sec>
+<sec id="s5">
+<title>Fluorescence microscopy</title>
+<p>Neuroanatomy was scored in L4 and young adult hermaphrodites by mounting on 5% agarose on glass slides. Images were taken using an automated fluorescence microscope (Zeiss, AXIO Imager M2) and ZEN software (version 3.1).</p>
+</sec>
+<sec id="s6">
+<title>qRT-PCR assays</title>
+<p>RNA was isolated from a mixed-stage worm population using standard Trizol-based methods (<xref ref-type="bibr" rid="bib9">Chomczynski and Sacchi 1987</xref>). Total cDNA was obtained using TaqMan Reverse Transcription Reagents (Invitrogen, Cat. No: N8080234). qRT-PCR reactions were performed in triplicate on a LightCycler 480 System (Roche) using the Maxima SYBR/ROX qRT-PCR Master Mix (Fermentas, Cat. No: K0221). Error bars represent the SEM of at least three independent sets of samples. qRT-PCR assays were normalized with two reference genes (<italic>cdc-42</italic> and <italic>pmp-3</italic>).</p>
+</sec>
+<sec id="s7">
+<title>Statistical analysis</title>
+<p>Statistical analysis was performed in GraphPad Prism 6 using one-way ANOVA for comparison followed by Dunnett&#x2019;s Multiple Comparison Test or Tukey&#x2019;s Multiple Comparison Test, where applicable. Values are expressed as mean &#x00B1; SD. Differences with a <italic>P</italic> value &#x003C;0.05 were considered significant.</p>
+</sec>
+<sec id="s8">
+<title>Data availability</title>
+<p>The authors state that all data necessary for confirming<!-- Q9 --> the conclusions presented in the article are represented fully within the article<!-- DBComment9 -->. Strains are available upon request.</p>
+</sec>
+</sec>
+<sec id="s9" sec-type="results">
+<title>Results</title>
+<sec id="s10">
+<title><italic>ret-1</italic> is expressed in the nervous system</title>
+<p>Nogo-A is reported to function in neurodevelopmental processes, neuroplasticity, and neuronal regeneration, and has been implicated in a range of neurodegenerative diseases (<xref ref-type="bibr" rid="bib7">Caroni and Schwab 1988a</xref>; <xref ref-type="bibr" rid="bib6">Buffo <italic>et al.</italic> 2000</xref>). Recent studies investigated the role of axon guidance proteins in neurodegeneration, and found several guidance cues implicated in the development of these disorders (<xref ref-type="bibr" rid="bib14">Engle 2010</xref>; <xref ref-type="bibr" rid="bib21">Nugent <italic>et al.</italic> 2012</xref>; <xref ref-type="bibr" rid="bib32">Van Battum <italic>et al.</italic> 2015</xref>). We therefore hypothesized that Nogo-A could play a role in axon guidance, and investigated this by analyzing RET-1, the <italic>C. elegans</italic> Nogo-A homolog.</p>
+<p>The <italic>ret-1</italic> locus in <italic>C. elegans</italic> contains eight isoforms, predicted to encode proteins that range from 204 to 3303 amino acids (<xref ref-type="fig" rid="fig1">Figure 1</xref>). All protein isoforms harbor an RHD at their carboxy terminus; however, the ModENCODE project showed that the shorter isoforms are predominantly expressed in <italic>C. elegans</italic> (<xref ref-type="bibr" rid="bib17">Gerstein <italic>et al.</italic> 2010</xref>). We therefore focused our expression and functional analysis on <italic>ret-1 isoform g.2</italic> (<xref ref-type="fig" rid="fig1">Figure 1</xref>). First, we examined the <italic>ret-1</italic> expression pattern using a transgenic fluorescent reporter strain in which GFP is driven under the control of a promoter region upstream of <italic>isoform g.2</italic> (designated as <italic>prom</italic>) (<xref ref-type="fig" rid="fig1">Figure 1</xref>). Fluorescence in the transcriptional <italic>ret-1<sup>prom</sup></italic>::<italic>GFP</italic> reporter strain was diffuse during early embryogenesis, then robustly detected in several head neurons in the twofold stage of the embryo (<xref ref-type="fig" rid="fig1">Figure 1</xref>). Postembryonically, <italic>ret-1</italic> is extensively expressed in the nervous system, with prominent expression in the nerve ring and VNC motor neurons, and other VNC neurons, including the HSNs.</p>
+<fig id="fig1" position="float" fig-type="figure"><label>Figure 1</label><caption><p>The <italic>C. elegans</italic> Nogo-A/RTN4 homolog RET-1 is expressed in the nervous system. (A) Alignment of the C-terminus of <italic>C. elegans</italic> RET-1 with the Nogo-A/RTN4 homologs of mouse, rat and human. The RHD is highlighted in gray. Alignment was generated using ClustalW. (B) The <italic>ret-1</italic> locus comprises eight isoforms encoding predicted proteins of 204&#x2013;3303 amino acids. All isoforms harbor an RHD in their C-termini. The deletion alleles (marked by red bars) used in this study (<italic>gk242</italic> and <italic>tm390</italic>) both affect the RHD and produce frameshifts. The DNA sequence that encodes the RHD is marked by a black bar at the C terminus. We used <italic>ret-1 isoform g.2</italic> as a model to study the <italic>ret-1</italic> expression pattern and function. The <italic>ret-1 isoform g.2</italic> 5000&#x00A0;bp promoter used to report expression (<italic>ret-1<sup>isoformg.2prom</sup></italic>::<italic>gfp</italic> - now written as <italic>ret-1<sup>prom</sup></italic>::<italic>gfp</italic>) is shown below the locus. (C&#x2013;G) Expression of the transcriptional <italic>ret-1<sup>prom</sup></italic>::<italic>gfp</italic> reporter during embryonic and young adult stages. (C&#x2013;F) At the bean stage, <italic>ret-1<sup>prom</sup></italic>::<italic>gfp</italic> is diffusely expressed (D); however, robust expression is observed in the twofold stage of the embryo in two head neurons (F). (C, E) DIC images of the fluorescent images shown in (D) and (F). Postembryonically, <italic>ret-1<sup>prom</sup></italic>::<italic>gfp</italic> is highly expressed in embryonic motor neurons [eMNs, white arrowheads in (G) and (H)] and hermaphrodite-specific neurons [HSNs, red arrowheads in (G)], the head [red arrowhead in (H) points to the nerve ring], and the tail. All images are lateral views, except the ventral view in (G). Anterior to the left. Bars, 10 &#x03BC;m.</p></caption><graphic xlink:href="gen.185322fig1"></graphic></fig>
+</sec>
+<sec id="s11">
+<title><italic>ret-1</italic> mutants display VNC axon guidance defects</title>
+<p>Since <italic>ret-1</italic> is expressed in the nervous system, and prominently in neurons that navigate the VNC, we investigated if <italic>ret-1</italic> plays a role in axon guidance at the VNC. To analyze the function of <italic>ret-1</italic>, we obtained two independently isolated deletion alleles of the <italic>ret-1</italic> locus, <italic>gk242</italic> and <italic>tm390</italic>, from <italic>C. elegans</italic> knockout consortia. Both deletion alleles are predicted to cause a frameshift mutation resulting in a premature stop codon affecting all <italic>ret-1</italic> isoforms (<xref ref-type="fig" rid="fig1">Figure 1</xref>). Thus, the resultant mutant RET-1 proteins are not predicted to have functional RHDs. We initially focused on the development of the HSN neurons, which have been extensively studied, and are known to be regulated by a range of highly conserved axon guidance molecules (<xref ref-type="bibr" rid="bib11">Desai <italic>et al.</italic> 1988</xref>; <xref ref-type="bibr" rid="bib36">Wightman <italic>et al.</italic> 1997</xref>; <xref ref-type="bibr" rid="bib39">Zallen <italic>et al.</italic> 1998</xref>; <xref ref-type="bibr" rid="bib3">Boulin <italic>et al.</italic> 2006</xref>; <xref ref-type="bibr" rid="bib26">Pocock and Hobert 2008</xref>; <xref ref-type="bibr" rid="bib24">Pedersen <italic>et al.</italic> 2013</xref>; <xref ref-type="bibr" rid="bib31">Torpe and Pocock 2014</xref>). The bilateral HSN neurons are born during embryogenesis, and subsequently migrate toward the presumptive midbody region of the embryo (<xref ref-type="bibr" rid="bib29">Sulston and Horvitz 1977</xref>; <xref ref-type="bibr" rid="bib11">Desai <italic>et al.</italic> 1988</xref>). During larval development, the left and right HSNs (HSNL/R) extend their axons toward the vulval precursor cells at the ventral midline of the worm. Next, they extend anteriorly in two separate VNC axon bundles until they reach the head, where they connect with other neurons at the nerve ring (<xref ref-type="bibr" rid="bib1">Adler <italic>et al.</italic> 2006</xref>). We found that loss of <italic>ret-1</italic>, using the <italic>gk242</italic> and <italic>tm390</italic> deletion alleles, causes 40&#x2013;50% penetrant defects in HSN axon guidance, where axons inappropriately crossover to the contralateral side (<xref ref-type="fig" rid="fig2">Figure 2, A and B</xref>, and <xref ref-type="table" rid="t1">Table 1</xref>). In contrast, HSN cell migration occurs normally in <italic>ret-1</italic> mutant animals (<xref ref-type="table" rid="t1">Table 1</xref>). To confirm that the HSN axon guidance defects are caused by loss of <italic>ret-1</italic>, we transgenically resupplied <italic>ret-1</italic> genomic DNA (isoforms <italic>a</italic>, <italic>b</italic>, <italic>e</italic>, and <italic>g.2</italic>), driven by its own promoter, in <italic>ret-1(gk242)</italic> mutant animals (<xref ref-type="fig" rid="fig2">Figure 2C</xref>). We found that transgenic expression of <italic>ret-1</italic> genomic DNA fully rescues HSN axon guidance defects in the <italic>ret-1</italic> mutant (<xref ref-type="fig" rid="fig2">Figure 2C</xref>). To investigate if <italic>ret-1</italic> can act as an instructive signaling cue, we overexpressed <italic>ret-1</italic> genomic DNA in wild-type animals. Introducing extra copies of <italic>ret-1</italic> did not cause axon guidance defects in wild-type worms, suggesting that <italic>ret-1</italic> cannot act as an instructive molecule for HSN axon guidance (<xref ref-type="fig" rid="fig2">Figure 2C</xref>). We confirmed that <italic>ret-1</italic> acts in the nervous system to control HSN guidance by driving the cDNA encoding <italic>ret-1 isoform g.2</italic> under the control of the <italic>rgef-1</italic> promoter in <italic>ret-1(gk242)</italic> animals (<xref ref-type="fig" rid="fig2">Figure 2D</xref>). We generated two <italic>rgef-1<sup>prom</sup>ret-1 isoform g.2</italic> cDNA transgenic rescue lines, both of which exhibited rescue of the <italic>ret-1(gk242)</italic> HSN axon guidance phenotype (<xref ref-type="fig" rid="fig2">Figure 2D</xref>). We next performed mosaic analysis to confirm whether <italic>ret-1</italic> is required cell-autonomously in the HSNs to control axon guidance. Axon guidance defects were fully rescued when the <italic>ret-1</italic>-rescuing array was present in the HSNs (5/69 animals, 7%, were defective), whereas loss of the array from the HSNs abrogated rescue (6/14 animals, 43%, were defective). These data indicate that <italic>ret-1 isoform g.2</italic> acts cell autonomously to direct axon guidance of the HSNs. In addition, expression of the other <italic>ret-1</italic> isoforms is not required for the control of HSN axon guidance, or any isoform that contains the RHD can function in this regard.</p>
+<fig id="fig2" position="float" fig-type="figure"><label>Figure 2</label><caption><p><italic>ret-1</italic> acts in neurons to control HSN axon guidance. (A) Schematic of HSN anatomy in adults (top). HSNs migrate during embryogenesis to the midbody. During larval stages, the HSN left and right axons extend into the vulva, and subsequently into the VNC, where they terminate at the nerve ring in the head. HSN anatomy of wild-type (center) and <italic>ret-1(gk242)</italic> (bottom) animals. HSN cell bodies in <italic>ret-1(gk242)</italic> animals migrate to their correct position just posterior to the vulva. However, axonal defects were observed where one axon crosses over to the contralateral side (red arrowhead). The vulva is marked with a red asterisk. Ventral view, anterior to the left. HSN development was studied using a <italic>tph-1<sup>prom</sup></italic>::<italic>gfp</italic> transgene (<italic>zdIs13</italic>). Bar, 20 &#x03BC;m. (B) Quantification of HSN axonal crossover defects in two independent <italic>ret-1</italic> deletion mutants: <italic>gk242</italic> and <italic>tm390</italic>. Statistical significance was assessed by ANOVA followed by Dunnett&#x2019;s multiple-comparison test or Tukey&#x2019;s multiple-comparison test, where applicable. <italic>n</italic>&#x00A0;&#x003E;&#x00A0;50, &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.0001. (C) Transgenic expression of <italic>ret-1</italic> genomic DNA rescues HSN defects of <italic>ret-1(gk242)</italic> mutant animals, whereas transgenic overexpression of <italic>ret-1</italic> genomic DNA in wild type animals does not induce defects. Statistical significance was assessed by ANOVA followed by Dunnett&#x2019;s multiple-comparison test or Tukey&#x2019;s multiple-comparison test, where applicable. <italic>n</italic>&#x00A0;&#x003E;&#x00A0;50, &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.001. n.s., not significant; # refers to independent transgenic lines. (D) Transgenic expression of <italic>ret-1 isoform g.2 cDNA</italic> in the nervous system, using the panneuronal <italic>rgef-1</italic> promoter, rescues HSN defects of <italic>ret-1(gk242)</italic> mutant animals. Statistical significance was assessed by ANOVA followed by Dunnett&#x2019;s multiple-comparison test or Tukey&#x2019;s multiple-comparison test, where applicable. <italic>n</italic>&#x00A0;&#x003E;&#x00A0;50, &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.0001; # refers to independent transgenic lines.</p></caption><graphic xlink:href="gen.185322fig2"></graphic></fig>
+<table-wrap id="t1" position="float">
+<label>Table 1</label><caption><title>Quantification of neuroanatomical scoring in wild type and <italic>ret-1(gk242)</italic> mutant animals</title>
+</caption>
+<table frame="above">
+<col width="49.1%"/>
+<col width="16.96%"/>
+<col width="16.96%"/>
+<col width="16.98%"/>
+<thead>
+<tr>
+<th rowspan="2" valign="top" align="left" scope="col">Neurons Examined (Marker Used)</th>
+<th colspan="3" valign="top" align="center" scope="colgroup">% Defective Animals</th>
+</tr>
+<tr>
+<th valign="top" colspan="1" align="center" scope="colgroup">Wild Type</th>
+<th valign="top" align="center" scope="col"><italic>ret-1(gk242)</italic></th>
+<th valign="top" align="center" scope="col"><italic>P</italic> Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">Interneurons</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;PVQ interneurons (<italic>hdIs26</italic>)<xref ref-type="table-fn" rid="t1n1"><italic><sup>a</sup></italic></xref></td>
+<td valign="top" align="center">6</td>
+<td valign="top" align="center">16</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;PVP interneurons (<italic>hdIs26</italic>)<xref ref-type="table-fn" rid="t1n2"><italic><sup>b</sup></italic></xref></td>
+<td valign="top" align="center">6</td>
+<td valign="top" align="center">17</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">Motor Neurons</td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">&#x2003;HSN motor neurons (<italic>zdIs13</italic>)<xref ref-type="table-fn" rid="t1n3"><italic><sup>c</sup></italic></xref></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;&#x2003;Axon guidance</td>
+<td valign="top" align="center">8</td>
+<td valign="top" align="center">41</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;&#x2003;Cell migration</td>
+<td valign="top" align="center">5</td>
+<td valign="top" align="center">6</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">L/R choice<xref ref-type="table-fn" rid="t1n4"><italic><sup>d</sup></italic></xref></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;D motor neuron (<italic>oxIs12</italic>)</td>
+<td valign="top" align="center">11</td>
+<td valign="top" align="center">37</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;DA/DB MN (<italic>evIs82b</italic>)</td>
+<td valign="top" align="center">9</td>
+<td valign="top" align="center">15</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">Defasciculation<xref ref-type="table-fn" rid="t1n5"><italic><sup>e</sup></italic></xref></td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">&#x2003;Ventral nerve cord</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;&#x2003;D motor neuron (<italic>oxIs12</italic>)</td>
+<td valign="top" align="center">0</td>
+<td valign="top" align="center">33</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;&#x2003;DA/DB MN (<italic>evIs82b</italic>)</td>
+<td valign="top" align="center">0</td>
+<td valign="top" align="center">0</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td colspan="4" valign="top" align="left" scope="col">Mechanosensory Neurons (<italic>zdIs4</italic>)<xref ref-type="table-fn" rid="t1n6"><italic><sup>f</sup></italic></xref></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;PLM</td>
+<td valign="top" align="center">6</td>
+<td valign="top" align="center">11</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;ALM</td>
+<td valign="top" align="center">2</td>
+<td valign="top" align="center">3</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;PVM</td>
+<td valign="top" align="center">5</td>
+<td valign="top" align="center">2</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row">&#x2003;AVM</td>
+<td valign="top" align="center">0</td>
+<td valign="top" align="center">11</td>
+<td valign="top" align="center">&#x002A;&#x002A;&#x002A;&#x002A;</td>
+</tr>
+</tbody>
+</table><table-wrap-foot>
+<fn><p>We used a panel of <italic>gfp</italic> reporter strains that highlight specific neurons in wild type and <italic>ret-1(gk242)</italic> mutant animals. The wiring of the wild type nervous system was used as control when scoring the axon guidance defects in <italic>ret-1(gk242)</italic> mutants. Animals were scored 1-day post-L4 on &#x2265;2 consecutive days, <italic>n</italic>&#x00A0;&#x2265; 50 animals.</p></fn>
+<fn id="t1n1"><label>a</label><p>PVQ interneurons were scored defective when PVQ right or PVQ left axons crossed over to the contralateral side.</p></fn>
+<fn id="t1n2"><label>b</label><p>PVP interneurons were scored defective when PVP right or PVP left axons crossed over to the contralateral side.</p></fn>
+<fn id="t1n3"><label>c</label><p>HSN motor neurons were scored defective for axon crossover defects and cell migration. Axon guidance was scored as for the interneurons above. Wild type levels of HSN cell migration defects were observed in <italic>ret-1(gk242)</italic> mutant animals.</p></fn>
+<fn id="t1n4"><label>d</label><p>Left/right asymmetry was scored as defective when the commissures extended to the inappropriate side.</p></fn>
+<fn id="t1n5"><label>e</label><p>Fasciculation of the dorsal nerve cord and VNC were scored as defective when &#x2265;2 processes were separated from the fascicle.</p></fn>
+<fn id="t1n6"><label>f</label><p>Touch cells: PLMs and ALMs were scored defective when synapses from the PLMs or ALMs failed to extend to the VNC. The AVM and PVM neurons were scored defective when the cell body position was anteriorly displaced. Statistical significance was assessed by ANOVA followed by Dunnett&#x2019;s multiple-comparison test or Tukey&#x2019;s multiple-comparison test, where applicable. <italic>n</italic>&#x00A0;&#x003E; 50, &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.0001. n.s., not significant.</p></fn>
+</table-wrap-foot></table-wrap>
+<p>To further examine the role of <italic>ret-1</italic> in the nervous system, we analyzed neuronal development using a panel of neuron-specific <italic>gfp</italic> reporters. We found that axons of other VNC neurons, the PVQ and PVP interneurons, were also affected, albeit at a lower penetrance compared to the HSNs (16 and 17%, respectively) (<xref ref-type="fig" rid="fig3">Figure 3</xref> and <xref ref-type="table" rid="t1">Table 1</xref>). To ask if the PVQ guidance defects are caused by deficiencies in development or maintenance of neuronal architecture, we analyzed PVQ guidance of freshly hatched L1 animals in <italic>ret-1(gk242)</italic> animals. We observed similar penetrance of PVQ defects in L1 animals to young adults (18% penetrant defect, <italic>n</italic>&#x00A0;&#x2265; 50). This indicates that the PVQ defects are developmental and not maintenance defects. In addition to the VNC midline defects, we discovered that loss of <italic>ret-1</italic> caused defects in the left/right asymmetry of the commissural D-type motor neurons, and in the fasciculation of the motor neuron axons in the VNC (<xref ref-type="fig" rid="fig3">Figure 3</xref> and <xref ref-type="table" rid="t1">Table 1</xref>). We did not, however, observe defects in the DA and DB motor neurons (<xref ref-type="table" rid="t1">Table 1</xref>). Interestingly, cell migration was not affected in any of the cell types studied, except for minor anterior displacement of the AVM mechanosensory neuron (<xref ref-type="table" rid="t1">Table 1</xref>). Additionally, the structure of the hypodermal tissue, which acts as a substratum for multiple axon guidance events, was intact (<xref ref-type="fig" rid="fig3">Figure 3D</xref>). Furthermore, other types of neurons were not affected by the loss of <italic>ret-1</italic> (<xref ref-type="table" rid="t1">Table 1</xref>), indicating that the <italic>ret-1</italic> axon guidance defects are specific to certain neuronal subtypes.</p>
+<fig id="fig3" position="float" fig-type="figure"><label>Figure 3</label><caption><p><italic>ret-1</italic> is required for correct guidance of a specific classes of axons at the ventral midline. (A&#x2013;D) Cell type specific <italic>gfp</italic> reporters were utilized to investigate the neuroanatomy of wild-type and <italic>ret-1(gk242)</italic> mutant animals. Upper panels show a graphical view of wild-type morphology of each neuronal class (A&#x2013;C) and the hypodermis (D). Representative images of wild-type and <italic>ret-1(gk242)</italic> mutant animals are shown in the center and bottom images, respectively. (A, B) The PVQ and PVP axons of <italic>ret-1(gk242)</italic> animals fail to respect the midline by crossing over to the contralateral axon fascicle. Expanded view is shown to indicate the crossover event. Neurons were visualized using the <italic>hdIs26</italic> transgenic strain. (C) Commissural D-type motor neurons showed defective left/right asymmetry where the commissures extended to the inappropriate side. Neurons were visualized with the <italic>oxIs12</italic> transgenic strain. Defective axonal patterning is marked with red arrowheads. (D) The general structure of the hypodermis appears normal in <italic>ret-1</italic> mutant animals. Hypodermal cell morphology was observed using the <italic>jcIs1</italic> transgenic strain.</p></caption><graphic xlink:href="gen.185322fig3"></graphic></fig>
+</sec>
+<sec id="s12">
+<title>HSN defects of <italic>ret-1</italic> mutants are caused by dysregulated expression of the ephrin ligand VAB-2</title>
+<p>During embryogenesis, VNC axons are separated by embryonic motor neurons that provide repulsive cues to extending VNC axons to ensure left/right fascicle separation (<xref ref-type="bibr" rid="bib3">Boulin <italic>et al.</italic> 2006</xref>). During postembryonic development, a hypodermal ridge forms and presents a physical barrier between left and right axon fascicles (White 1976; <xref ref-type="bibr" rid="bib3">Boulin <italic>et al.</italic> 2006</xref>). During both these phases of development, multiple redundant pathways are known to act in parallel to drive axon guidance. To examine the functional relationship between <italic>ret-1</italic> and these pathways, we created double mutants carrying the <italic>ret-1(gk242)</italic> allele, and mutations in genes that act in axon guidance pathways (Netrin, Slit-Robo and Ephrin), and measured the penetrance of HSN axon guidance defects. As shown in <xref ref-type="table" rid="t2">Table 2</xref>, we found that <italic>ret-1</italic> genetically interacts mutations in genes of the Netrin and Slit-Robo pathways.</p>
+<table-wrap id="t2" position="float">
+<label>Table 2</label><caption><title>Double mutant analysis between <italic>ret-1(gk242)</italic> and known axon guidance regulators</title>
+</caption>
+<table frame="above">
+<col width="43.62%"/>
+<col width="28.19%"/>
+<col width="28.19%"/>
+<thead>
+<tr>
+<th valign="top" align="left" scope="col"></th>
+<th valign="top" align="center" scope="col">HSN Guidance Defects (%)</th>
+<th valign="top" align="center" scope="col"><italic>P</italic> Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top" align="left" scope="row">Wild type (<italic>zdIs13</italic>)</td>
+<td valign="top" align="center">8</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">41</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>unc-6(ev400)</italic></td>
+<td valign="top" align="center">97</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>unc-6(ev400)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">95</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>unc-40(e1430)</italic></td>
+<td valign="top" align="center">91</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>unc-40(e1430)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">100</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>sax-3(ky123)</italic></td>
+<td valign="top" align="center">61</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>sax-3(ky123)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">72</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>slt-1(eh15)</italic></td>
+<td valign="top" align="center">21</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>slt-1(eh15)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">42</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-1(dx31)</italic></td>
+<td valign="top" align="center">44</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-1(dx31)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">49</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-1(e2)</italic></td>
+<td valign="top" align="center">26</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-1(e2)</italic></td>
+<td valign="top" align="center">36</td>
+<td valign="top" align="center">n.s.</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-2(ju1)</italic></td>
+<td valign="top" align="center">20</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-2(ju1)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">23</td>
+<td valign="top" align="center">&#x003C;0.0001</td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-2(e96)</italic></td>
+<td valign="top" align="center">17</td>
+<td valign="top" align="left"></td>
+</tr>
+<tr>
+<td valign="top" align="left" scope="row"><italic>vab-2(e96)</italic>; <italic>ret-1(gk242)</italic></td>
+<td valign="top" align="center">20</td>
+<td valign="top" align="center">&#x003C;0.0001</td>
+</tr>
+</tbody>
+</table><table-wrap-foot>
+<fn><p>Quantification of HSN axonal cross-over defects in the indicated strains. VNC defects of HSN axons in <italic>ret-1(gk242)</italic> animals are not suppressed by mutations in conserved axon guidance pathways: <italic>unc-6</italic> and <italic>unc-40</italic> (netrin); <italic>slt-1</italic> and <italic>sax-3</italic> (Slit-Robo). The penetrance of the <italic>unc-6</italic> and <italic>unc-40</italic> single mutants is high; therefore, only suppression of these defects in the <italic>ret-1</italic> double mutants would be possible to detect. Such suppression of <italic>ret-1</italic> mutant defects was observed in two alleles of the VAB-2 ephrin ligand. Data are expressed as mean&#x00A0;&#x00B1;&#x00A0;SD, and statistical significance was assessed by ANOVA followed by Tukey&#x2019;s multiple-comparison test. <italic>n</italic>&#x00A0;&#x003E;&#x00A0;50, n.s., not significant.</p></fn>
+</table-wrap-foot></table-wrap>
+<p>We did, however, find that two null alleles of the ephrin ligand VAB-2, but not the EFN-2 and EFN-3, suppress the HSN axon guidance defects of <italic>ret-1</italic> mutant animals (<xref ref-type="fig" rid="fig4">Figure 4</xref> and data not shown). Previous work found that multiple axon guidance molecules, including ephrins, are upregulated in Nogo-A knockout adult mice, which affects neurite outgrowth (<xref ref-type="bibr" rid="bib20">Kempf <italic>et al.</italic> 2013</xref>). We therefore postulated that the HSN defects in the <italic>ret-1</italic> mutant depend on overexpression of <italic>vab-2</italic>, as removal of <italic>vab-2</italic> ameliorates the <italic>ret-1</italic> HSN axon guidance defects. We therefore analyzed the transcript level of <italic>vab-2</italic>, and found that its expression was increased in <italic>ret-1</italic> mutant animals (<xref ref-type="fig" rid="fig4">Figure 4A</xref>). These data suggest that dysregulation of VAB-2 expression causes, at least in part, the HSN axon guidance defects in <italic>ret-1</italic> mutant animals. We next asked whether the suppression of the HSN axon guidance defects of <italic>ret-1</italic> mutant animals by <italic>vab-2</italic> loss is dependent on the VAB-1 Eph receptor, and we found this to be the case (data not shown). Loss of VAB-1 itself is also unable to suppress the axon guidance defects of <italic>ret-1</italic> mutant animals (<xref ref-type="fig" rid="fig4">Figure 4B</xref>). These data suggest that <italic>ret-1</italic> and <italic>vab-1</italic> act in a similar pathway, and that overexpression of <italic>vab-2</italic> in <italic>ret-1</italic> mutant animals causes dysregulation of ephrin signaling.</p>
+<fig id="fig4" position="float" fig-type="figure"><label>Figure 4</label><caption><p>VAB-2/ephrin expression is altered in <italic>ret-1</italic> mutant animals, and causes HSN axon guidance defects. (A) qRT-PCR showing the expression levels of <italic>vab-2</italic> in wild-type and <italic>ret-1(gk242)</italic> mutant animals. mRNA expression of <italic>vab-2</italic> is increased in <italic>ret-1</italic> mutants compared to wild type. Statistical significance was assessed by ANOVA followed by Tukey&#x2019;s multiple-comparison test. &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.0001. (B) HSN axon guidance defects of <italic>ret-1</italic> mutant animals are suppressed by mutations in the ephrin ligand VAB-2 but not by the Eph receptor VAB-1. Statistical significance was assessed by ANOVA followed by Dunnett&#x2019;s multiple-comparison test. <italic>n</italic>&#x00A0;&#x003E;&#x00A0;50, &#x002A;&#x002A;&#x002A;&#x002A;<italic>P</italic>&#x00A0;&#x003C;&#x00A0;0.0001, n.s., not significant.</p></caption><graphic xlink:href="gen.185322fig4"></graphic></fig>
+</sec>
+</sec>
+<sec id="s13" sec-type="discussion">
+<title>Discussion</title>
+<p>Recent studies have identified several axon guidance cues to function in neurodegenerative disease, neuronal development, and plasticity (<xref ref-type="bibr" rid="bib14">Engle 2010</xref>; <xref ref-type="bibr" rid="bib21">Nugent <italic>et al.</italic> 2012</xref>; <xref ref-type="bibr" rid="bib32">Van Battum <italic>et al.</italic> 2015</xref>). One protein that has been intensively studied for its role in neuronal regeneration and plasticity is the neurite inhibitory protein Nogo-A; however, little is known about the role of Nogo-A in axon guidance. Here, we show that the Nogo-A homolog, <italic>ret-1</italic>, is required for the correct guidance of specific axons along the midline of <italic>C. elegans</italic>, and that the axon guidance defects in <italic>ret-1</italic> loss of function animals are caused by dysregulation of ephrin expression. We investigated the expression pattern of <italic>ret-1</italic> using a transgenic <italic>ret-1<sup>prom</sup></italic>::<italic>gfp</italic> strain, which showed that <italic>ret-1</italic> is highly expressed in the nervous system, particularly in VNC motor neurons and neurons that navigate the VNC. Thus, <italic>ret-1</italic> is expressed in relevant cells that control axon guidance in the VNC. Using a panel of <italic>gfp</italic> reporters that label individual cell types, we found that <italic>ret-1</italic> is required for the correct axon guidance of a specific subset of neurons.</p>
+<p>The neuron subtypes that require RET-1 for their development (HSN, PVQ, PVP, and motor neurons) are all regulated by ephrin signaling in <italic>C. elegans</italic> (<xref ref-type="bibr" rid="bib3">Boulin <italic>et al.</italic> 2006</xref>). In mammals, it has been shown that, in the adult nervous system, loss of Nogo-A causes upregulation of developmental guidance cues, such as ephrins, at the mRNA level (<xref ref-type="bibr" rid="bib20">Kempf <italic>et al.</italic> 2013</xref>). We found that this regulatory relationship between Nogo-A and ephrin is conserved in <italic>C. elegans</italic>. Loss of <italic>ret-1</italic> causes increased mRNA expression of the ephrin <italic>vab-2</italic>.</p>
+<p>To ask whether increased ephrin expression causes the axon guidance defects observed in <italic>ret-1</italic> mutant animals, we performed double mutant analysis. First, we found that loss of the sole Eph receptor (VAB-1) in the <italic>ret-1</italic> mutant did not increase the HSN defects, which suggests that <italic>vab-1</italic> and <italic>ret-1</italic> act in the same genetic pathway, whereas, loss of the ephrin ligand VAB-2 suppresses the <italic>ret-1</italic> HSN axon guidance defects, suggesting that dysregulation of <italic>vab-2</italic> results in defective axon guidance in <italic>ret-1</italic> mutant animals. We found that the suppressive effect of <italic>vab-2</italic> loss is dependent on the presence of the VAB-1 Eph receptor. These data suggest that VAB-2 is overexpressed in <italic>ret-1</italic> mutant animals, perhaps in a temporally or spatially inappropriate manner, and interferes with VAB-1-regulated signaling. A previous study demonstrated the importance of the correct expression level, and thereby concentration, of ephrin signaling for correct function of the axon guidance signal; this study showed that a change in ephrin concentration from low to high could change the signaling cue from being perceived as a growth promoting to a growth inhibiting signaling cue (<xref ref-type="bibr" rid="bib18">Hansen <italic>et al.</italic> 2004</xref>). It is possible that a similar mechanism can cause the increase in ephrin expression we observed in the <italic>ret-1</italic> mutant to change the concentration of ephrin in certain tissues and thereby change the potency or directionality of signaling, resulting in defective HSN axon guidance.</p>
+<p>In conclusion, our study shows that <italic>ret-1</italic> is required for correct axon guidance of a specific subset of neurons that extend from, and along, the ventral midline in <italic>C. elegans</italic>. Neurons extending their axons in the left and right VNC are normally repelled by an interaction between an EphR, expressed on the extending axon, and ephrins expressed in motor neurons (<xref ref-type="bibr" rid="bib3">Boulin <italic>et al.</italic> 2006</xref>; <xref ref-type="bibr" rid="bib26">Pocock and Hobert 2008</xref>). In <italic>ret-1</italic> deletion mutants, however, axons fail to respect the midline, and cross over to the contralateral side. We find that HSN axon guidance defects are caused by dysregulation of ephrin expression in <italic>ret-1</italic> mutant animals. Deletion of the Eph receptor VAB-1, and thereby all canonical ephrin signaling, however, does not suppress HSN defects in <italic>ret-1</italic> mutants. This suggests inappropriate signaling through ephrin (VAB-2) induction, as shown in a previous study (<xref ref-type="bibr" rid="bib26">Pocock and Hobert 2008</xref>), causes neurodevelopmental defects in <italic>ret-1</italic> mutant animals. To conclude, we have shown that the regulatory relationship between RTN genes and axon guidance cues is conserved in <italic>C. elegans</italic>. Therefore, this work indicates that the nematode may be of further use to help decipher RTN/Nogo-A-regulated pathways, which will be of potential benefit in the battle against neurological disorders.</p>
+</sec>
+<sec id="s14">
+<title></title>
+</sec>
+</body>
+<back>
+<ack>
+<title>Acknowledgments</title>
+<p>We thank members of Pocock laboratory for comments on the manuscript. Some strains used in this study were provided by the <italic>Caenorhabditis</italic> Genetics Center, which is funded by National Institutes of Health (NIH) Office of Research Infrastructure Programs (P40 OD010440), and by Shohei Mitani at the National Bioresource Project (Japan). This work was supported by a grant from the European Research Council (ERC Starting Grant number 260807), Lundbeck Foundation (project number R67-A6094), Monash University Biomedicine Discovery Fellowship, NHMRC Project grant (GNT1105374) and veski innovation fellowship (VIF#23) to R.P.</p>
+</ack>
+<fn-group><fn id="fn1"><p>Supplemental material is available online at <ext-link ext-link-type="uri" xlink:href="http://www.genetics.org/lookup/suppl/doi:10.1534/genetics.115.185322/-/DC1">www.genetics.org/lookup/suppl/doi:10.1534/genetics.115.185322/-/DC1</ext-link>.</p></fn>
+<fn id="fn2"><p><italic>Communicating editor: D. I. Greenstein</italic></p></fn>
+</fn-group>
+<fn-group>
+<title>AUTHOR QUERIES</title>
+<fn id="Q1" fn-type="other"><p>Per journal style, the running header must be 40 characters or less. The current running title, Nogo-A Controls Axon Guidance in <italic>C. elegans</italic>, is 43 characters. Please edit for length.</p></fn>
+<fn id="Q2" fn-type="other"><p>Please check the WormBase links throughout. A list of entities linked in this article is available at <ext-link ext-link-type="uri" xlink:href="http://textpresso-dev.caltech.edu/gsa/worm/entity_link_tables/185322.html">http://textpresso-dev.caltech.edu/gsa/worm/entity_link_tables/185322.html.</ext-link></p></fn>
+<fn id="Q3" fn-type="other"><p>Please provide postal code for affiliation &#x201C;&#x002A;.&#x201D;</p></fn>
+<fn id="Q4" fn-type="other"><p>Any alternations between capitalization and/or italics in genetic nomenclature have been retained per the original manuscript. Please confirm that all genetic nomenclature has been formatted properly throughout.</p></fn>
+<fn id="Q5" fn-type="other"><p>Please confirm the corresponding author&#x2019;s address.</p></fn>
+<fn id="Q6" fn-type="other"><p>Please verify the affiliations are correct.</p></fn>
+<fn id="Q7" fn-type="other"><p>Please check use of italics throughout your article, including all taxonomic and genetic nomenclature. GENETICS style uses italics for genes and alleles. Note that headings are set per journal style and should not be changed to italics or non-italics during proof review.</p></fn>
+<fn id="Q8" fn-type="other"><p>Please verify all supplemental material links.</p></fn>
+<fn id="Q9" fn-type="other"><p>A required subsection at the end of the Materials and Methods entitled &#x201C;Data availability&#x201D; has been added per journal style. Please confirm that this statement is accurate, or if not, update to include the details of where your data can be found. Details are available in the Materials and Methods instructions at http://www.genetics.org/content/prep-manuscript#text.</p></fn></fn-group>
+<ref-list>
+<title>Literature Cited</title>
+<ref id="bib1"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Adler</surname><given-names>C. E.</given-names></name><name><surname>Fetter</surname><given-names>R. D.</given-names></name><name><surname>Bargmann</surname><given-names>C. I.</given-names></name></person-group>, <year>2006</year>&#x2003;<article-title>UNC-6/Netrin induces neuronal asymmetry and defines the site of axon formation.</article-title> <source>Nat. Neurosci.</source> <volume>9</volume>: <fpage>511</fpage>&#x2013;<lpage>518</lpage>.</citation></ref>
+<ref id="bib2"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Audhya</surname><given-names>A.</given-names></name><name><surname>Desai</surname><given-names>A.</given-names></name><name><surname>Oegema</surname><given-names>K.</given-names></name></person-group>, <year>2007</year>&#x2003;<article-title>A role for Rab5 in structuring the endoplasmic reticulum.</article-title> <source>J. Cell Biol.</source> <volume>178</volume>: <fpage>43</fpage>&#x2013;<lpage>56</lpage>.</citation></ref>
+<ref id="bib3"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Boulin</surname><given-names>T.</given-names></name><name><surname>Pocock</surname><given-names>R.</given-names></name><name><surname>Hobert</surname><given-names>O.</given-names></name></person-group>, <year>2006</year>&#x2003;<article-title>A novel Eph receptor-interacting IgSF protein provides C. elegans motoneurons with midline guidepost function.</article-title> <source>Curr. Biol.</source> <volume>16</volume>: <fpage>1871</fpage>&#x2013;<lpage>1883</lpage>.</citation></ref>
+<ref id="bib4"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Brenner</surname><given-names>S.</given-names></name></person-group>, <year>1974</year>&#x2003;<article-title>The genetics of Caenorhabditis elegans.</article-title> <source>Genetics</source> <volume>77</volume>: <fpage>71</fpage>&#x2013;<lpage>94</lpage>.</citation></ref>
+<ref id="bib5"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Bros-Facer</surname><given-names>V.</given-names></name><name><surname>Krull</surname><given-names>D.</given-names></name><name><surname>Taylor</surname><given-names>A.</given-names></name><name><surname>Dick</surname><given-names>J. R.</given-names></name><name><surname>Bates</surname><given-names>S. A.</given-names></name><etal/></person-group>, <year>2014</year>&#x2003;<article-title>Treatment with an antibody directed against Nogo-A delays disease progression in the SOD1G93A mouse model of amyotrophic lateral sclerosis.</article-title> <source>Hum. Mol. Genet.</source> <volume>23</volume>: <fpage>4187</fpage>&#x2013;<lpage>4200</lpage>.</citation></ref>
+<ref id="bib6"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Buffo</surname><given-names>A.</given-names></name><name><surname>Zagrebelsky</surname><given-names>M.</given-names></name><name><surname>Huber</surname><given-names>A. B.</given-names></name><name><surname>Skerra</surname><given-names>A.</given-names></name><name><surname>Schwab</surname><given-names>M. E.</given-names></name><etal/></person-group>, <year>2000</year>&#x2003;<article-title>Application of neutralizing antibodies against NI-35/250 myelin-associated neurite growth inhibitory proteins to the adult rat cerebellum induces sprouting of uninjured purkinje cell axons.</article-title> <source>J. Neurosci.</source> <volume>20</volume>: <fpage>2275</fpage>&#x2013;<lpage>2286</lpage>.</citation></ref>
+<ref id="bib7"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Caroni</surname><given-names>P.</given-names></name><name><surname>Schwab</surname><given-names>M. E.</given-names></name></person-group>, <year>1988</year><comment>a</comment>&#x2003;<article-title>Antibody against myelin associated inhibitor of neurite growth neutralizes nonpermissive substrate properties of CNS white matter.</article-title> <source>Neuron</source> <volume>1</volume>: <fpage>85</fpage>&#x2013;<lpage>96</lpage>.</citation></ref>
+<ref id="bib8"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Caroni</surname><given-names>P.</given-names></name><name><surname>Schwab</surname><given-names>M. E.</given-names></name></person-group>, <year>1988</year><comment>b</comment>&#x2003;<article-title>Two membrane protein fractions from rat central myelin with inhibitory properties for neurite growth and fibroblast spreading.</article-title> <source>J. Cell Biol.</source> <volume>106</volume>: <fpage>1281</fpage>&#x2013;<lpage>1288</lpage>.</citation></ref>
+<ref id="bib9"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Chomczynski</surname><given-names>P.</given-names></name><name><surname>Sacchi</surname><given-names>N.</given-names></name></person-group>, <year>1987</year>&#x2003;<article-title>Single-step method of RNA isolation by acid guanidinium thiocyanate-phenol-chloroform extraction.</article-title> <source>Anal. Biochem.</source> <volume>162</volume>: <fpage>156</fpage>&#x2013;<lpage>159</lpage>.</citation></ref>
+<ref id="bib10"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Ciss&#x00E9;</surname><given-names>M.</given-names></name><name><surname>Checler</surname><given-names>F.</given-names></name></person-group>, <year>2015</year>&#x2003;<article-title>Eph receptors: new players in Alzheimer&#x2019;s disease pathogenesis.</article-title> <source>Neurobiol. Dis.</source> <volume>73</volume>: <fpage>137</fpage>&#x2013;<lpage>149</lpage>.</citation></ref>
+<ref id="bib11"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Desai</surname><given-names>C.</given-names></name><name><surname>Garriga</surname><given-names>G.</given-names></name><name><surname>McIntire</surname><given-names>S. L.</given-names></name><name><surname>Horvitz</surname><given-names>H. R.</given-names></name></person-group>, <year>1988</year>&#x2003;<article-title>A genetic pathway for the development of the Caenorhabditis elegans HSN motor neurons.</article-title> <source>Nature</source> <volume>336</volume>: <fpage>638</fpage>&#x2013;<lpage>646</lpage>.</citation></ref>
+<ref id="bib12"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Di Sano</surname><given-names>F.</given-names></name><name><surname>Bernardoni</surname><given-names>P.</given-names></name><name><surname>Piacentini</surname><given-names>M.</given-names></name></person-group>, <year>2012</year>&#x2003;<article-title>The reticulons: guardians of the structure and function of the endoplasmic reticulum.</article-title> <source>Exp. Cell Res.</source> <volume>318</volume>: <fpage>1201</fpage>&#x2013;<lpage>1207</lpage>.</citation></ref>
+<ref id="bib13"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Dupuis</surname><given-names>L.</given-names></name><name><surname>Gonzalez de Aguilar</surname><given-names>J.-L.</given-names></name><name><surname>di Scala</surname><given-names>F.</given-names></name><name><surname>Rene</surname><given-names>F.</given-names></name><name><surname>de Tapia</surname><given-names>M.</given-names></name><etal/></person-group>, <year>2002</year>&#x2003;<article-title>Nogo provides a molecular marker for diagnosis of amyotrophic lateral sclerosis.</article-title> <source>Neurobiol. Dis.</source> <volume>10</volume>: <fpage>358</fpage>&#x2013;<lpage>365</lpage>.</citation></ref>
+<ref id="bib14"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Engle</surname><given-names>E. C.</given-names></name></person-group>, <year>2010</year>&#x2003;<article-title>Human genetic disorders of axon guidance.</article-title> <source>Cold Spring Harb. Perspect. Biol.</source> <volume>2</volume>: <fpage>a001784</fpage>.</citation></ref>
+<ref id="bib15"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Freund</surname><given-names>P.</given-names></name><name><surname>Schmidlin</surname><given-names>E.</given-names></name><name><surname>Wannier</surname><given-names>T.</given-names></name><name><surname>Bloch</surname><given-names>J.</given-names></name><name><surname>Mir</surname><given-names>A.</given-names></name><etal/></person-group>, <year>2006</year>&#x2003;<article-title>Nogo-A-specific antibody treatment enhances sprouting and functional recovery after cervical lesion in adult primates.</article-title> <source>Nat. Med.</source> <volume>12</volume>: <fpage>790</fpage>&#x2013;<lpage>792</lpage>.</citation></ref>
+<ref id="bib16"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Garel</surname><given-names>S.</given-names></name><name><surname>Rubenstein</surname><given-names>J. L. R.</given-names></name></person-group>, <year>2004</year>&#x2003;<article-title>Intermediate targets in formation of topographic projections: inputs from the thalamocortical system.</article-title> <source>Trends Neurosci.</source> <volume>27</volume>: <fpage>533</fpage>&#x2013;<lpage>539</lpage>.</citation></ref>
+<ref id="bib17"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Gerstein</surname><given-names>M. B.</given-names></name><name><surname>Lu</surname><given-names>Z. J.</given-names></name><name><surname>Van Nostrand</surname><given-names>E. L.</given-names></name><name><surname>Cheng</surname><given-names>C.</given-names></name><name><surname>Arshinoff</surname><given-names>B. I.</given-names></name><etal/></person-group>, <year>2010</year>&#x2003;<article-title>Integrative analysis of the Caenorhabditis elegans genome by the modENCODE project.</article-title> <source>Science</source> <volume>330</volume>: <fpage>1775</fpage>&#x2013;<lpage>1787</lpage>.</citation></ref>
+<ref id="bib18"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Hansen</surname><given-names>M. J.</given-names></name><name><surname>Dallal</surname><given-names>G. E.</given-names></name><name><surname>Flanagan</surname><given-names>J. G.</given-names></name></person-group>, <year>2004</year>&#x2003;<article-title>Retinal axon response toephrin-As shows a graded, concentration-dependent transition from growth promotion to inhibition.</article-title> <source>Neuron</source> <volume>42</volume>: <fpage>717</fpage>&#x2013;<lpage>730</lpage>.</citation></ref>
+<ref id="bib19"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Iwahashi</surname><given-names>J.</given-names></name><name><surname>Kawasaki</surname><given-names>I.</given-names></name><name><surname>Kohara</surname><given-names>Y.</given-names></name><name><surname>Gengyo-Ando</surname><given-names>K.</given-names></name><name><surname>Mitani</surname><given-names>S.</given-names></name><etal/></person-group>, <year>2002</year>&#x2003;<article-title>Caenorhabditis elegans reticulon interacts with RME-1 during embryogenesis.</article-title> <source>Biochem. Biophys. Res. Commun.</source> <volume>293</volume>: <fpage>698</fpage>&#x2013;<lpage>704</lpage>.</citation></ref>
+<ref id="bib20"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Kempf</surname><given-names>A.</given-names></name><name><surname>Montani</surname><given-names>L.</given-names></name><name><surname>Petrinovic</surname><given-names>M. M.</given-names></name><name><surname>Schroeter</surname><given-names>A.</given-names></name><name><surname>Weinmann</surname><given-names>O.</given-names></name><etal/></person-group>, <year>2013</year>&#x2003;<article-title>Upregulation of axon guidance molecules in the adult central nervous system of Nogo-A knockout mice restricts neuronal growth and regeneration.</article-title> <source>Eur. J. Neurosci.</source> <volume>38</volume>: <fpage>3567</fpage>&#x2013;<lpage>3579</lpage>.</citation></ref>
+<ref id="bib21"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Nugent</surname><given-names>A. A.</given-names></name><name><surname>Kolpak</surname><given-names>A. L.</given-names></name><name><surname>Engle</surname><given-names>E. C.</given-names></name></person-group>, <year>2012</year>&#x2003;<article-title>Human disorders of axon guidance.</article-title> <source>Curr. Opin. Neurobiol.</source> <volume>22</volume>: <fpage>837</fpage>&#x2013;<lpage>843</lpage>.</citation></ref>
+<ref id="bib22"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Oertle</surname><given-names>T.</given-names></name><name><surname>Klinger</surname><given-names>M.</given-names></name><name><surname>Stuermer</surname><given-names>C. A. O.</given-names></name><name><surname>Schwab</surname><given-names>M. E.</given-names></name></person-group>, <year>2003</year>&#x2003;<article-title>A reticular rhapsody: Phylogenic evolution and nomenclature of the RTN/Nogo gene family.</article-title> <source>FASEB J.</source> <volume>17</volume>: <fpage>1238</fpage>&#x2013;<lpage>1247</lpage>.</citation></ref>
+<ref id="bib23"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>O&#x2019;Sullivan</surname><given-names>N. C.</given-names></name><name><surname>Jahn</surname><given-names>T. R.</given-names></name><name><surname>Reid</surname><given-names>E.</given-names></name><name><surname>O&#x2019;Kane</surname><given-names>C. J.</given-names></name></person-group>, <year>2012</year>&#x2003;<article-title>Reticulon-like-1, the Drosophila orthologue of the hereditary spastic paraplegia gene reticulon 2, is required for organization of endoplasmic reticulum and of distal motor axons.</article-title> <source>Hum. Mol. Genet.</source> <volume>21</volume>: <fpage>3356</fpage>&#x2013;<lpage>3365</lpage>.</citation></ref>
+<ref id="bib24"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Pedersen</surname><given-names>M. E.</given-names></name><name><surname>Snieckute</surname><given-names>G.</given-names></name><name><surname>Kagias</surname><given-names>K.</given-names></name><name><surname>Nehammer</surname><given-names>C.</given-names></name><name><surname>Multhaupt</surname><given-names>H. A.</given-names></name><etal/></person-group>, <year>2013</year>&#x2003;<article-title>An epidermal microRNA regulates neuronal migration through control of the cellular glycosylation state.</article-title> <source>Science</source> <volume>341</volume>: <fpage>1404</fpage>&#x2013;<lpage>1408</lpage>.</citation></ref>
+<ref id="bib25"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Pinz&#x00F3;n-Olejua</surname><given-names>A.</given-names></name><name><surname>Welte</surname><given-names>C.</given-names></name><name><surname>Abdesselem</surname><given-names>H.</given-names></name><name><surname>M&#x00E1;laga-Trillo</surname><given-names>E.</given-names></name><name><surname>Stuermer</surname><given-names>C. A. O.</given-names></name></person-group>, <year>2014</year>&#x2003;<article-title>Essential roles of zebrafish rtn4/Nogo paralogues in embryonic development.</article-title> <source>Neural Dev.</source> <volume>9</volume>: <fpage>8</fpage>.</citation></ref>
+<ref id="bib26"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Pocock</surname><given-names>R.</given-names></name><name><surname>Hobert</surname><given-names>O.</given-names></name></person-group>, <year>2008</year>&#x2003;<article-title>Oxygen levels affect axon guidance and neuronal migration in Caenorhabditis elegans.</article-title> <source>Nat. Neurosci.</source> <volume>11</volume>: <fpage>894</fpage>&#x2013;<lpage>900</lpage>.</citation></ref>
+<ref id="bib27"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Pradat</surname><given-names>P.-F.</given-names></name><name><surname>Bruneteau</surname><given-names>G.</given-names></name><name><surname>Gonzalez de Aguilar</surname><given-names>J.-L.</given-names></name><name><surname>Dupuis</surname><given-names>L.</given-names></name><name><surname>Jokic</surname><given-names>N.</given-names></name><etal/></person-group>, <year>2007</year>&#x2003;<article-title>Muscle Nogo-a expression is a prognostic marker in lower motor neuron syndromes.</article-title> <source>Ann. Neurol.</source> <volume>62</volume>: <fpage>15</fpage>&#x2013;<lpage>20</lpage>.</citation></ref>
+<ref id="bib28"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Schmandke</surname><given-names>A.</given-names></name><name><surname>Schmandke</surname><given-names>A.</given-names></name><name><surname>Schwab</surname><given-names>M. E.</given-names></name></person-group>, <year>2014</year>&#x2003;<article-title>Nogo-A: multiple roles in CNS development, maintenance, and disease.</article-title> <source>Neuroscientist</source> <volume>20</volume>: <fpage>372</fpage>&#x2013;<lpage>386</lpage>.</citation></ref>
+<ref id="bib29"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Sulston</surname><given-names>J. E.</given-names></name><name><surname>Horvitz</surname><given-names>H. R.</given-names></name></person-group>, <year>1977</year>&#x2003;<article-title>Post-embryonic cell lineages of the nematode, Caenorhabditis elegans.</article-title> <source>Dev. Biol.</source> <volume>56</volume>: <fpage>110</fpage>&#x2013;<lpage>156</lpage>.</citation></ref>
+<ref id="bib30"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Tessier-Lavigne</surname><given-names>M.</given-names></name><name><surname>Goodman</surname><given-names>C. S.</given-names></name></person-group>, <year>1996</year>&#x2003;<article-title>The molecular biology of axon guidance.</article-title> <source>Science</source> <volume>274</volume>: <fpage>1123</fpage>&#x2013;<lpage>1133</lpage>.</citation></ref>
+<ref id="bib31"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Torpe</surname><given-names>N.</given-names></name><name><surname>Pocock</surname><given-names>R.</given-names></name></person-group>, <year>2014</year>&#x2003;<article-title>Regulation of axonal midline guidance by prolyl 4-hydroxylation in Caenorhabditis elegans.</article-title> <source>J. Neurosci.</source> <volume>34</volume>: <fpage>16348</fpage>&#x2013;<lpage>16357</lpage>.</citation></ref>
+<ref id="bib32"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Van Battum</surname><given-names>E. Y.</given-names></name><name><surname>Brignani</surname><given-names>S.</given-names></name><name><surname>Pasterkamp</surname><given-names>R. J.</given-names></name></person-group>, <year>2015</year>&#x2003;<article-title>Axon guidance proteins in neurological disorders.</article-title> <source>Lancet Neurol.</source> <volume>14</volume>: <fpage>532</fpage>&#x2013;<lpage>546</lpage>.</citation></ref>
+<ref id="bib33"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Wang</surname><given-names>J.</given-names></name><name><surname>Chan</surname><given-names>C.-K.</given-names></name><name><surname>Taylor</surname><given-names>J. S. H.</given-names></name><name><surname>Chan</surname><given-names>S.-O.</given-names></name></person-group>, <year>2008</year>&#x2003;<article-title>The growth-inhibitory protein Nogo is involved in midline routing of axons in the mouse optic chiasm.</article-title> <source>J. Neurosci. Res.</source> <volume>86</volume>: <fpage>2581</fpage>&#x2013;<lpage>2590</lpage>.</citation></ref>
+<ref id="bib34"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Wang</surname><given-names>J.</given-names></name><name><surname>Wang</surname><given-names>L.</given-names></name><name><surname>Zhao</surname><given-names>H.</given-names></name><name><surname>Chan</surname><given-names>S.-O.</given-names></name></person-group>, <year>2010</year>&#x2003;<article-title>Localization of an axon growth inhibitory molecule Nogo and its receptor in the spinal cord of mouse embryos.</article-title> <source>Brain Res.</source> <volume>1306</volume>: <fpage>8</fpage>&#x2013;<lpage>17</lpage>.</citation></ref>
+<ref id="bib35"><citation citation-type="journal">White, S. E., J. N. Thomson, and S. Brenner, 1976&#x2003;The structure of the ventral nerve cord of <italic>Caenorhabditis elegans</italic>. <ext-link ext-link-type="uri" xlink:href="https://www.ncbi.nlm.nih.gov/pubmed/8806">Philos. Trans. R. Soc. Lond. B Biol. Sci.</ext-link> 275: 327.</citation></ref>
+<ref id="bib36"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Wightman</surname><given-names>B.</given-names></name><name><surname>Baran</surname><given-names>R.</given-names></name><name><surname>Garriga</surname><given-names>G.</given-names></name></person-group>, <year>1997</year>&#x2003;<article-title>Genes that guide growth cones along the C. elegans ventral nerve cord.</article-title> <source>Development</source> <volume>124</volume>: <fpage>2571</fpage>&#x2013;<lpage>2580</lpage>.</citation></ref>
+<ref id="bib37"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Yang</surname><given-names>Y. S.</given-names></name><name><surname>Strittmatter</surname><given-names>S. M.</given-names></name></person-group>, <year>2007</year>&#x2003;<article-title>The reticulons: a family of proteins with diverse functions.</article-title> <source>Genome Biol.</source> <volume>8</volume>: <fpage>234</fpage>.</citation></ref>
+<ref id="bib38"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Yu</surname><given-names>T. W.</given-names></name><name><surname>Bargmann</surname><given-names>C. I.</given-names></name></person-group>, <year>2001</year>&#x2003;<article-title>Dynamic regulation of axon guidance.</article-title> <source>Nat. Neurosci.</source> <volume>4 Suppl</volume>: <fpage>1169</fpage>&#x2013;<lpage>1176</lpage>.</citation></ref>
+<ref id="bib39"><citation citation-type="journal"><person-group person-group-type="author"><name><surname>Zallen</surname><given-names>J. A.</given-names></name><name><surname>Yi</surname><given-names>B. A.</given-names></name><name><surname>Bargmann</surname><given-names>C. I.</given-names></name></person-group>, <year>1998</year>&#x2003;<article-title>The conserved immunoglobulin superfamily member SAX-3/Robo directs multiple aspects of axon guidance in C-elegans.</article-title> <source>Cell</source> <volume>92</volume>: <fpage>217</fpage>&#x2013;<lpage>227</lpage>.</citation></ref>
+</ref-list></back>
+</article>

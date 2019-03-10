@@ -1,0 +1,17 @@
+<div *ngIf="selectedPub">
+
+
+    <!--<hr/>-->
+    <!--<statistics-search [selectedPub]="selectedPub"></statistics-search>-->
+    <!--<hr/>-->
+    <statistics-summary [selectedPub]="selectedPub" (selectedSource)="selectSource($event)" (lexSearch)="filterLexicon($event)"></statistics-summary>
+    <hr/>
+    <!--<b>Link Statistics</b>-->
+    <statistics-detail [selectedPub]="selectedPub"
+                       [selectedSource]="selectedSource"
+                       [lexSearch]="lexSearch"
+                       [fullscreen]="fullscreen"
+                       [expand]="expand"
+						[updateLinks]="updateLinks"
+    ></statistics-detail>
+</div>

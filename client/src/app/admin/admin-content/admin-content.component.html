@@ -1,0 +1,95 @@
+<ngb-accordion #acc="ngbAccordion">
+	<ngb-panel title="Add Publication Uploader" id="pub-source">
+		<template ngbPanelContent>
+			<div class="form-group row">
+				<label for="url" class="col-4 col-form-label">URL</label>
+				<div class="col-8">
+						<input type="url" class="form-control" [(ngModel)]="newPubSource.url">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="protocol" class="col-4 col-form-label">Protocol</label>
+				<div class="col-8">
+					<input type="text" class="form-control" [(ngModel)]="newPubSource.protocol">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="username" class="col-4 col-form-label">Username</label>
+				<div class="col-8">
+					<input type="text" class="form-control" [(ngModel)]="newPubSource.username">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="password" class="col-4 col-form-label">Password</label>
+				<div class="col-8">
+					<input type="password" class="form-control" [(ngModel)]="newPubSource.password">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="timer" class="col-4 col-form-label">New File Timer</label>
+				<div class="col-8">
+					<input type="text" class="form-control" placeholder="Minutes" [(ngModel)]="newPubSource.timer">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="publisher" class="col-4 col-form-label">Publisher</label>
+				<div class="col-8">
+					<select class="form-control" [(ngModel)]="newPubSource.publisher">
+						<option *ngFor="let publisher of publishers">{{publisher}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<button class="btn btn-primary" (click)="createPublicationSource(); acc.toggle('pub-source')">Save</button>
+				<button class="btn btn-secondary" (click)="acc.toggle('pub-source')">Cancel</button>
+			</div>
+		</template>
+	</ngb-panel>
+	<ngb-panel title="Add Lexicon Uploader" id="lex-source">
+		<template ngbPanelContent>
+			<div class="form-group row">
+				<label for="source" class="col-4 col-form-label">Lexicon Source</label>
+				<div class="col-8">
+					<select class="form-control" [(ngModel)]="selectedLexSource">
+						<option *ngFor="let source of lexiconSources" [ngValue]="source">{{source.source}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="url" class="col-4 col-form-label">URL</label>
+				<div class="col-8">
+					<input *ngIf="selectedLexSource" type="url" class="form-control" [(ngModel)]="selectedLexSource.url">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="protocol" class="col-4 col-form-label">Protocol</label>
+				<div class="col-8">
+					<input *ngIf="selectedLexSource" type="text" class="form-control" [(ngModel)]="selectedLexSource.protocol">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="username" class="col-4 col-form-label">Username</label>
+				<div class="col-8">
+					<input *ngIf="selectedLexSource" type="text" class="form-control" [(ngModel)]="selectedLexSource.username">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="password" class="col-4 col-form-label">Password</label>
+				<div class="col-8">
+					<input *ngIf="selectedLexSource" type="password" class="form-control" [(ngModel)]="selectedLexSource.password">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="timer" class="col-4 col-form-label">New File Timer</label>
+				<div class="col-8">
+					<input  *ngIf="selectedLexSource" type="text" class="form-control" placeholder="Minutes" [(ngModel)]="selectedLexSource.timer">
+				</div>
+			</div>
+			<div class="form-group row">
+				<button class="btn btn-primary" (click)="updateLexiconSource(); acc.toggle('lex-source')">Save</button>
+				<button class="btn btn-secondary" (click)="acc.toggle('lex-source')">Cancel</button>
+			</div>
+	
+		</template>
+	</ngb-panel>
+</ngb-accordion>

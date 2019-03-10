@@ -1,0 +1,68 @@
+<html>
+<head>
+    <base href="/"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title *ngIf="lexicon">DMC {{lexicon.publicName}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+<!--<div class="row" style="margin-left: 0px;border-top: solid; border-bottom: solid; background-color: bisque">-->
+<!--<a href="/">-->
+<!--<img src="images/InSilicoLogo.jpg" width="50" height="50">-->
+<!--</a>-->
+<!--&lt;!&ndash;<h2 *ngIf="lexicon">&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="fa-external-link fa col-3" [href]="iframesrc" target="_blank">{{lexiconId}}</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</h2>&ndash;&gt;-->
+<!--</div>-->
+<div *ngIf="lexicon" style="margin-left: 10px;padding-top: 10px;">
+    <!--<div class="row">-->
+    <div class="row col-12" *ngIf="linkedPublications">
+        <!--<b>{{lexicon.publicName}}</b>-->
+        <!--({{lexicon.lexiconSource.prefix}}::{{lexicon.externalModId}})-->
+        <!--<a [href]="iframesrc" class="small fa fa-external-link">{{lexicon.lexiconSource.source}}</a>-->
+        <div class="col-2">
+            <a href="/" style="margin-left: 5px;">
+                <img src="images/InSilicoLogo.jpg" width="25" height="25">
+            </a>
+            <a [href]="iframesrc" class="small btn btn-link outline" style="padding-left: 5px;">Direct Link <i class="fa fa-external-link"></i></a>
+        </div>
+        <!--</div>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<div class="row" *ngIf="linkedPublications">-->
+        <!--<div class="col-2" *ngIf="linkedPublications && totalCount>0" style="margin-top:8px;margin-bottom: 2px">-->
+            <!--<b>Linked Pubs</b> <span class="badge badge-default">{{totalCount}}</span>-->
+        <!--</div>-->
+        <div class="col-1" *ngIf="linkedPublications && totalCount==0">
+            <b style="color: grey">No Linked Pubs</b>
+        </div>
+
+        <div *ngIf="linkedPublications" class="col-7" style="margin-bottom: 1px;">
+            <a href="#/publication/{{publication.doi}}" *ngFor="let publication of linkedPublications"
+               class="btn btn-xs btn-info" style="margin-left: 5px; padding: 2px; font-size: small;">
+                {{publication.title | substr: 0:30 }}
+                <span class="badge badge-default">
+                        {{publication.markupCount}}
+                    </span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="error" style="color:red;">
+    <div class="col-2" style="margin-left: 10px;">
+        <b>Error</b>
+    </div>
+    <div class="col-4">
+        {{error}}
+    </div>
+</div>
+
+
+<iframe *ngIf="lexicon" [src]='iframesrc' height='1000px' width="100%" frameborder="1" allowfullscreen>
+
+</iframe>
+<div *ngIf="!lexicon"></div>
+</body>
+

@@ -1,0 +1,17 @@
+<div *ngIf="lexiconSources" class="col-md-12">
+    <div class="row" style="margin-bottom: 10px;">
+		<input class="form-control" [(ngModel)]="search" placeholder="Search Links" (keyup)="filterLexicon($event)">
+    </div>
+    <div class="row">
+        <b>Filter Lexica</b>
+        <!--<select [(ngModel)]="filterLexicon">-->
+		<select class="form-control" [(ngModel)]="source" (ngModelChange)="select()">
+            <option>All ({{lexiconSources.length}})</option>
+            <option *ngFor="let lexiconSource of lexiconSources" [ngValue]="lexiconSource">
+                {{lexiconSource.source }} -
+                {{lexiconSource.species.name }}
+                ({{lexiconSource.className}})
+            </option>
+        </select>
+    </div>
+</div>

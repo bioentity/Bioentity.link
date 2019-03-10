@@ -1,0 +1,14 @@
+language: groovy
+services: 
+  - neo4j
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+  - $HOME/.gradle
+  - $HOME/.groovy
+sudo: false
+jdk:
+- openjdk8
+before_script:
+- cd server

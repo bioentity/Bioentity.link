@@ -1,0 +1,163 @@
+<html>
+<head>
+    <title>Texture Author</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../substance/substance.js"></script>
+    <script type="text/javascript" src="../texture.js"></script>
+    <!--<script type="text/javascript" src="./data.js"></script>-->
+    <!--import MarkupApp from "../lib/dmc/MarkupApp";-->
+    <!--<script type="text/javascript" src="../lib/dmc/MarkupApp.js"></script>-->
+    <style>
+        /* Texture Component styles */
+        @import '../texture.css';
+        /* You may want to use your own reset and pagestyle */
+        /*    @import '../substance/substance-reset.css';*/
+        @import '../texture-reset.css';
+        @import '../texture-pagestyle.css';
+        /* Using url here, so font-awesome does not get bundled. */
+        @import url('../font-awesome/css/font-awesome.min.css');
+
+        body {
+            overflow: hidden;
+        }
+
+        .sc-author {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            top: 0px;
+        }
+
+        /*.holds-the-iframe {*/
+            /*background:url(../../../../client/images/spinner.gif) top no-repeat;*/
+        /*}*/
+        /*.holds-the-iframe:after{*/
+            /*content: "Loading Publication . . . ";*/
+        /*}*/
+    </style>
+    <script>
+        let url_string = window.location.href;
+        let url = new URL(url_string);
+        let xmlId = url.searchParams.get('id');
+        if(!xmlId){
+            alert('No "id" parameter given')
+        }
+        if(xmlId.endsWith('.xml')){
+            xmlId = xmlId.substr(0,xmlId.length-4);
+        }
+        let baseServerUrl = url.searchParams.get('linkServer');
+        if(!baseServerUrl){
+            alert('No "linkServer" parameter given')
+        }
+
+        let markupApp ;
+
+        let texture = window.texture;
+        let xmlStore = texture.ServerXMLStore;
+
+        /* Author Configuration */
+        let configurator = new texture.TextureConfigurator()
+            .import(texture.AuthorPackage)
+            .setXMLStore(xmlStore);
+
+        if (typeof window !== 'undefined') {
+            window.onload = function () {
+                let element = document.getElementById('message');
+                element.innerHTML = "Loading Publication: "+xmlId;
+                window.app = texture.Texture.mount({
+                    configurator: configurator,
+                    documentId: xmlId
+                }, document.body);
+                this.markupApp = new texture.MarkupApp();
+            }
+		}
+		function getServerBaseUrl() {
+            return baseServerUrl ;
+        }
+
+        function receiveMessage(event)
+        {
+            if(!event.isTrusted){
+                alert('not trusted');
+                return ;
+            }
+            let eventData = event.data;
+            let action = eventData.action ;
+            let publication = eventData.publication;
+            let terms = eventData.terms;
+            console.log("Action: " + action);
+//            console.log("Terms: " + terms);
+            if(action=="linkPub"){
+				
+                this.markupApp.searchWords(terms, eventData.linkItalics);
+        	} else if(action=="navigate") {
+				
+				window.app.childNodes[0].send('tocEntrySelected', terms.path);
+			    let extLink = window.app.childNodes[0].refs.contentPanel.find(`[data-id="${terms.path}"]`)
+				let scroll = window.app.childNodes[0].refs.contentPanel.getScrollableElement()
+				let pos = window.app.childNodes[0].refs.contentPanel.getScrollPosition()
+				scroll.setProperty('scrollTop', pos - 250)
+				extLink.addClass('ext-link-focus')
+				for(let prev in terms.prev) {
+					if(terms.prev[prev] != terms.path) {
+						extLink = window.app.childNodes[0].refs.contentPanel.find(`[data-id="${terms.prev[prev]}"]`)
+						if(extLink) {
+							extLink.removeClass('ext-link-focus')
+						}
+					}
+				}
+			} else if(action == "setHighlights") {
+				let hl = {}
+				hl['ext-links'] = []
+				for (let p in terms) {
+					hl['ext-links'].push(terms[p])
+				}
+				if(hl['ext-links'].length > 0) {
+					console.log("timeout to allow pub to load")
+					setTimeout(function() {
+						window.app.childNodes[0].contentHighlights.set(hl)
+					}, 1000)
+				}
+			} else if(action == "deleteExtLink") {
+				let nodeId = terms.extLinkId
+				window.app.state.documentSession.transaction(function(tx, args) {
+					tx.delete(nodeId)
+				})
+
+				window.app.state.documentSession.save()
+			} else if(action == "updateLink") {
+				window.app.state.documentSession.transaction(function(tx, args) {
+					tx.set([terms.extLinkId, 'hrefLink'], terms.link)
+				})
+				window.app.state.documentSession.save()
+			} else if(action == "applyRule") {
+				this.markupApp.applyRule(eventData.rule)
+			
+			} else if(action == "hlEntity") {
+				for (let path in terms.paths) {
+					
+					let extLink = window.app.childNodes[0].refs.contentPanel.find(`[data-id="${terms.paths[path]}"]`)
+					extLink.addClass('ext-link-focus')
+				}
+			}
+
+            // Do we trust the sender of this message?  (might be
+            // different from what we originally opened, for example).
+            // if (event.origin !== "http://example.com")
+            //     return;
+
+            // event.source is popup
+            // event.data is "hi there yourself!  the secret response is: rheeeeet!"
+        }
+        window.addEventListener("message", receiveMessage, false);
+			 window.parent.postMessage({
+        		    action: 'setHighlights'
+        			}, "*");
+
+    </script>
+</head>
+<body>
+	<div id="message" style="display: none;">No Publication Selected</div>
+</body>
+</html>

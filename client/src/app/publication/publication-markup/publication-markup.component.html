@@ -1,0 +1,17 @@
+<div *ngIf="highlightedWord">
+    <div class="alert-info px-2 rounded"><a href="" (click)="goToLexicon()">{{highlightedWord.text}}</a></div>
+
+    <hr>
+    Example Editing Screen
+
+    <div class="header">Sources</div>
+    <ul>
+        <li><b><a href="">ZFIN</a></b> (selected)</li>
+        <li><a href="">WormBase</a>
+            <button role="button">Select</button>
+        </li>
+    </ul>
+
+    <button role="button">Remove</button>
+</div>
+

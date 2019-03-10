@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-md-3">
+		<lexicon-list (selectedSource)="selectSource($event)"></lexicon-list>
+	</div>
+	<div class="col-md-5">
+		<lexicon-content [selectedSource]="selectedSource"></lexicon-content>
+	</div>
+	<div class="col-md-4">
+		<lexicon-detail [selectedSource]="selectedSource"></lexicon-detail>
+	</div>
+</div>

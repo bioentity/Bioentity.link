@@ -1,0 +1,42 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="source-list">
+    <ngb-panel title="Add Species" id="add-species">
+        <template ngbPanelContent>
+            <div class="form-group row">
+                <label for="name" class="col-5 col-form-label">Name</label>
+                <div class="col-7">
+                    <input type="text" class="form-control" id="name" [(ngModel)]="newSpecies.name">
+                </div>
+            </div>
+                       <div class="form-group row">
+                <label for="taxonId" class="col-5 col-form-label">Taxon ID</label>
+                <div class="col-7">
+                    <input class="form-control" type="text" id="taxonId" [(ngModel)]="newSpecies.taxonId">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6">
+                    <button class="btn btn-primary" (click)="createSpecies();">Save
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-secondary" (click)="acc.toggle('add-species')">Cancel</button>
+                </div>
+            </div>
+        </template>
+    </ngb-panel>
+
+
+    <ngb-panel title="Species List" id="species-list">
+        <template ngbPanelContent>
+             <ul class="list-group">
+                <li *ngFor="let species of speciesList"
+                    class="list-group-item list-group-item-action justify-content-between">
+                    <a href="#" (click)="select(species)">
+                        {{species.name}}
+                    </a>
+                </li>
+            </ul>
+        </template>
+    </ngb-panel>
+</ngb-accordion>
+

@@ -1,0 +1,11 @@
+<ngb-accordion *ngIf="lexica" #acc="ngbAccordion" activeIds="source-detail">
+
+	<ngb-panel title="Lexicon Source Detail" id="source-detail">
+		<template ngbPanelContent>
+			<p><strong>Class Name:</strong> {{lexica[0].lexiconSource.className}}</p>
+			<p><strong>Species:</strong> {{lexica[0].lexiconSource.species.name}}</p> 
+			<p><strong>Source:</strong> {{lexica[0].lexiconSource.source | uppercase}}<p>
+			<p><strong>URL:</strong> {{lexica[0].lexiconSource.urlConstructor}}</p>
+		</template>
+	</ngb-panel>
+</ngb-accordion>

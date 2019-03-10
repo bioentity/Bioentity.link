@@ -1,0 +1,120 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo.grails.org/grails/core" }
+        maven { url "https://plugins.gradle.org/m2/" }
+
+    }
+    dependencies {
+        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        classpath "com.moowork.gradle:gradle-node-plugin:0.13"
+        classpath "org.grails.plugins:views-gradle:1.1.6"
+// if we add GSP pages
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.1"
+    }
+}
+
+version "0.1"
+group "dmc.angular"
+
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"war"
+apply plugin:"org.grails.grails-web"
+apply plugin:"com.moowork.node"
+apply plugin:"org.grails.plugins.views-json"
+// if we add GSP pages
+//apply plugin:"org.grails.grails-gsp"
+//apply plugin:"asset-pipeline"
+
+repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+	maven { url "https://dl.bintray.com/ajay-kumar/plugins" }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
+    compile "org.grails:grails-core"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    compile "org.grails:grails-plugin-url-mappings"
+    compile "org.grails:grails-plugin-rest"
+    compile "org.grails:grails-plugin-codecs"
+    compile "org.grails:grails-plugin-interceptors"
+    compile "org.grails:grails-plugin-services"
+    compile "org.grails:grails-plugin-datasource"
+    compile "org.grails:grails-plugin-databinding"
+    compile "org.grails:grails-plugin-async"
+    compile "org.grails:grails-web-boot"
+    compile "org.grails:grails-logging"
+    compile "org.grails.plugins:cache"
+//    compile "org.grails.plugins:hibernate5"
+//    compile "org.hibernate:hibernate-core:5.1.3.Final"
+//    compile "org.hibernate:hibernate-ehcache:5.1.3.Final"
+    compile "org.grails.plugins:views-json"
+    compile "org.grails.plugins:views-json-templates"
+    console "org.grails:grails-console"
+//    compile group: 'org.json', name: 'json', version: '20160810'
+//    profile "org.grails.profiles:react"
+    profile "org.grails.profiles:angular"
+//    runtime "com.h2database:h2"
+    testCompile "org.grails:grails-plugin-testing"
+    testCompile "org.grails.plugins:geb"
+    testCompile "org.grails:grails-datastore-rest-client"
+    testCompile "org.grails:grails-datastore-gorm-test:6.1.5"
+    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+//    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+//    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
+//    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
+
+
+
+    // database dependency
+    // NOTE: comment out if neo4j
+//    runtime 'org.postgresql:postgresql:9.4.1212'
+    compile 'org.grails.plugins:neo4j:6.1.5'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
+
+//    compile "org.grails:grails-events-compat:3.3.2"
+
+    testRuntime 'org.neo4j.test:neo4j-harness:3.2.2'
+
+    compile 'org.grails.plugins:quartz:2.0.13'
+    compile group: 'com.github.romix', name: 'java-concurrent-hash-trie-map', version: '0.2.23'
+
+	compile 'org.grails.plugins:swagger:1.0.0'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
+
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+
+
+
+//	compile 'org.grails.plugins:spring-security-core:3.1.2'
+//	compile 'org.grails.plugins:spring-security-oauth2:1.1.0'
+//    compile 'org.grails.plugins:spring-security-oauth2-github:1.0.2'
+
+//    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
+//    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+//    compile group: 'commons-net', name: 'commons-net', version: '3.6'
+//    compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
+
+
+
+    compile group: 'org.kohsuke', name: 'github-api', version: '1.92'
+    compile group: 'com.jcabi', name: 'jcabi-github', version: '0.36.1'
+
+    compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
+
+
+}
+
+bootRun {
+//    jvmArgs('-Dspring.output.ansi.enabled=always')
+    jvmArgs(['-Dspring.output.ansi.enabled=always','-Xmx2048m'])
+    addResources = true
+}

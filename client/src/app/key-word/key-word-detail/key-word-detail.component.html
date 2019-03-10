@@ -1,0 +1,22 @@
+<div *ngIf="selectedKWS">
+    <ngb-accordion #acc="ngbAccordion" activeIds="kws-detail">
+
+        <ngb-panel title="KeyWord Set Detail" id="kws-detail">
+            <template ngbPanelContent>
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">{{selectedKWS.name}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">KeyWord Count: {{selectedKWS.keyWordCount}}</h6>
+                        <ul>
+                            <li *ngFor="let source of selectedKWS.sources" class="card-text">
+                                <a [routerLink]="['/lexica',source.id]">
+                                    {{source.source}} {{source.className}} {{source.species.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>

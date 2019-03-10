@@ -1,0 +1,57 @@
+<div class="row">
+    <div [ngClass]="{'hidden-lg-up': !showLHS, 'col-4': showLHS}">
+        <publication-list (selectedPub)="selectPub($event)"></publication-list>
+    </div>
+    <div [ngClass]="{'col-5':showLHS && showRHS, 'col-8': (!showLHS && showRHS) || (showLHS && !showRHS), 'col-4': showBigRHS, 'col-12': !showLHS && !showRHS && !showBigRHS}">
+        <button class="btn btn-sm" role="button" (click)="toggleFSLeft()">
+            <i [ngClass]="{'fa-arrow-right':!showLHS,'fa-arrow-left':showLHS,'fa':true}" aria-hidden="true"></i>
+        </button>
+		<button class="btn btn-sm float-right" role="button" (click)="toggleFSRight()">
+            <i [ngClass]="{'fa-arrow-left':!showRHS,'fa-arrow-right':showRHS||showBigRHS,'fa':true}" aria-hidden="true"></i>
+        </button>
+
+        <publication-content *ngIf="pubLockedBy==null && selectedPub && selectedPub.githubLink" [defaultRole]="this.user ? this.user.defaultRole : null" [selectedPub]="selectedPub"></publication-content>
+    </div>
+    <div *ngIf="selectedPub && selectedPub.githubLink" [ngClass]="{'col-3': showRHS, 'col-7': showBigRHS, 'hidden-lg-up': !showRHS && !showBigRHS}">
+        <button class="btn btn-sm" role="button" (click)="toggleExpand()">
+            <i [ngClass]="{'fa-compress':isExpand,'fa-expand':!isExpand,'fa':true}" aria-hidden="true"></i>
+        </button>
+        <publication-detail *ngIf="pubLockedBy==null && selectedPub && selectedPub.githubLink" [selectedPub]="selectedPub" [fullscreen]="isFullscreen"
+                            [expand]="showBigRHS"></publication-detail>
+    </div>
+
+
+   <!--Other messages -->
+    <ng-template #processing let-c="close" let-d="dismiss">
+        <div class="modal-body">
+            <p>Integrating with <i class="fa fa-github"></i> Github <i class="fa fa-refresh fa-spin"></i></p>
+        </div>
+    </ng-template>
+
+    <!--Other messages -->
+    <ng-template #error let-c="close" let-d="dismiss">
+        <div class="modal-body">
+            <p><i class="fa fa-warning" style="color:orange;"></i>Unable to find publication '{{publicationString}}'!</p>
+        </div>
+    </ng-template>
+
+    <!--Locked message-->
+    <div *ngIf="pubLockedBy!=null && selectedPub && selectedPub.githubLink">
+        Pub locked by <a routerLink="/user/{{pubLockedBy}}">{{pubLockedBy}}</a>
+        <br/>
+        <a role='button' class="btn btn-outline-info" [href]="selectedPub.githubLink"> <i class="fa fa-external-link"></i> View in GitHub <i class="fa fa-github"></i></a>
+        <a href="#/publication/{{selectedPub.doi}}" (click)="exportPub()" title="Download"
+           class="btn-outline btn-secondary link-hover primary-download btn btn-sm fa fa-download">
+        </a>
+        <!--<div class="mr-2 outlineLinks">-->
+            <!--<a *ngIf="selectedPub.githubLink" href="{{selectedPub.githubLink}}"  title="Github"-->
+               <!--class="btn-outline btn-secondary link-hover btn btn-sm fa fa-github">-->
+            <!--</a>-->
+            <!--<a *ngIf="!selectedPub.githubLink" (click)="githubLink(selectedPub)"  title="Github"-->
+               <!--class="btn-outline btn-warning warning-download link-hover btn btn-sm fa fa-github">-->
+            <!--</a>-->
+        <!--</div>-->
+    </div>
+</div>
+
+

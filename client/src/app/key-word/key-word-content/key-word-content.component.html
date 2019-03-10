@@ -1,0 +1,77 @@
+<div *ngIf="keyWords">
+    <ngb-accordion activeIds="keywords" #acc="ngbAccordion">
+        <ngb-panel title="KeyWordSet" id="keywords">
+            <template ngbPanelContent>
+                <div class="form-group row">
+                    <input #keyWordSearch id="key-word-search" (keyup)="search(keyWordSearch.value)"
+                           class="form-control" placeholder="Search...">
+                </div>
+                <ngb-pagination [collectionSize]="keyWordSize" [(page)]="page" [pageSize]="pageSize" maxSize="7"
+                                rotate="true" ellipses="false" size="sm"
+                                (pageChange)="updateKeyWords()"></ngb-pagination>
+                <button *ngIf="keyWords[0]" (click)="downloadAll(selectedKWS.uuid)" class="fa fa-download">All</button>
+                <button *ngIf="keyWords[0]" (click)="downloadPrimary(selectedKWS.uuid)" class="fa fa-download">Primary
+                </button>
+                <button *ngIf="keyWords[0]" (click)="downloadSynonym(selectedKWS.uuid)" class="fa fa-download">
+                    Synonyms
+                </button>
+                <div class="input-group">
+                     <span class="input-group-addon">
+                         <input [checked]="filter=='All'" (click)="setFilter('All')" name="filter" type="radio"
+                                id="filterall" value="All">
+                         All
+                     </span>
+                    <span class="input-group-addon">
+                         <input [checked]="filter=='Linked'" (click)="setFilter('Linked')" name="filter" type="radio"
+                                id="filterlinked" value="Linked">
+                         Linked
+                     </span>
+                </div>
+                <div *ngIf="!keyWords[0]">
+                    Loading...
+                </div>
+                <div *ngFor="let keyWord of keyWords" class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">{{keyWord.value}}</h4>
+                        <div class="card-text">
+                            Lexicon
+                            <ul>
+                                <li *ngFor="let lexicon of keyWord.lexica" class="small sm-active">
+                                    {{lexicon.lexiconSource.species.name}}
+                                    {{lexicon.lexiconSource.className}}
+                                    <a target="_blank" href="{{lexicon.link}}">{{lexicon.lexiconSource.source}} <i
+                                            class="fa fa-external-link"></i></a>
+                                    <div style="display: inline;" *ngIf="lexicon.publicName!=keyWord.value"
+                                         class="text-warning">(Synonym)
+                                    </div>
+                                    <!--TODO: this should link directly to the source using the source URL-->
+                                </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="keyWord.markupCount>0" class="card-text">
+                            Links
+                            <ul>
+                                <li *ngFor="let markup of keyWord.markups" class="small sm-active">
+                                    <a class="" [routerLink]="['/publication',markup.publication.id]">
+                                        {{markup.publication.title}}
+                                    </a>
+                                    <a href="https://doi.org/{{markup.publication.doi}}" target="_blank"
+                                       class="fa fa-external-link">{{markup.publication.doi}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="keyWord.markupCount==0" class="card-text">
+                            <div *ngIf="filter!='All'">
+                                No Links
+                            </div>
+                            <button class="btn btn-sm btn-secondary" role="button" (click)="deleteKeyWord(keyWord.id)">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
+

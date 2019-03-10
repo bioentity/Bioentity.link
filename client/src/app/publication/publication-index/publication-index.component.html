@@ -1,0 +1,27 @@
+<div class="row">
+    <!--<button *ngIf="indices.length ==0" role="button" class="form-inline btn btn-primary btn-sm"-->
+
+    <button *ngIf="!creating && (!indices || indices.length == 0) " role="button" class="form-inline btn btn-primary btn-sm"
+            (click)="createPublicationIndex()">Create
+    </button>
+    <div *ngIf="creating">
+        Creating indices
+    </div>
+    <button *ngIf="indices.length > 0 " role="button" class="form-inline btn btn-primary btn-sm offset-1"
+            (click)="clearIndexPub()">Clear
+    </button>
+</div>
+<div *ngIf="indices && indices.length > 0 " class="row header" style="padding-top: 10px;">
+    <div class="col-5">
+        Links: {{indices.length}}
+    </div>
+    <div class="col-5">
+        <a href="#" (click)="downloadPubIndices(selectedPub)" title="Download" class="btn-outline btn-outline-info link-hover btn btn-sm fa fa-download"></a>
+    </div>
+</div>
+<hr/>
+<ul>
+    <li *ngFor="let index of indices">
+        {{index}}
+    </li>
+</ul>

@@ -1,0 +1,106 @@
+
+
+<div class="card card-block" *ngIf="!selectedUser" >
+    User Info
+</div>
+<div *ngIf="selectedUser">
+    <!--{{selectedUser}}-->
+    <ngb-accordion activeIds="user" #acc="ngbAccordion">
+
+        <ngb-panel title="{{selectedUser.firstName}} {{selectedUser.lastName}} ({{selectedUser.username}})" id="user">
+            <template ngbPanelContent>
+
+                <div class="card card-block">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Email
+                        </h4>
+                        <p class="card-text">
+                            {{selectedUser.email}}
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-block">
+                    <div class="card-body">
+                        <h4 class="card-title">Roles</h4>
+                    </div>
+                    <ul class="card-text" *ngIf="selectedUser!=null && selectedUser.roles">
+                        <li *ngFor="let role of selectedUser.roles">
+                            {{ findRole(role.id)?.name}}
+                        </li>
+                    </ul>
+                    <div *ngIf="selectedUser.roles==0" class="text-gray-dark">None</div>
+                </div>
+
+                <div class="card-block row">
+
+                    <button class="btn btn-sm btn-secondary" type="button" attr.aria-expanded="false"
+                            (click)="editUserToggle()">Edit
+                    </button>
+                </div>
+                <div class="row card form-group" *ngIf="this.showEditUser">
+                    <div class="card-block">
+                        <ngb-alert *ngIf="editError" type="warning">{{editAlert}}</ngb-alert>
+                        <div class="form-group row">
+                            <label for="username" class="col-4 col-form-label">GH Username</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="selectedUser.username">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-4 col-form-label">Email</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="selectedUser.email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="firstName" class="col-4 col-form-label">First Name</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="selectedUser.firstName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lastName" class="col-4 col-form-label">Last Name</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="selectedUser.lastName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lastName" class="col-4 col-form-label">Role</label>
+                            <div class="col-8">
+                                <select [(ngModel)]="selectedUser.defaultRole.id" class="form-control">
+                                    <option *ngFor="let role of roles" [ngValue]="role.id">
+                                        {{role.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" (click)="updateUser(selectedUser)">Save</button>
+                        <button class="btn btn-secondary" (click)="editUserEnd()">Cancel</button>
+                    </div>
+                </div>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
+
+<ng-template #deleteuser let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to inactivate user {{removeId}}?</p>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="confirmDelete(); c()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+    </div>
+</ng-template>

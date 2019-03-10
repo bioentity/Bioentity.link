@@ -1,0 +1,46 @@
+.grails-icon img {
+    height: 27px;
+    background-image: url("../../images/grails-cupsonly-logo-white.svg");
+}
+
+a {
+    color: #db4800;
+}
+
+#controllers a {
+    text-decoration: underline;
+}
+
+#controllers a:hover {
+    text-decoration: none;
+}
+
+.grails-logo-container {
+    background: #79b94c no-repeat 50% 30%;
+    margin-bottom: 20px;
+    color: white;
+    height: 300px;
+    text-align: center;
+}
+
+img.grails-logo {
+    height: 340px;
+    margin-top: -10px;
+}
+
+.navbar-custom {
+    font-color: white;
+    background-color: black;
+}
+
+#primary-nav {
+    backgroun-color: black;
+}
+
+.center-block {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

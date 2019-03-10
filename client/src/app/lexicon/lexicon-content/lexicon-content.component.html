@@ -1,0 +1,150 @@
+<div *ngIf="lexica">
+    <ngb-accordion activeIds="lexicon" #acc="ngbAccordion">
+        <ngb-panel title="Add Term to {{selectedSource.source}} {{selectedSource.className}} Lexicon" id="add-lex">
+            <template ngbPanelContent>
+                <ngb-alert *ngIf="newError" type="warning">{{newAlert}}</ngb-alert>
+
+                <div class="form-group row">
+                    <label for="public-name" class="col-4 col-form-label">Public Name</label>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="public-name" [(ngModel)]="newLexicon.publicName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="external-id" class="col-4 col-form-label">ID in Source DB</label>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="external-id" [(ngModel)]="newLexicon.externalModId">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="synonym" class="col-4 col-form-label">Synonym</label>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="synonym" [(ngModel)]="newLexicon.synonym">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="reason" class="col-4 col-form-label">Reason for adding</label>
+                    <div class="col-8">
+                        <select class="form-control" id="reason" [(ngModel)]="newLexicon.reasonForAdding">
+                            <option value="new object">New object, not available in the source lexicon version</option>
+                            <option value="missing">Missing from lexicon, unknown reason</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="comment" class="col-4 col-form-label">Comments</label>
+                    <div class="col-8">
+                        <textarea class="form-control" [(ngModel)]="newLexicon.curatorNotes"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="create(); newError=false">Save</button>
+                <button class="btn btn-secondary" (click)="acc.toggle('add-lex'); newError=false">Close</button>
+            </template>
+        </ngb-panel>
+
+        <ngb-panel title="{{selectedSource.source}} {{selectedSource.className}} Lexicon" id="lexicon">
+            <template ngbPanelContent>
+                <div class="form-group row">
+                    <input #lexiconSearch id="lex-search" (keyup)="search(lexiconSearch.value)" class="form-control"
+                           placeholder="Search...">
+                </div>
+                <ngb-pagination [(collectionSize)]="lexicaSize" [(page)]="page" [(pageSize)]="pageSize" maxSize="7"
+                                rotate="true" ellipses="false" size="sm"
+                                (pageChange)="updateLexica()"></ngb-pagination>
+                <div *ngFor="let lex of lexica" class="card" [style.background-color]="isActive(lex)">
+                    <div class="card-block">
+                        <h4 class="card-title">{{lex.publicName}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <a href="#/lexicon/public/{{lex.lexiconSource.prefix}}:{{lex.externalModId}}">
+                                {{lex.externalModId}}
+                            </a>
+                        </h6>
+                        <p class="card-text" style="color:gray;" *ngIf="lex.synonym && lex.synonym.trim().length>0">
+                            <span class="synonym-entry" *ngFor="let syn of lex.synonym | pipeFilter">
+                            {{syn}}
+                            </span>
+						
+                        </p>
+						<p class="card-text" *ngIf="lex.curatorNotes && lex.curatorNotes.trim().length>0">
+							 <span class="synonym-entry" *ngFor="let note of lex.curatorNotes | pipeFilter">
+                            {{note}}
+                            </span>
+
+						</p>
+                        <button class="btn btn-sm btn-secondary" role="button" attr.aria-expanded="false"
+                                attr.aria-controls="edit{{lex.id}}" (click)="editLex=lex; editError=false">Edit
+                        </button>
+                        <button class="btn btn-sm btn-secondary" role="button" (click)="open(deletelex, lex.id)">
+                            Delete
+                        </button>
+                    </div>
+                    <div id="edit{{lex.id}}" [ngbCollapse]="isCollapsed(lex.id)">
+                        <div class="card">
+                            <div class="card-block">
+                                <ngb-alert *ngIf="editError" type="warning">{{editAlert}}</ngb-alert>
+                                <div class="form-group row">
+                                    <label for="public-name" class="col-4 col-form-label">Public Name</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="public-name"
+                                               [(ngModel)]="editLex.publicName">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="external-id" class="col-4 col-form-label">ID in Source DB</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="external-id"
+                                               [(ngModel)]="editLex.externalModId">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="synonym" class="col-4 col-form-label">Synonym</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="synonym"
+                                               [(ngModel)]="editLex.synonym">
+                                    </div>
+                                </div>
+                                <!--                                <div class="form-group row">
+                                                                    <label for="isActive" class="col-4 col-form-label">Is active?</label>
+                                                                    <div class="col-8">
+                                                                        <select [(ngModel)]="editLex.isActive" class="form-control">
+                                                                            <option value="true">Yes</option>
+                                                                            <option value="false">No</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>-->
+                                <div class="form-group row">
+                                    <label for="comment" class="col-4 col-form-label">Comments</label>
+                                    <div class="col-8">
+                                        <textarea class="form-control" [(ngModel)]="editLex.curatorNotes"></textarea>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" (click)="updateLexicon()">Save</button>
+                                <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
+
+<ng-template #deletelex let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button role="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete lexicon {{removeId}}?</p>
+
+    </div>
+    <div class="modal-footer">
+        <button role="button" class="btn btn-danger" (click)="confirmDelete(); c()">Delete</button>
+        <button role="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+    </div>
+</ng-template>

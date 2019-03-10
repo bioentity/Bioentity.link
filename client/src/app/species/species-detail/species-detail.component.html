@@ -1,0 +1,11 @@
+<div *ngIf="selectedSpecies">
+	<ngb-accordion #acc="ngbAccordion" activeIds="species-detail">
+
+		<ngb-panel title="Species Detail" id="species-detail">
+			<template ngbPanelContent>
+				<p><strong>Name:</strong> {{selectedSpecies.name}}</p>
+				<p><strong>Taxon ID:</strong> {{selectedSpecies.taxonId}}</p> 
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
+</div>

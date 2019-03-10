@@ -1,0 +1,150 @@
+<!--<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>-->
+
+
+<div *ngIf="keyWords" class="row">
+    <div class="col-md-4 font-weight-bold">
+        Terms: {{linkedWords?.length}}
+        Links: {{countLinks()}}
+    </div>
+    <div class="col-md-8">
+        <div class="pull-right">
+            <button role="button" data-toggle="tooltip" class="mb-1 p-1 collapse-expand btn btn-sm btn-default"
+                    (click)="openAll()"><i class="fa fa-expand"></i></button>
+            <button role="button" data-toggle="tooltip" class="mb-1 p-1 collapse-expand btn btn-sm btn-default"
+                    (click)="closeAll()"><i class="fa fa-compress"></i></button>
+        </div>
+    </div>
+</div>
+<ngb-accordion id="linkDetailsPanelId" #linkAccordion="ngbAccordion">
+    <ngb-panel *ngFor="let keyWord of linkedWords" id="{{keyWord.value}}">
+        <template ngbPanelTitle>
+            <div class="row" width="100%" *ngIf="expand">
+                <div class="col-2">
+                    <i *ngIf="requiresAction(keyWord)" class="fa fa-warning warning" style="color:orange;"></i>
+                    <i *ngIf="!requiresAction(keyWord)" class="fa fa-check" style="color:green;"></i>
+                    {{keyWord.value}}
+                </div>
+                <div class="col-8 wrapLinks">
+                    <!--<div *ngFor="let link of getLinks(keyWord)" class="outlineLinks">-->
+                    <div *ngFor="let lexicon of keyWord.lexica" class="outlineLinks">
+                        <a class="small" href="{{lexicon.link}}" target="_blank">
+                            {{lexicon.publicName}}
+                            ({{lexicon.externalModId}})
+                        </a>
+                    </div>
+                    <!--<a *ngFor="let link of getLinks(keyWord)" class="small wrapLinks outlineLinks" href="{{link}}"-->
+                    <!--target="_blank">{{link}}</a>-->
+                </div>
+                <div class="small col-2">
+                    <div class="pull-right">
+                        {{keyWord.markups?.length}}
+                        {{getClasses(keyWord)}}
+                        <a title="Remove Word" class="btn p-1 btn-sm btn-danger fa fa-remove pointer" role="button" href="#"
+                           (click)="removeKeyWord(keyWord)"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="!expand">
+                <div class="col-1">
+                    <i *ngIf="requiresAction(keyWord)" class="fa fa-warning warning" style="color:orange;"></i>
+                    <i *ngIf="!requiresAction(keyWord)" class="fa fa-check" style="color:green;"></i>
+                </div>
+                <div class="col-2">
+                    <button href="" (click)="highlightEntity(keyWord.markups)" class="btn-sm btn  btn-info"
+                            role="button">
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </button>
+
+                </div>
+                <div class="col-4">
+                    {{keyWord.value}}
+                </div>
+                <div class="small col-1">
+                    {{keyWord.markups?.length}}
+                </div>
+
+
+                <div class="small col-2">
+                    {{getClasses(keyWord)}}
+                </div>
+                <div class="col-1">
+                    <button title="Remove Word" class="btn btn-sm btn-danger fa fa-remove button-pointer" href="#"
+                       (click)="removeKeyWord(keyWord)"></button>
+                </div>
+            </div>
+        </template>
+        <template ngbPanelContent>
+            <table>
+                <tr>
+                    <td colspan="3" class="wrapLinks" *ngIf="keyWord.lexica">
+                        <div *ngFor="let lex of keyWord.lexica" class="outlineLinks">
+                            Internal:
+                            <a class="small" href="/#/lexicon/public/{{lex.lexiconSource.prefix}}:{{lex.externalModId}}?doi={{selectedPub.doi}}"
+                               target="_blank">
+                                {{lex.publicName}} ({{lex.externalModId}})
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="wrapLinks" *ngIf="keyWord.lexica">
+                        <div *ngFor="let lex of keyWord.lexica" class="outlineLinks">
+                            Published:
+                            <a class="small" href="http://identifiers.org/bioentitylink/{{lex.lexiconSource.prefix}}:{{lex.externalModId}}?doi={{selectedPub.doi}}"
+                               target="_blank">
+                                {{lex.publicName}} ({{lex.externalModId}})
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr *ngIf="getSameLexicon(keyWord)">
+                    <td width="100%">
+                        <a class="sc-ext-link" href="{{getLink(keyWord)}}">{{keyWord}}</a>
+                    </td>
+                </tr>
+                <tr *ngFor="let markup of keyWord.markups" style="list-style-type: none; margin: 0;">
+                    <td width="30%">
+                        <button href="#" (click)="navigateTo(markup)" class="btn-sm btn  btn-info" role="button">
+                            <i class="fa fa-arrow-circle-left"></i>
+                        </button>
+                        <button href="#" (click)="open(markup)" class="btn-sm btn  btn-info" role="button">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+
+                    </td>
+                    <td width="50%">
+                        <div *ngIf="keyWord.lexica.length > 1">
+                            <select class="form-control-sm {{markup.finalLexicon == null ? 'btn-warning' :''}}"
+                                    [(ngModel)]="markup.finalLexicon"
+                                    (ngModelChange)="selectFinalLexicon($event,markup)">
+                                <option *ngFor="let lexicon of keyWord.lexica" [ngValue]="lexicon"
+                                        selected="{{lexicon.id == markup.finalLexicon.id}}">
+                                    {{lexicon.publicName == markup.keyWord.value ? '' : lexicon.publicName}}
+                                    {{lexicon.lexiconSource.source}}
+                                    {{lexicon.lexiconSource.className}}
+                                </option>
+                            </select>
+                            <div *ngIf="markup.finalLexicon">
+                                <a target="_blank" class="fa fa-external-link"
+                                   href="/#/lexicon/public/{{markup.finalLexicon.lexiconSource.prefix}}:{{markup.finalLexicon.externalModId}}?doi={{selectedPub.doi}}">
+                                    {{markup.finalLexicon.lexiconSource.source}}{{markup.finalLexicon.publicName ==
+                                    markup.keyWord.value ? '' : '('+markup.finalLexicon.publicName +')'}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="keyWord.lexica.length == 1">
+                            <a target="_blank" class="fa fa-external-link"
+                               href="/#/lexicon/public/{{keyWord.lexica[0].lexiconSource.prefix}}:{{keyWord.lexica[0].externalModId}}?doi={{selectedPub.doi}}">{{keyWord.lexica[0].lexiconSource.source}}</a>
+                        </div>
+                    </td>
+                    <td width="20%">
+                        <button class="btn btn-sm btn-danger button-pointer" (click)="deleteMarkup(markup)" href="#">&times;</button>
+                    </td>
+                </tr>
+            </table>
+        </template>
+    </ngb-panel>
+</ngb-accordion>
+

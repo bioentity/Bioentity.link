@@ -1,0 +1,9 @@
+logs
+*.log
+dist
+node_modules
+.lock-wscript
+.test
+.npm
+.idea
+*.iml

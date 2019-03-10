@@ -1,0 +1,8 @@
+import com.insilico.dmc.publication.Publication
+
+model {
+    Publication publication
+}
+json{
+    xml publication.originalData.value
+}

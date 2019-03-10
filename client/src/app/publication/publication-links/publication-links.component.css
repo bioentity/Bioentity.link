@@ -1,0 +1,13 @@
+.wrapLinks{
+    word-break: break-all;
+    /*word-break: break-word;*/
+}
+
+.outlineLinks{
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+

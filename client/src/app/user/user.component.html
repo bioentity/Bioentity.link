@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-3">
+        <user-list (selectedUser)="selectUser($event)"></user-list>
+    </div>
+    <div class="col-md-5">
+        <user-content [selectedUser]="selectedUser"></user-content>
+    </div>
+    <div class="col-md-4">
+        <user-detail [selectedUser]="selectedUser"></user-detail>
+    </div>
+</div>
+
+

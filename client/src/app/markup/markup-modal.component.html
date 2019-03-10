@@ -1,0 +1,102 @@
+<div class="modal-header">
+    <h4 class="modal-title">Link Details</h4>
+    <button role="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div *ngIf="markup">
+        <p class="card-text">Linked word: {{markup.keyWord.value}}</p>
+        <p *ngIf="markup.finalLexicon" class="card-text">Lexicon Source:
+            {{markup.finalLexicon.lexiconSource.source}}</p>
+        <p *ngIf="markup.finalLexicon" class="card-text">Lexicon Class:
+            {{markup.finalLexicon.lexiconSource.className}}</p>
+        <p *ngIf="markup.finalLexicon" class="card-text">ID in Source DB: {{markup.finalLexicon.externalModId}}</p>
+        <p *ngIf="markup.finalLexicon">Internal Link:
+            <a class="small"
+               href="/#/lexicon/public/{{markup.finalLexicon.lexiconSource.prefix}}:{{markup.finalLexicon.externalModId}}?doi={{doi}}"
+               target="_blank">
+                {{markup.finalLexicon.publicName}} ({{markup.finalLexicon.externalModId}})
+                <!--<a class="card-link" href="{{markup.finalLexicon.link}}" target="_blank">{{markup.finalLexicon.link}}</a>-->
+            </a>
+        </p>
+        <p *ngIf="markup.finalLexicon">External Link:
+            <a class="small"
+               href="http://identifiers.org/bioentitylink/{{markup.finalLexicon.lexiconSource.prefix}}:{{markup.finalLexicon.externalModId}}?doi={{doi}}"
+               target="_blank">
+                {{markup.finalLexicon.publicName}} ({{markup.finalLexicon.externalModId}})
+                <!--<a class="card-link" href="{{markup.finalLexicon.link}}" target="_blank">{{markup.finalLexicon.link}}</a>-->
+            </a>
+        </p>
+
+
+        <!--  <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = false"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" *ngIf="markup.keyWordSet?.id">
+            Create Lexicon
+          </button>
+          <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = false"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" *ngIf="!markup.keyWordSet">
+            Edit Lexicon
+          </button>-->
+
+        <button *ngIf="markup.finalLexicon" role="button" class="btn btn-outline-primary" (click)="deleteLink()">Delete Link</button>
+        <button *ngIf="markup.finalLexicon" role="button" class="btn btn-outline-primary" (click)="deleteAllLinks()">Delete All Links</button>
+
+        <div id="collapseExample" [ngbCollapse]="isCollapsed">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="form-group row">
+                            <label for="reason" class="col-4 col-form-label">Reason For Adding</label>
+                            <div class="col-8">
+                                <select class="form-control" id="reason" [(ngModel)]="reason">
+                                    <option value="new object">New object, not available in the source lexicon version
+                                    </option>
+                                    <option value="missing">Missing from lexicon, unknown reason</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lexiconSource" class="col-4 col-form-label">Lexicon</label>
+                            <div class="col-8">
+                                <select class="form-control" id="lexiconSource" [(ngModel)]="selectedSource">
+                                    <option *ngFor="let source of lexiconSources" [ngValue]="source">{{source.source}}
+                                        {{source.className}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="modId" class="col-4 col-form-label">ID in Source DB</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="modId" [(ngModel)]="externalModId">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="comments" class="col-4 col-form-label">Curator Comments</label>
+                            <div class="col-8">
+                                <textarea class="form-control" id="comments" [(ngModel)]="curatorComments"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-2 col-10">
+                                <button role="button" class="btn btn-outline-primary" (click)="saveLexicon(false)">Link
+                                    Once
+                                </button>
+                                <button role="button" class="btn btn-outline-primary" (click)="saveLexicon(true)">Link
+                                    All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button role="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+</div>
+

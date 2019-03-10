@@ -1,0 +1,48 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="lexicon-search, lexicon-sources">
+    <ngb-panel title="Lexicon Search" id="lexicon-search">
+        <template ngbPanelContent>
+
+			<div class="form-group row">
+                <label for="source" class="col-4 col-form-label">Search</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" [(ngModel)]="search">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="class-name" class="col-4 col-form-label">Class Name</label>
+                <div class="col-8">
+                    <select class="form-control" [(ngModel)]="selectedClass">
+                        <option *ngFor="let s of classNames" [ngValue]="s">{{s}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="species" class="col-4 col-form-label">Species</label>
+                <div class="col-8">
+                    <select class="form-control" [(ngModel)]="selectedSpecies">
+                        <option *ngFor="let s of species" [ngValue]="s">{{s.name}}</option>
+                    </select>
+                </div>
+            </div>
+			<div class="input-button-group row">
+				<div class="col-4"></div>
+				<div class="col-8">
+					<button class="btn btn-primary" (click)="searchLexica()">Search</button>
+				</div>
+			</div>
+		</template>
+	</ngb-panel>
+	<ngb-panel title="Lexicon Sources" id="lexicon-sources">
+		<template ngbPanelContent>
+			 <ul *ngIf="sources" class="list-group">
+                <li *ngFor="let source of sources"
+                    class="list-group-item list-group-item-action justify-content-between">
+                    <a href="#" (click)="select(source)">
+                		{{source}} ({{lexicaBySource[source].length}})
+                    </a>
+                </li>
+            </ul>
+		</template>
+	</ngb-panel>
+</ngb-accordion>
+

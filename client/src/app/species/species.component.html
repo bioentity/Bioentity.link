@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="col-md-3">
+		<species-list (selectedSpecies)="selectSpecies($event)"></species-list>
+	</div>
+	<div class="col-md-5">
+		<species-content [selectedSpecies]="selectedSpecies"></species-content>
+	</div>
+	<div class="col-md-4">
+		<species-detail [selectedSpecies]="selectedSpecies"></species-detail>
+	</div>
+</div>
+

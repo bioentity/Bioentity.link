@@ -1,0 +1,108 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="pub_list">
+    <ngb-panel *ngIf="isAdmin" title="Add New Publication" id="add_pub">
+        <template ngbPanelContent>
+            <form #createPub="ngForm">
+                <div class="form-group">
+                    <label for="xmlFile">XML File</label>
+                    <input type="file" class="form-control-file" id="xmlFile" accept=".xml"
+                           name="xmlFile" (change)="fileChangeEvent($event)">
+                </div>
+            </form>
+            OR
+            <div class="form-group">
+                <label for="batchUpload">Directory for batch upload</label>
+                <input type="file" class="form-control-file" id="batchUpload" (change)="getFiles($event)"
+                       webkitdirectory directory>
+            </div>
+
+            <button role="button" class="btn btn-primary" (click)="create(); acc.toggle('add_pub')">Save</button>
+            <button role="button" class="btn btn-secondary" (click)="acc.toggle('add_pub')">Cancel</button>
+
+        </template>
+    </ngb-panel>
+    <ngb-panel title="Publication List" id="pub_list">
+        <template ngbPanelContent>
+            <div class="form-group">
+                <input #pubSearch id="pub-search" (keyup)="search(pubSearch.value)" class="form-control" [ngModel]="searchTerm"
+                       placeholder="Search..."/>
+            </div>
+            <div class="form-group row">
+                <label for="select-status" class="col-3 col-form-label">Status</label>
+                <div class="col-9">
+                    <select class="form-control" (ngModelChange)="filterByStatus($event);" [(ngModel)]="selectedStatus">
+                        <option [ngValue]=""></option>
+                        <option [ngValue]="'OneCuratorStarted'">One Curator Started</option>
+                        <option [ngValue]="'OneCuratorFinished'">One Curator Finished</option>
+                        <option *ngFor="let status of pubLevels" [ngValue]="status">{{status | titlecase | replaceAll:
+                            '_': ' '}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="select-species" class="col-3 col-form-label">Species</label>
+                <div class="col-9">
+                    <select class="form-control" (ngModelChange)="filterBySpecies($event);" [(ngModel)]="selectedSpecies">
+                        <option [ngValue]=""></option>
+                        <option *ngFor="let species of speciesList" [ngValue]="species.name">{{species.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <ngb-pagination [(collectionSize)]="publicationsSize" [(page)]="page" [(pageSize)]="pageSize" [maxSize]="4"
+                            [rotate]="true" [ellipses]="false" (pageChange)="updatePubs()"></ngb-pagination>
+            <ul class="list-group">
+                <li *ngFor="let pub of publications"
+                    class="list-group-item list-group-item-action justify-content-between" [style.background-color]="isActivePub(pub)">
+                    <div class="row col-12" style="padding: 0; margin: 0;">
+                        <a *ngIf="pub.title" href="#" [routerLink]="['/publication/',pub.doi]"  class="small col-8"
+                           style="padding-left: 0">
+                            {{pub.title | substr: 0:30 }}...
+                        </a>
+                        <div [style.background-color]="getColorByCompletion(pub.status)" class="statusInfo">{{ pub.status | status | icon: 3 }}</div>
+                        <a class="btn btn-sm btn-danger" href="#" role="button" style="margin-left: 8px; width:30px;height:30px;"
+                           (click)="removeConfirm(pub.doi);">&times;</a>
+                    </div>
+                    <div class="row">
+						<div class="col-9">
+                        <!--<a *ngIf="pub.doi" href="#" (click)="select(pub)" class="small btn-outline-info btn btn-sm">-->
+                            <a *ngIf="pub.doi" href="#" [routerLink]="['/publication',pub.id]" class="small btn-outline-info btn btn-sm">
+                            {{pub.doi}}
+                        </a>
+                        <!--only show if doi not present-->
+                        <a class="offset-1 small" *ngIf="!pub.doi" href="#" (click)="select(pub)">
+                            {{pub.fileName}}
+                        </a>
+						</div>
+						<div class="col-3">
+							<a href="#" *ngFor="let s of pub.species" class="btn btn-info btn-sm">{{s}}</a>
+						</div>
+                    </div>
+                </li>
+            </ul>
+
+        </template>
+
+    </ngb-panel>
+</ngb-accordion>
+
+
+<ng-template #deletepub let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button role="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete publication {{removeId}}?</p>
+
+    </div>
+    <div class="modal-footer">
+        <button role="button" class="btn btn-danger" (click)="remove(removeId); c()">Delete</button>
+        <button role="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+    </div>
+</ng-template>
+

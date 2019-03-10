@@ -1,0 +1,52 @@
+
+<div class="card">
+  <div class="card-header">
+    Assigned
+  </div>
+  <div class="card-body">
+    <ul>
+      <li *ngFor="let pub of assignedPubs">
+        <a class="small" [routerLink]="['/publication',pub.doi]">
+          {{pub.title}}
+        </a>
+        <button type="button" class="btn-danger btn btn-sm" (click)="unassignUser(pub)">Unassign</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+       Actively Curating
+  </div>
+  <div class="card-body">
+    <ul>
+      <li *ngFor="let pub of this.activePubs">
+        <a class="small" [routerLink]="['/publication',pub.doi]">
+        {{pub.title}}
+        </a>
+        <!--<button type="button" class="btn-danger btn btn-sm" (click)="finishPub(pub)">Finished</button>-->
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Finished Curating
+  </div>
+  <div class="card-body">
+    <ul>
+      <li *ngFor="let pub of this.finishedPubs">
+        <a class="small" [routerLink]="['/publication',pub.doi]">
+        {{pub.title}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<p>-->
+  <!--List of created lexica here-->
+<!--</p>-->

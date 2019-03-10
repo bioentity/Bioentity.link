@@ -1,0 +1,11 @@
+.sc-italic {
+  font-style: italic;
+}
+
+.sc-paragraph .sc-italic {
+  color: lightcoral;
+}
+
+.sc-ext-link .sc-italic {
+  color: #007bff;
+}

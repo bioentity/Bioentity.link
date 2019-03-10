@@ -1,0 +1,264 @@
+<div *ngIf="!alive">
+    <div class="jumbotron">
+        Server is down for maintenance.
+    </div>
+</div>
+
+
+<div *ngIf="alive">
+    <div *ngIf="!authenticationService.isAuthenticated()">
+        <div class="alert alert-info">
+            Our system goes down periodically for maintenance.
+        </div>
+
+        <div class="jumbotron">
+            <h1 class="bioentitylink-header">BioEntity.Link</h1>
+            <p class="lead">
+                <span class="bioentitylink-header">Bioentity.Link</span> embeds hyperlinks from biological terms in
+                science articles to authoritative
+                community-focused curated databases.
+            </p>
+            <hr class="my-4">
+            <!--<p class="lead">-->
+            <!--Sign In to use the Bioentity.Link-->
+            <!--</p>-->
+            <!--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
+            <form class="form-inline justify-content-center">
+                <button class="col-md-2 col-md-offset-5 btn btn-primary btn-lg"
+                        role="button"
+                        (click)="authenticationService.login()">
+                    <i class="fa fa-sign-in"></i>
+                    Log In
+                </button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">
+                History
+            </h5>
+            <div class="card-block">
+                <div class="card-body">
+                    <p class="card-text">
+                        This project started in 2009 as a collaboration with the <a href="http://www.genetics-gsa.org/">Genetics
+                        Society of America (GSA)</a>, embedding
+                        hyperlinks for bioentities reported in <a href="http://www.genetics.org/">Genetics</a>, and then
+                        <a href="http://www.g3journal.org/">G3</a> articles, to the Model Organism Databases:
+                        <a href="https://www.wormbase.org/">WormBase</a>, <a href="http://flybase.org/">Flybase</a>, and
+                        the <a href="https://www.yeastgenome.org/">Saccharomyces Genome Database</a>.
+                        <span class="bioentitylink-header">Bioentity.Link</span> is a new and improved linking pipeline.
+                        We are expanding to link more bioentities in a single paper and to collaborate with more
+                        curated databases and more journals.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">
+                Why
+            </h5>
+            <div class="card-block">
+                <div class="card-body">
+                    <p class="card-text">
+                        Unlike many linking efforts, <span class="bioentitylink-header">Bioentity.Link</span> URIs are
+                        embedded as the article is being processed for
+                        publication, so newly reported bioentities discovered during linking may receive a link to a
+                        database
+                        page that does not exist at the time of linking but will in future database releases. In
+                        addition, all
+                        <span class="bioentitylink-header">Bioentity.Link</span> hyperlinks go through a quality check
+                        by a curator at each partnering database. This QC
+                        step basically serves as a biological copy-editing service since it is performed by domain
+                        experts who
+                        ensure that the entity is reported correctly by the author, adhering to community nomenclature
+                        standards and that the correct link is applied.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">
+                The Linker
+            </h5>
+            <div class="card-block">
+                <div class="card-body">
+                    <p class="card-text">
+                        Unlike many linking efforts, <span class="bioentitylink-header">Bioentity.Link</span> URIs are
+                        embedded as the article is being processed for
+                        publication, so newly reported bioentities discovered during linking may receive a link to a
+                        database
+                        page that does not exist at the time of linking but will in future database releases. In
+                        addition, all
+                        <span class="bioentitylink-header">Bioentity.Link</span> hyperlinks go through a quality check
+                        by a curator at each partnering database. This QC
+                        step basically serves as a biological copy-editing service since it is performed by domain
+                        experts who
+                        ensure that the entity is reported correctly by the author thus adhering to community
+                        nomenclature
+                        standards and ensuring that the correct link is applied.
+                    </p>
+                    <p class="card-text">
+                        Our new and improved link editor and behind the scenes communication portal is built on the open
+                        source
+                        <a href="http://substance.io/texture/">Texture framework</a>, an authoring and manuscript
+                        processing application
+                        developed by Michael Aufreiter and Olivier Spéciel as an <a href="https://elifesciences.org/">eLife-supported</a>
+                        effort.
+                        Development of Texture continues as part of the <a href="http://substance.io/">Substance.io
+                        Consortium</a>.
+                    </p>
+                    <h3>
+                        <img class="center-block" height="200px" src="../../images/LinkedPaper3.png"/>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">
+                Current collaborators
+            </h5>
+            <div class="card-block">
+                <div class="card-body">
+                    <p class="card-text">
+                        Visit hyperlinked papers in Genetics Society of America journals <a
+                            href="http://www.genetics.org/content/209/1" class="card-link">GENETICS</a> and <a
+                            href="http://www.g3journal.org/content/8/5" class="card-link">G3: Genes | Genomes |
+                        Genetics</a> to see what the initial project has been doing.
+                        We hope to have our new and improved pipeline in production by the end of the year.
+                    </p>
+                    <h3>
+                        <img class="center-block" height="300px" src="../../images/GeneticsLinked.png"/>
+                    </h3>
+                    <p class="card-text" style="font-size: smaller;font-family: 'DejaVu Sans Mono', monospace;">
+                        Quick links:
+                        <a href="https://doi.org/10.1534/genetics.116.195040" class="card-link">Tsialikas et al., 2017:
+                            doi.org/10.1534/genetics.116.195040</a>
+                        <a href="https://doi.org/10.1534/g3.116.035998" class="card-link">Yang and Rosenwald, 2017:
+                            doi.org/10.1534/g3.116.035998</a>
+                        <a href="https://doi.org/10.1534/g3.116.037333" class="card-link">Christesen et al., 2017:
+                            doi.org/10.1534/g3.116.037333</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="authenticationService.isAuthenticated()" class="row"
+         style="border-top: solid; border-bottom: solid; background-color: bisque">
+        <img src="images/InSilicoLogo.jpg" style="margin-left: 15px;" width="50" height="50">
+        <div>
+        </div>
+        <div *ngIf="!authenticationService.isAuthenticated()" class="offset-8 row">
+            <button class="btn btn-link btn-margin pull-right" style="cursor: pointer;"
+                    (click)="authenticationService.login()">
+                <i class="fa fa-sign-out"></i>
+                Log In
+            </button>
+        </div>
+
+
+        <div *ngIf="authenticationService.isAuthenticated() && profile" class="col-md-7 row">
+            <div class="col-md-1">
+                <img height="50" src="{{profile?.picture}}" class="avatar" alt="avatar">
+            </div>
+
+            <a routerLink="/user/{{profile?.nickname}}" class="col-md-6">
+                {{ profile?.name }} ({{ profile?.nickname }})
+                <!--<br>-->
+                <!-- {{profile.sub.split("|")[0] }} -->
+                <div *ngIf="authenticatedUser" class="badge badge-default">
+                    {{authenticatedUser.defaultRole.name}}
+                </div>
+                <div *ngIf="!authenticatedUser" class="badge badge-danger">
+                    No GH User Found
+                </div>
+            </a>
+
+        </div>
+
+        <div *ngIf="authenticationService.isAuthenticated()" class="col-md-2 row pull-right">
+            <button class="btn btn-link btn-margin link-hover pull-right" style="cursor: pointer"
+                    (click)="authenticationService.logout()">
+                <i class="fa fa-sign-out"></i>
+                Log Out
+            </button>
+        </div>
+    </div>
+
+
+    <div *ngIf="authenticationService.isAuthenticated()" class="container-fluid">
+        <div class="navbar">
+            <ngb-tabset type="tabs" [activeId]="lastTabString" (tabChange)="tabChange($event)">
+                <ngb-tab
+                        *ngIf="hasAuthenticatedUserRole(
+                    [
+                    RoleEnum.ADMIN
+                    ,RoleEnum.INSILICO_CURATOR
+                    ,RoleEnum.MOD_CURATOR
+                    ,RoleEnum.PUBLISHER_PAID
+                    ,RoleEnum.PUBLISHER_UNPAID
+                    ])"
+                        title="Publication" id="publicationTabId">
+                    <template ngbTabContent>
+                        <publication #pubComponent (pubEmitter)="selectPub($event)"
+                                     [selectedPub]="selectedPub" [user]="authenticatedUser"></publication>
+                    </template>
+                </ngb-tab>
+                <ngb-tab
+                        *ngIf="hasAuthenticatedUserRole(
+                    [
+                    RoleEnum.ADMIN
+                    ,RoleEnum.INSILICO_CURATOR
+                    ,RoleEnum.MOD_CURATOR
+                    ])"
+                        title="KeyWord"
+                        id="keywordTabId">
+                    <template ngbTabContent>
+                        <key-word></key-word>
+                    </template>
+                </ngb-tab>
+                <ngb-tab
+                        *ngIf="hasAuthenticatedUserRole(
+                    [
+                    RoleEnum.ADMIN
+                    ,RoleEnum.INSILICO_CURATOR
+                    ])"
+                        title="Lexica"
+                        id="lexicaTabId">
+                    <template ngbTabContent>
+                        <lexicon></lexicon>
+                    </template>
+                </ngb-tab>
+                <ngb-tab *ngIf="hasAuthenticatedUserRole([RoleEnum.ADMIN])"
+                         title="Search" id="searchTabId">
+                    <template ngbTabContent>
+                        <search></search>
+                    </template>
+                </ngb-tab>
+                <ngb-tab *ngIf="hasAuthenticatedUserRole([RoleEnum.ADMIN])"
+                         title="Species" id="speciesTabId">
+                    <template ngbTabContent>
+                        <species></species>
+                    </template>
+                </ngb-tab>
+                <ngb-tab *ngIf="hasAuthenticatedUserRole([RoleEnum.ADMIN])"
+                         title="Admin" id="adminTabId">
+                    <template ngbTabContent>
+                        <admin></admin>
+                    </template>
+                </ngb-tab>
+                <ngb-tab *ngIf="hasAuthenticatedUserRole([RoleEnum.ADMIN])"
+                         title="Users" id="userTabId">
+                    <template ngbTabContent>
+                        <user></user>
+                    </template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+

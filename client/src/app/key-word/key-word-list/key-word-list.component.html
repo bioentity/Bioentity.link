@@ -1,0 +1,94 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="keyword-list">
+    <ngb-panel title="Add KeyWordSet" id="add-keyword">
+        <template ngbPanelContent>
+            <div class="form-group row">
+                <label for="species" class="col-12 col-form-label">Filter Sources by Species</label>
+               	<div class="col-11"> 
+                    <select class="form-control" (ngModelChange)="filterBySpecies($event)"
+                            [(ngModel)]="selectedSpecies">
+                        <option *ngFor="let s of species" [ngValue]="s">{{s.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lexicon-type" class="col-12 col-form-label">Filter Sources by Lexicon Type</label>
+                <div class="col-11">
+                    <select class="form-control" (ngModelChange)="filterByType($event)" [(ngModel)]="selectedType">
+                        <option *ngFor="let type of lexiconTypes" [ngValue]="type">{{type}}</option>
+                    </select>
+                </div>
+            </div>
+			<div class="form-group row">        
+			    <label for="source" class="col-12 col-form-label">Select source(s)</label>
+            	<div class="col-11">
+                	<select id="lexicon-sources-id" multiple class="form-control" size="8" [(ngModel)]="selectedSources">
+                    	<option *ngFor="let source of lexiconSources" value="{{source.id}}">
+	                        {{source.source}}
+    	                    {{source.className}}
+                            ({{source.lexicaCount}})
+        	            </option>
+            	    </select>
+            	</div>
+			</div>
+			<div class="form-group row">
+					<label for="kws-name" class="col-12 col-form-label">KeyWord Set Name</label>
+					<div class="col-11">
+						<input class="form-control" [(ngModel)]="kwsName">
+					</div>
+			</div>
+            <div class="form-group row">
+                <br/>
+                <div class="col-6">
+                    <button class="btn btn-primary" (click)="createKeyWordSet(); acc.toggle('add-keyword')">Generate</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-secondary" (click)="kwsFormClear(); acc.toggle('add-keyword')">Clear</button>
+                </div>
+            </div>
+        </template>
+    </ngb-panel>
+
+
+    <ngb-panel title="KeyWordSet List" id="keyword-list">
+        <template ngbPanelContent>
+			<ngb-alert *ngIf="sourceAlert" type="warning" (close)="closeAlert()">{{alertMessage}}</ngb-alert>
+
+            <ul class="list-group">
+                <li *ngFor="let set of keyWordSets"
+                    class="list-group-item list-group-item-action justify-content-between">
+                    <div class="badge badge-pill badge-default">
+                        {{set.keyWordCount}}
+                    </div>
+                    <div class="col-md-5 small">
+                        <a href="#/keyWord/{{set.uuid}}"  >{{set.name}}</a>
+                            <div *ngFor="let source of set.sources">
+                                {{source.source}} {{source.className}}
+                                <div *ngIf="source.species">{{source.species.name}}</div>
+                            </div>
+                    </div>
+                    <!--TODO: replace with the other one after we get this working-->
+                    <!--<a class="btn btn-sm btn-danger" href="#" role="button" (click)="open(deletesource, set.id)">&times;</a>-->
+                    <a class="btn btn-sm btn-danger" href="#" role="button" (click)="doDelete(set.id)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </li>
+            </ul>
+        </template>
+    </ngb-panel>
+</ngb-accordion>
+
+<ng-template #deletesource let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button role="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete Lexicon Source {{removeId}}?</p>
+
+    </div>
+    <div class="modal-footer">
+        <button role="button" class="btn btn-danger" (click)="confirmDelete(); c()">Delete</button>
+        <button role="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+    </div>
+</ng-template>
+
