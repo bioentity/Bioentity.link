@@ -9,6 +9,6 @@ class EnvironmentUtil {
     }
 
     static String getPassword(){
-        Environment.current == Environment.PRODUCTION  ? "LAT8gjThKJ26TR" : "LAT8gjThKJ26TR"
+        Environment.current == Environment.PRODUCTION  ? "ctmtckYhQ2Xy9MQn" : "LAT8gjThKJ26TR"
     }
 }
