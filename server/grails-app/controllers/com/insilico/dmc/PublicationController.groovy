@@ -879,6 +879,7 @@ class PublicationController extends RestfulController<Publication> {
             curationActivity.save(flush: true, failOnError:true)
             curationActivity.uuid = inputUUID
             curationActivity.save(flush: true, failOnError:true)
+            user.addToCurators(curationActivity)
             curationActivity.user = user
             curationActivity.save(flush: true, failOnError:true)
         } else {
