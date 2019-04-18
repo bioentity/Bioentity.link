@@ -147,6 +147,32 @@ class PublicationServiceSpec extends Specification {
         assert  words.contains("vab-2")
     }
 
+    void "fix suffix"(){
+        given: "various xml suffixes"
+        String suffix1 = "aFileName"
+        String suffix2 = "aFileName.xml"
+        String suffix3 = "aFileName.XML"
+        String result
+
+        when: "we try each suffix"
+        result = publicationService.fixFileName(suffix1)
+
+        then:
+        assert result==suffix2
+
+        when: "we try each suffix"
+        result = publicationService.fixFileName(suffix2)
+
+        then:
+        assert result==suffix2
+
+        when: "we try each suffix"
+        result = publicationService.fixFileName(suffix3)
+
+        then:
+        assert result==suffix2
+    }
+
     void "detect pub types"(){
 
         given: "a set of g3 and elife pubs"

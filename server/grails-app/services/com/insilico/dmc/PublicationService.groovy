@@ -640,4 +640,19 @@ class PublicationService {
         }
     }
 
+
+    @NotTransactional
+    def fixFileName(String xmlFileName){
+        if(xmlFileName.endsWith(".XML")){
+            xmlFileName = xmlFileName.substring(0,xmlFileName.lastIndexOf("."))+".xml"
+        }
+        else
+        if(xmlFileName.endsWith(".xml")){
+            // do nothing
+        }
+        else{
+            xmlFileName = xmlFileName + ".xml"
+        }
+        return xmlFileName
+    }
 }
