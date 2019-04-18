@@ -84,8 +84,14 @@ class PublicationController extends RestfulController<Publication> {
     }
 
     def findByFileName(String xmlFileName) {
-        String fileNameWithSuffix = xmlFileName + (!xmlFileName.toLowerCase().endsWith(".xml") ? ".xml" : "")
-        Publication publication = Publication.findByFileName(fileNameWithSuffix)
+        println "input file name : ${xmlFileName}"
+        Publication publication = Publication.findByFileName(xmlFileName)
+        if(!publication) publication = Publication.findByFileName(xmlFileName+".xml")
+        if(!publication) publication = Publication.findByFileName(xmlFileName+".XML")
+        if(!publication){
+            log.error("No publication found for "+xmlFileName + " with .xml and .XML suffixes")
+        }
+        println "publication found ${publication.fileName}"
         // Temp fix for XML parse error
         render publication.exportedData.value
     }
@@ -93,11 +99,11 @@ class PublicationController extends RestfulController<Publication> {
     def storeByFileName(String xmlFileName) {
         def json = request.JSON
         String xml = json.content
-        String fileNameWithSuffix = xmlFileName + (!xmlFileName.endsWith(".xml") ? ".xml" : "")
+        xmlFileName = publicationService.fixFileName(xmlFileName)
 
         try {
             Publication.withNewTransaction {
-                Publication publication = Publication.findByFileName(fileNameWithSuffix)
+                Publication publication = Publication.findByFileName(xmlFileName)
                 publication.exportedData.value = xml
                 publication.exportedData.save(flush: true, failOnError: true)
                 if (publication.status == PublicationStatusEnum.INGESTED) {
