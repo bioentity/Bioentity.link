@@ -63,7 +63,7 @@ class PublicationController extends RestfulController<Publication> {
         try {
             publication = Publication.findById(params.id as Long)
             publication = publication ?: Publication.findByDoi(params.id as String)
-            publication = publication ?: Publication.findByFileName(params.id + ".xml")
+            publication = publication ?: Publication.findByFileNameIlike(params.id + ".xml")
             publication = publication ?: Publication.findByFileName(params.id as String)
 
             if (publication) {

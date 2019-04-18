@@ -43,7 +43,7 @@
         if(!xmlId){
             alert('No "id" parameter given')
         }
-        if(xmlId.endsWith('.xml')){
+        if(xmlId.endsWith('.xml') || xmlId.endsWith('.XML')){
             xmlId = xmlId.substr(0,xmlId.length-4);
         }
         let baseServerUrl = url.searchParams.get('linkServer');
