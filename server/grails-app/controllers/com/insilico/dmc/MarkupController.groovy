@@ -60,7 +60,7 @@ class MarkupController extends RestfulController {
     @Transactional
     def saveLink() {
         println "saving link ${params}"
-        Publication publication = Publication.findByFileName(params.fileName + ".xml")
+        Publication publication = Publication.findByFileNameIlike(params.fileName + ".xml")
         println "found pub: ${publication}"
         def termObject = new JSONObject(params.termData)
 
