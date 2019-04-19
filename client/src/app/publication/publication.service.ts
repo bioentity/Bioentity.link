@@ -85,15 +85,21 @@ export class PublicationService {
 
     createPublications(pub: Publication, xmlFile: string) {
         let formData: FormData = new FormData();
-        formData.append('xmlFile', xmlFile);
-        //formData.append('journal', pub.journal);
-        formData.append('fileName', pub.fileName);
-        // TODO: handle error when duplicate filename is uploaded
-        return this.http.post(environment.serverUrl + 'publication/ingestFile'
-            , formData)
-            .map((res: Response) => res.json())
-            .publishReplay()
-            .refCount();
+        if(!pub.fileName.endsWith(".xml")){
+            alert('File '+ pub.fileName +' must end with .xml');
+            return ;
+        }
+        else{
+            formData.append('xmlFile', xmlFile);
+            //formData.append('journal', pub.journal);
+            formData.append('fileName', pub.fileName);
+            // TODO: handle error when duplicate filename is uploaded
+            return this.http.post(environment.serverUrl + 'publication/ingestFile'
+                , formData)
+                .map((res: Response) => res.json())
+                .publishReplay()
+                .refCount();
+        }
     }
 
     updatePublication(pub: Publication) {
