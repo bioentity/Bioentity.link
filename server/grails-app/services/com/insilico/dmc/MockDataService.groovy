@@ -1,17 +1,17 @@
 package com.insilico.dmc
 
-import com.insilico.dmc.lexicon.Lexicon
-import com.insilico.dmc.lexicon.LexiconSource
-import com.insilico.dmc.lexicon.StopWord
-import com.insilico.dmc.markup.Markup
 import com.insilico.dmc.ingester.GeneticsIngester
 import com.insilico.dmc.ingester.Ingester
+import com.insilico.dmc.lexicon.Lexicon
+import com.insilico.dmc.lexicon.LexiconSource
 import com.insilico.dmc.lexicon.LexiconSourceClassEnum
+import com.insilico.dmc.lexicon.StopWord
+import com.insilico.dmc.markup.Markup
 import com.insilico.dmc.publication.Publication
-import com.insilico.dmc.rule.RuleSet
 import com.insilico.dmc.rule.Rule
-import com.insilico.dmc.user.RoleEnum
+import com.insilico.dmc.rule.RuleSet
 import com.insilico.dmc.user.Role
+import com.insilico.dmc.user.RoleEnum
 import com.insilico.dmc.user.User
 import grails.transaction.Transactional
 
@@ -66,7 +66,7 @@ class MockDataService {
             Species mouse = new Species(
                     name: "Mouse"
                     , taxonId: "111"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             println "added a mouse"
             new LexiconSource(
                     source: "mgi"
@@ -77,13 +77,13 @@ class MockDataService {
                     , species: mouse
                     , uuid: UUID.randomUUID().toString()
                     , file: "src/test/resources/lexica/inputs/MOUSE_GENES_FINAL.tsv"
-            ).save(insert: true, failOnError: true,flush: true)
+            ).save(insert: true, failOnError: true, flush: true)
             println "added a source mouse"
 
             Species pomBase = new Species(
                     name: "Pombe"
                     , taxonId: "222"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             println "added a pombe"
             new LexiconSource(
                     source: "pombase"
@@ -102,7 +102,7 @@ class MockDataService {
             Species worm = new Species(
                     name: "Worm"
                     , taxonId: "333"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             new LexiconSource(
                     source: "wormbase"
                     , className: LexiconSourceClassEnum.GENE
@@ -178,7 +178,7 @@ class MockDataService {
             Species rat = new Species(
                     name: "Rat"
                     , taxonId: "444"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             new LexiconSource(
                     source: "rgd"
                     , className: LexiconSourceClassEnum.GENE
@@ -194,7 +194,7 @@ class MockDataService {
             Species zebrafish = new Species(
                     name: "Zebrafish"
                     , taxonId: "555"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             new LexiconSource(
                     source: "zfin"
                     , prefix: "ZFIN"
@@ -209,7 +209,7 @@ class MockDataService {
             Species fly = new Species(
                     name: "Fly"
                     , taxonId: "666"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             new LexiconSource(
                     source: "flybase"
                     , className: LexiconSourceClassEnum.GENE
@@ -225,7 +225,7 @@ class MockDataService {
             Species yeast = new Species(
                     name: "Yeast"
                     , taxonId: "777"
-            ).save(failOnError: true,flush: true)
+            ).save(failOnError: true, flush: true)
             println "added a yeast"
             LexiconSource yeastSource = new LexiconSource(
                     source: "sgdbase"
@@ -242,8 +242,8 @@ class MockDataService {
         println "exit mock species"
     }
 
-    def populateForName(String speciesName){
-        if (Lexicon.countByLexiconSource(LexiconSource.findBySpecies(Species.findByName(speciesName)))==0) {
+    def populateForName(String speciesName) {
+        if (Lexicon.countByLexiconSource(LexiconSource.findBySpecies(Species.findByName(speciesName))) == 0) {
             LexiconSource source = LexiconSource.findBySpecies(Species.findByName(speciesName))
             println "capturing ${source.species.name}"
             lexicaCaptureService.capture(source)
@@ -296,122 +296,122 @@ class MockDataService {
         println "loaded stopwrds ${StopWord.count}"
     }
 
-	def createRuleSet() {
+    def createRuleSet() {
 
-		RuleSet wormbase = new RuleSet(
-			name: "WormBase"
-		).save(flush: true)
+        RuleSet wormbase = new RuleSet(
+                name: "WormBase"
+        ).save(flush: true)
 
-		Rule wbGenes = new Rule(
-			name: "Genes",
-			italic: true,
-			regEx: "[a-z]{3,4}\\-[0-9]{1,4}"
-		).save(flush: true)
-		wormbase.addToRules(wbGenes)
+        Rule wbGenes = new Rule(
+                name: "Genes",
+                italic: true,
+                regEx: "[a-z]{3,4}\\-[0-9]{1,4}"
+        ).save(flush: true)
+        wormbase.addToRules(wbGenes)
 
-		Rule wbProteins = new Rule(
-			name: "Proteins",
-			italic: false,
-			regEx: "[A-Z]{3,4}\\-[0-9]{1,4}"
-		).save(flush: true)
-		wormbase.addToRules(wbProteins)
+        Rule wbProteins = new Rule(
+                name: "Proteins",
+                italic: false,
+                regEx: "[A-Z]{3,4}\\-[0-9]{1,4}"
+        ).save(flush: true)
+        wormbase.addToRules(wbProteins)
 
-		Rule wbAlleles = new Rule(
-			name: "Alleles/Variations",
-			italic: true,
-			regEx: "[a-z]{2,3}[0-9]{1,8}"
-		).save(flush: true)
-		wormbase.addToRules(wbAlleles)
+        Rule wbAlleles = new Rule(
+                name: "Alleles/Variations",
+                italic: true,
+                regEx: "[a-z]{2,3}[0-9]{1,8}"
+        ).save(flush: true)
+        wormbase.addToRules(wbAlleles)
 
-		Rule wbStrains = new Rule(
-			name: "Strains",
-			italic: false,
-			regEx: "[A-Z]{2,3}[0-9]{1,5}"
-		).save(flush: true)
-		wormbase.addToRules(wbStrains)
+        Rule wbStrains = new Rule(
+                name: "Strains",
+                italic: false,
+                regEx: "[A-Z]{2,3}[0-9]{1,5}"
+        ).save(flush: true)
+        wormbase.addToRules(wbStrains)
 
-		Rule wbTransgenes = new Rule(
-			name: "Transgenes",
-			italic: true,
-			regEx: "[a-z]{2,3}(ls|Ex|Si)[0-9]{1,5}"
-		).save(flush: true)
-		wormbase.addToRules(wbTransgenes)
+        Rule wbTransgenes = new Rule(
+                name: "Transgenes",
+                italic: true,
+                regEx: "[a-z]{2,3}(ls|Ex|Si)[0-9]{1,5}"
+        ).save(flush: true)
+        wormbase.addToRules(wbTransgenes)
 
-		Rule wbPhenotypes = new Rule(
-			name: "Phenotypes",
-			italic: false,
-			regEx: "[A-Z][a-z]{2}"
-		).save(flush: true)
-		wormbase.addToRules(wbPhenotypes)
+        Rule wbPhenotypes = new Rule(
+                name: "Phenotypes",
+                italic: false,
+                regEx: "[A-Z][a-z]{2}"
+        ).save(flush: true)
+        wormbase.addToRules(wbPhenotypes)
 
-		Rule wbCDs = new Rule(
-			name: "CDs",
-			italic: false,
-			regEx: ""
-		).save(flush: true)
-		wormbase.addToRules(wbCDs)
+        Rule wbCDs = new Rule(
+                name: "CDs",
+                italic: false,
+                regEx: ""
+        ).save(flush: true)
+        wormbase.addToRules(wbCDs)
 
-		Rule wbSequences = new Rule(
-			name: "Sequences (Cosmids and Fosmids)",
-			italic: false,
-			regEx: ""
-		).save(flush: true)
+        Rule wbSequences = new Rule(
+                name: "Sequences (Cosmids and Fosmids)",
+                italic: false,
+                regEx: ""
+        ).save(flush: true)
 
-		Rule wbRearrangements = new Rule(
-			name: "Rearrangements",
-			italic: true,
-			regEx: "[a-z]+(Dp|Df|In|T)[0-9]+(\\(.+\\))?"
-		).save(flush: true)
-		wormbase.addToRules(wbRearrangements)
+        Rule wbRearrangements = new Rule(
+                name: "Rearrangements",
+                italic: true,
+                regEx: "[a-z]+(Dp|Df|In|T)[0-9]+(\\(.+\\))?"
+        ).save(flush: true)
+        wormbase.addToRules(wbRearrangements)
 
-		Rule wbClones = new Rule(
-			name: "Clones",
-			italic: false,
-			regEx: ""
-		).save(flush: true)
-		wormbase.addToRules(wbClones)
-		
-		wormbase.save(flush:true)
+        Rule wbClones = new Rule(
+                name: "Clones",
+                italic: false,
+                regEx: ""
+        ).save(flush: true)
+        wormbase.addToRules(wbClones)
 
-		RuleSet sgd = new RuleSet(
-			name: "SGD"
-		).save(flush: true)
+        wormbase.save(flush: true)
 
-		Rule sgdGenes = new Rule(
-			name: "Genes",
-			italic: true,
-			regEx: "[A-Z]{3}[0-9]"
-		).save(flush: true)
-		sgd.addToRules(sgdGenes)
+        RuleSet sgd = new RuleSet(
+                name: "SGD"
+        ).save(flush: true)
 
-		Rule sgdOrf = new Rule(
-			name: "Nuclear ORF",
-			italic: false,
-			regEx: "Y[A-Z](L|R)[0-9]{3}(W|C)"
-		).save(flush: true)
-		sgd.addToRules(sgdOrf)
+        Rule sgdGenes = new Rule(
+                name: "Genes",
+                italic: true,
+                regEx: "[A-Z]{3}[0-9]"
+        ).save(flush: true)
+        sgd.addToRules(sgdGenes)
 
-		Rule sgdAllele = new Rule(
-			name: "Allele",
-			italic: true,
-			regEx: "[a-z]{3}[0-9]"
-		).save(flush: true)
-		sgd.addToRules(sgdAllele)
-	
-		Rule sgdProtein = new Rule(
-			name: "Protein",
-			italic: false,
-			regEx: "[A-Z][a-z]{2}[0-9]"
-		).save(flush: true)
-		sgd.addToRules(sgdProtein)
-		
-		sgd.save(flush: true)
-	}
+        Rule sgdOrf = new Rule(
+                name: "Nuclear ORF",
+                italic: false,
+                regEx: "Y[A-Z](L|R)[0-9]{3}(W|C)"
+        ).save(flush: true)
+        sgd.addToRules(sgdOrf)
+
+        Rule sgdAllele = new Rule(
+                name: "Allele",
+                italic: true,
+                regEx: "[a-z]{3}[0-9]"
+        ).save(flush: true)
+        sgd.addToRules(sgdAllele)
+
+        Rule sgdProtein = new Rule(
+                name: "Protein",
+                italic: false,
+                regEx: "[A-Z][a-z]{2}[0-9]"
+        ).save(flush: true)
+        sgd.addToRules(sgdProtein)
+
+        sgd.save(flush: true)
+    }
 
     def addRoles() {
 //        Role.deleteAll(Role.all)
-        if(Role.count==0){
-            for(role in RoleEnum.values()){
+        if (Role.count == 0) {
+            for (role in RoleEnum.values()) {
                 new Role(name: role.name()).save()
             }
         }
@@ -423,7 +423,7 @@ class MockDataService {
 //
 //        User.deleteAll(User.all)
 
-        if(User.count==0){
+        if (User.count == 0) {
 
             def adminRole = Role.findByName(RoleEnum.ADMIN.name())
 
@@ -433,7 +433,7 @@ class MockDataService {
                     lastName: "Yook",
                     email: "karyook@gmail.com",
                     active: true
-            ).save(failOnError:true,flush:true)
+            ).save(failOnError: true, flush: true)
             karenUser.addToRoles(adminRole)
 
             def nathanUser = new User(
@@ -442,7 +442,7 @@ class MockDataService {
                     lastName: "Dunn",
                     email: "ndunn@me.com",
                     active: true
-            ).save(failOnError:true,flush:true)
+            ).save(failOnError: true, flush: true)
             nathanUser.addToRoles(adminRole)
 
             def nickStiffler = new User(
@@ -451,7 +451,7 @@ class MockDataService {
                     lastName: "Stiffler",
                     email: "nicholasstiffler@gmail.com",
                     active: true
-            ).save(failOnError:true,flush:true)
+            ).save(failOnError: true, flush: true)
             nickStiffler.addToRoles(adminRole)
 
 //            def sierraUser = new User(
@@ -489,9 +489,8 @@ class MockDataService {
                     lastName: "Jones",
                     email: "ndunnme@gmail.com",
                     active: true
-            ).save(failOnError:true,flush:true)
+            ).save(failOnError: true, flush: true)
             testUser.addToRoles(modCuratorRole)
-
 
 //            def pubPaidRole = Role.findByName(RoleEnum.PUBLISHER_PAID.name())
 //            def pubPaid = new User(
@@ -519,7 +518,7 @@ class MockDataService {
                     lastName: "Publisher",
                     email: "testpublisherbioentitylink@gmail.com",
                     active: true
-            ).save(failOnError:true,flush:true)
+            ).save(failOnError: true, flush: true)
             pubUnpaid2.addToRoles(pubUnpaidRole)
 
 //            def tier1UserRole = Role.findByName(RoleEnum.TIER1_USER.name())
@@ -554,7 +553,16 @@ class MockDataService {
         }
 
 
-
     }
 
+    def fixFileNames() {
+        def publications = Publication.findAllByFileNameLike("%.XML")
+        for(pub in publications){
+            println "fixing ${pub.fileName}"
+            String newFileName = pub.fileName.substring(0,pub.fileName.length()-3)+"xml"
+            pub.fileName = newFileName
+            println "to ${pub.fileName}"
+            pub.save()
+        }
+    }
 }

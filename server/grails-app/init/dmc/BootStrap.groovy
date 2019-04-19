@@ -52,6 +52,7 @@ class BootStrap {
 
         println "# of keywordsets: ${KeyWordSet.count}"
 
+        mockDataService.fixFileNames()
 
         mockDataService.addRoles()
         mockDataService.addUsers()
