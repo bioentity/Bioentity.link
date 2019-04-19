@@ -433,8 +433,13 @@ class PublicationController extends RestfulController<Publication> {
         def xmlFile = params.xmlFile as String
         def fileName = params.fileName as String
 
+
         // Make sure we don't already have this file ingested
         println "fileName: ${fileName}"
+
+        if(!fileName.endsWith(".xml")){
+            throw new RuntimeException("Publication ${fileName} must end with '.xml'")
+        }
 //        Publication pub = Publication.findByFileName(fileName)
 //        // if it already exists, don't try to re
 //        if (pub) {
