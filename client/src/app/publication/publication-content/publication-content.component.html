@@ -28,9 +28,10 @@
         {{selectedPub.fileName}}
         <a href="#/publication/{{selectedPub.doi}}" (click)="exportPub()" title="Download"
            class="btn-outline btn-secondary link-hover primary-download btn btn-sm fa fa-download">
+            Linked
         </a>
         <a *ngIf="isAdmin()" href="#/publication/{{selectedPub.doi}}" (click)="exportRawPub()" title="Download Raw"
-           class="btn-outline btn-secondary warning-download link-hover btn btn-sm fa fa-download">
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">Original
         </a>
         <a *ngIf="selectedPub.githubLink" href="{{selectedPub.githubLink}}"  title="Github"
            class="btn-outline btn-secondary link-hover btn btn-sm fa fa-github">
