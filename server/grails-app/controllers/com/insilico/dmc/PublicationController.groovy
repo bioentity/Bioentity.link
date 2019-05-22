@@ -10,8 +10,14 @@ import com.insilico.dmc.publication.CurationStatusEnum
 import com.insilico.dmc.publication.Publication
 import com.insilico.dmc.publication.PublicationStatusEnum
 import com.insilico.dmc.user.User
+import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.Session
+import com.jcraft.jsch.UserInfo
 import grails.converters.JSON
 import grails.rest.RestfulController
+import grails.util.Environment
 import io.swagger.annotations.*
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
@@ -798,6 +804,8 @@ class PublicationController extends RestfulController<Publication> {
         render returnObject as JSON
     }
 
+
+
     @Transactional
     def sendToPublisher() {
         println "send to publisher ${params}"
@@ -813,12 +821,14 @@ class PublicationController extends RestfulController<Publication> {
 
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
+
+        publicationService.sendToSheridan( publication )
         // assign to publisher
         githubService.assignOnly(publication, defaultPublisher.username)
         // create a pub comment for the publisher that it is ready
         githubService.addComment(publication, "@${user.username} marked publication ready for publisher review @${defaultPublisher.username}")
         // set pub status
-        publication.status = PublicationStatusEnum.CURATOR_FINISHED
+        publication.status = PublicationStatusEnum.PUB_APPROVED
         // add pub label
         githubService.synchronizeLabelStatus(publication)
 

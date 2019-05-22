@@ -4,15 +4,16 @@ import com.insilico.dmc.index.ContentWordIndex
 import com.insilico.dmc.ingester.ElifeIngester
 import com.insilico.dmc.ingester.GeneticsIngester
 import com.insilico.dmc.ingester.Ingester
-//import com.insilico.dmc.ingester.GeneticsOldIngester
 import com.insilico.dmc.ingester.InternalDtdResolver
+
+
+import com.insilico.dmc.lexicon.LexiconSource
 import com.insilico.dmc.lexicon.StopWord
+import com.insilico.dmc.markup.KeyWordSet
 import com.insilico.dmc.publication.Content
 import com.insilico.dmc.publication.Publication
 import com.insilico.dmc.publication.PublicationStatusEnum
-import com.insilico.dmc.lexicon.LexiconSource
-import com.insilico.dmc.markup.KeyWordSet
-import grails.converters.JSON
+import com.jcraft.jsch.*
 import grails.transaction.NotTransactional
 import grails.transaction.Transactional
 import grails.util.Environment
@@ -25,7 +26,7 @@ class PublicationService {
     private Ingester elifeIngester = new ElifeIngester()
     private Ingester geneticsIngester = new GeneticsIngester()
 //    private Ingester geneticsOldIngester = new GeneticsOldIngester()
-	def githubService
+    def githubService
 
     def ingestPublication(File file, Publication publication, Ingester ingester) {
         try {
@@ -70,9 +71,9 @@ class PublicationService {
             // XML cannot contain nbsp
             return null
         } else if (fileContent.toLowerCase().indexOf("<journal-title>micropublication") != -1) {
-			println "This is a micropublication, trying to see if elife ingester works"
-			journal = "elife"
-		} else {
+            println "This is a micropublication, trying to see if elife ingester works"
+            journal = "elife"
+        } else {
             // TODO: Return error if unable to determine journal
             println "Unable to determine journal so ignoring: ${fileName}"
             return null
@@ -94,11 +95,11 @@ class PublicationService {
         } else if (journal == "genetics") {
             publication = geneticsIngester.extractMetaData(publication)
         }// else if (journal == "genetics old") {
-		//	publication = geneticsOldIngester.extractMetaData(publication)
-		//}
+        //	publication = geneticsOldIngester.extractMetaData(publication)
+        //}
         String doi = publication.doi
 
-        if(Publication.countByDoi(doi)>1){
+        if (Publication.countByDoi(doi) > 1) {
             throw new RuntimeException("Doi ${doi} already exists in database.")
         }
 
@@ -239,7 +240,7 @@ class PublicationService {
      * https://stackoverflow.com/a/40099983/1739366
      * @param linkString
      */
-    def validateLink(String linkString,String idString) {
+    def validateLink(String linkString, String idString) {
         try {
             def response = new URL(linkString).openStream()
 
@@ -257,12 +258,12 @@ class PublicationService {
         }
     }
 
-    Publication validateLinks(Publication publication){
+    Publication validateLinks(Publication publication) {
         JSONObject jsonObject = new JSONObject()
         jsonObject.validLinks = new JSONArray()
         jsonObject.invalidLinks = new JSONArray()
         // 1. get markups for lexica?
-        def linkMap= [:]
+        def linkMap = [:]
         def pubLinks = Publication.executeQuery("MATCH (p:Publication)--(m:Markup)--(l:Lexicon)--(ls:LexiconSource) where p.doi={doi} RETURN l.externalModId as id,l.publicName as name,ls.urlConstructor as url", [doi: publication.doi])
         println "validating ${pubLinks.size()} links"
 
@@ -271,19 +272,18 @@ class PublicationService {
             String urlString = it["url"]
             String name = it["name"]
             def linkString = urlString.replace("@@ID@@", idString)
-            linkMap.put(linkString,name)
+            linkMap.put(linkString, name)
         }
         println "validating ${linkMap.size()} links"
 
-        linkMap.each{ it ->
+        linkMap.each { it ->
             JSONObject linkItem = new JSONObject(
                     name: it.value,
                     link: it.key
             )
-            if(validateLink(it.key as String,it.value as String)){
+            if (validateLink(it.key as String, it.value as String)) {
                 jsonObject.validLinks.add(linkItem)
-            }
-            else{
+            } else {
                 jsonObject.invalidLinks.add(linkItem)
             }
         }
@@ -291,21 +291,21 @@ class PublicationService {
 
 //        println "saving pub with ${jsonObject}"
         publication.linkValidationJson = jsonObject
-        publication.save(flush: true,failOnError: true)
+        publication.save(flush: true, failOnError: true)
 
 //        println "SAVED pub with ${Publication.findByDoi(publication.doi).linkValidationJson}"
 
         String messageString = "# Link validation report\n"
         messageString += "## Validated Links\n"
-        jsonObject.validLinks.each{
+        jsonObject.validLinks.each {
             messageString += "- <a href=${it.link}>${it.name}</a>\n"
         }
         messageString += "## Invalidated Links\n"
-        jsonObject.invalidLinks.each{
+        jsonObject.invalidLinks.each {
             messageString += "- <a href=${it.link}>${it.name}</a>\n"
         }
         println "adding comment ${messageString}"
-        githubService.addComment(publication,messageString,true)
+        githubService.addComment(publication, messageString, true)
         return publication
     }
 
@@ -466,7 +466,6 @@ class PublicationService {
         }
 
 
-
         return s
     }
 
@@ -566,8 +565,7 @@ class PublicationService {
     String getPubType(Publication publication) {
         if (publication.doi.toLowerCase().contains("/w2")) {
             return "micropublication"
-        }
-        else if (publication.doi.toLowerCase().contains("elife")) {
+        } else if (publication.doi.toLowerCase().contains("elife")) {
             return "elife"
         } else if (publication.doi.toLowerCase().contains("genetics")) {
             return "GSA"
@@ -642,17 +640,73 @@ class PublicationService {
 
 
     @NotTransactional
-    def fixFileName(String xmlFileName){
-        if(xmlFileName.endsWith(".XML")){
-            xmlFileName = xmlFileName.substring(0,xmlFileName.lastIndexOf("."))+".xml"
-        }
-        else
-        if(xmlFileName.endsWith(".xml")){
+    def fixFileName(String xmlFileName) {
+        if (xmlFileName.endsWith(".XML")) {
+            xmlFileName = xmlFileName.substring(0, xmlFileName.lastIndexOf(".")) + ".xml"
+        } else if (xmlFileName.endsWith(".xml")) {
             // do nothing
-        }
-        else{
+        } else {
             xmlFileName = xmlFileName + ".xml"
         }
         return xmlFileName
+    }
+
+    /**
+     * TODO: move to another service class, maybe taking in XML and
+     * @param publication
+     */
+    def sendToSheridan(Publication publication) {
+
+        JSch jsch = new JSch()
+        String host
+        Integer port
+//        String user
+        Session session = jsch.getSession("FROM_BIOENTITY", "sftp.dartmouthjournals.com", 22);
+//        Environment environment = new Environment()
+//        environment.getM
+
+        UserInfo userInfo = new UserInfo() {
+            @Override
+            String getPassphrase() {
+                return "somepass"
+            }
+
+            @Override
+            String getPassword() {
+                return "somepass"
+            }
+
+            @Override
+            boolean promptPassword(String message) {
+                return false
+            }
+
+            @Override
+            boolean promptPassphrase(String message) {
+                return false
+            }
+
+            @Override
+            boolean promptYesNo(String message) {
+                return false
+            }
+
+            @Override
+            void showMessage(String message) {
+                println "showing message ${message}"
+            }
+        }
+        session.setUserInfo(userInfo)
+
+        session.connect()
+        Channel channel = session.openChannel("sftp");
+        channel.connect();
+        ChannelSftp c = (ChannelSftp) channel;
+
+//        java.io.InputStream in = System.in;
+//        java.io.PrintStream out = System.out;
+        java.util.Vector cmds = new java.util.Vector()
+
+
     }
 }
