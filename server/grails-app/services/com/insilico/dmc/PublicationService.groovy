@@ -19,6 +19,7 @@ import grails.transaction.Transactional
 import grails.util.Environment
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
+import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class PublicationService {
@@ -651,6 +652,8 @@ class PublicationService {
         return xmlFileName
     }
 
+    @Value('${sftp.secret}') String sftpPassword
+
     /**
      * TODO: move to another service class, maybe taking in XML and
      * @param publication
@@ -664,7 +667,8 @@ class PublicationService {
         Session session = jsch.getSession("FROM_BIOENTITY", "sftp.dartmouthjournals.com", 22);
 //        Environment environment = new Environment()
 //        environment.getM
-        session.setPassword("password")
+
+        session.setPassword(sftpPassword)
         session.setConfig("StrictHostKeyChecking", "no")
         UserInfo userInfo = new UserInfo() {
             @Override
