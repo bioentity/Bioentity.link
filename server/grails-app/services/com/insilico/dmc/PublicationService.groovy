@@ -664,7 +664,8 @@ class PublicationService {
         Session session = jsch.getSession("FROM_BIOENTITY", "sftp.dartmouthjournals.com", 22);
 //        Environment environment = new Environment()
 //        environment.getM
-
+        session.setPassword("password")
+        session.setConfig("StrictHostKeyChecking", "no")
         UserInfo userInfo = new UserInfo() {
             @Override
             String getPassphrase() {
@@ -696,16 +697,20 @@ class PublicationService {
                 println "showing message ${message}"
             }
         }
-        session.setUserInfo(userInfo)
+        //session.setUserInfo(userInfo)
 
         session.connect()
-        Channel channel = session.openChannel("sftp");
+        ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
         channel.connect();
-        ChannelSftp c = (ChannelSftp) channel;
+        //ChannelSftp c = (ChannelSftp) channel;
 
+        String xml = filterXml(publication.exportedData.value, getPubType(publication), publication.originalData.value)
 //        java.io.InputStream in = System.in;
 //        java.io.PrintStream out = System.out;
-        java.util.Vector cmds = new java.util.Vector()
+//        java.util.Vector cmds = new java.util.Vector()
+        channel.put(new ByteArrayInputStream(xml.getBytes()), publication.fileName)
+        channel.disconnect()
+        session.disconnect()
 
 
     }
