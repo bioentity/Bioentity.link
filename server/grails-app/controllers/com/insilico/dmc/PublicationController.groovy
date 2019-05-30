@@ -10,14 +10,8 @@ import com.insilico.dmc.publication.CurationStatusEnum
 import com.insilico.dmc.publication.Publication
 import com.insilico.dmc.publication.PublicationStatusEnum
 import com.insilico.dmc.user.User
-import com.jcraft.jsch.Channel
-import com.jcraft.jsch.ChannelSftp
-import com.jcraft.jsch.JSch
-import com.jcraft.jsch.Session
-import com.jcraft.jsch.UserInfo
 import grails.converters.JSON
 import grails.rest.RestfulController
-import grails.util.Environment
 import io.swagger.annotations.*
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
@@ -37,6 +31,7 @@ class PublicationController extends RestfulController<Publication> {
     def githubService
     def markupService
     def userService
+    def sheridanService
 
 
     private Gson gson = new Gson()
@@ -822,7 +817,20 @@ class PublicationController extends RestfulController<Publication> {
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
 
-        publicationService.sendToSheridan( publication )
+        String xml = publicationService.filterXml(
+                publication.exportedData.value,
+                publicationService.getPubType(publication),
+                publication.originalData.value
+        )
+
+        try {
+            sheridanService.sendToSheridan(xml, publication)
+        } catch(e) {
+            println("Upload to Sheridan failed " + e)
+        } finally {
+            println("Upload to Sheridan succeeded")
+        }
+
         // assign to publisher
         githubService.assignOnly(publication, defaultPublisher.username)
         // create a pub comment for the publisher that it is ready

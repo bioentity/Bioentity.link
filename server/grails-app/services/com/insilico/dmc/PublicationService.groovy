@@ -13,13 +13,11 @@ import com.insilico.dmc.markup.KeyWordSet
 import com.insilico.dmc.publication.Content
 import com.insilico.dmc.publication.Publication
 import com.insilico.dmc.publication.PublicationStatusEnum
-import com.jcraft.jsch.*
 import grails.transaction.NotTransactional
 import grails.transaction.Transactional
 import grails.util.Environment
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
-import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class PublicationService {
@@ -652,70 +650,5 @@ class PublicationService {
         return xmlFileName
     }
 
-    @Value('${sftp.secret}') String sftpPassword
 
-    /**
-     * TODO: move to another service class, maybe taking in XML and
-     * @param publication
-     */
-    def sendToSheridan(Publication publication) {
-
-        JSch jsch = new JSch()
-        String host
-        Integer port
-//        String user
-        Session session = jsch.getSession("FROM_BIOENTITY", "sftp.dartmouthjournals.com", 22);
-//        Environment environment = new Environment()
-//        environment.getM
-
-        session.setPassword(sftpPassword)
-        session.setConfig("StrictHostKeyChecking", "no")
-        UserInfo userInfo = new UserInfo() {
-            @Override
-            String getPassphrase() {
-                return "somepass"
-            }
-
-            @Override
-            String getPassword() {
-                return "somepass"
-            }
-
-            @Override
-            boolean promptPassword(String message) {
-                return false
-            }
-
-            @Override
-            boolean promptPassphrase(String message) {
-                return false
-            }
-
-            @Override
-            boolean promptYesNo(String message) {
-                return false
-            }
-
-            @Override
-            void showMessage(String message) {
-                println "showing message ${message}"
-            }
-        }
-        //session.setUserInfo(userInfo)
-
-        session.connect()
-        ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
-        channel.connect();
-        //ChannelSftp c = (ChannelSftp) channel;
-
-        String xml = filterXml(publication.exportedData.value, getPubType(publication), publication.originalData.value)
-//        java.io.InputStream in = System.in;
-//        java.io.PrintStream out = System.out;
-//        java.util.Vector cmds = new java.util.Vector()
-        channel.put(new ByteArrayInputStream(xml.getBytes()), publication.fileName)
-        channel.disconnect()
-        session.disconnect()
-
-
-    }
 }
