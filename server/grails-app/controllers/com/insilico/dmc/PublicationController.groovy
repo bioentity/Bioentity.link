@@ -928,7 +928,7 @@ class PublicationController extends RestfulController<Publication> {
                 break
         }
 
-        return getCurators(publication)
+        getCurators(publication)
 //        render new JSONObject() as JSON
     }
 
@@ -944,7 +944,7 @@ class PublicationController extends RestfulController<Publication> {
 
         githubService.assignOnly(publication, username)
 
-        render getCurators(publication) as JSON
+        getCurators(publication)
     }
 
     @Transactional
@@ -955,7 +955,7 @@ class PublicationController extends RestfulController<Publication> {
 
         githubService.unassignOnly(publication, username)
 
-        render getCurators(publication) as JSON
+        getCurators(publication)
     }
 
     /**
