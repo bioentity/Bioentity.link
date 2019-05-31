@@ -17,7 +17,6 @@ class BootStrap {
 
     def mockDataService
     def publicationService
-    def publicationLoadService
     def keyWordService
     def domainMarshallerService
 
