@@ -31,6 +31,7 @@ class PublicationController extends RestfulController<Publication> {
     def githubService
     def markupService
     def userService
+    def sheridanService
 
 
     private Gson gson = new Gson()
@@ -798,6 +799,8 @@ class PublicationController extends RestfulController<Publication> {
         render returnObject as JSON
     }
 
+
+
     @Transactional
     def sendToPublisher() {
         println "send to publisher ${params}"
@@ -813,12 +816,27 @@ class PublicationController extends RestfulController<Publication> {
 
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
+
+        String xml = publicationService.filterXml(
+                publication.exportedData.value,
+                publicationService.getPubType(publication),
+                publication.originalData.value
+        )
+
+        try {
+            sheridanService.sendToSheridan(xml, publication)
+        } catch(e) {
+            println("Upload to Sheridan failed " + e)
+        } finally {
+            println("Upload to Sheridan succeeded")
+        }
+
         // assign to publisher
         githubService.assignOnly(publication, defaultPublisher.username)
         // create a pub comment for the publisher that it is ready
         githubService.addComment(publication, "@${user.username} marked publication ready for publisher review @${defaultPublisher.username}")
         // set pub status
-        publication.status = PublicationStatusEnum.CURATOR_FINISHED
+        publication.status = PublicationStatusEnum.PUB_APPROVED
         // add pub label
         githubService.synchronizeLabelStatus(publication)
 
@@ -918,7 +936,7 @@ class PublicationController extends RestfulController<Publication> {
                 break
         }
 
-        return getCurators(publication)
+        getCurators(publication)
 //        render new JSONObject() as JSON
     }
 
@@ -934,7 +952,7 @@ class PublicationController extends RestfulController<Publication> {
 
         githubService.assignOnly(publication, username)
 
-        render getCurators(publication) as JSON
+        getCurators(publication)
     }
 
     @Transactional
@@ -945,7 +963,7 @@ class PublicationController extends RestfulController<Publication> {
 
         githubService.unassignOnly(publication, username)
 
-        render getCurators(publication) as JSON
+        getCurators(publication)
     }
 
     /**
