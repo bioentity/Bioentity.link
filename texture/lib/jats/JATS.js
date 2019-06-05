@@ -37,6 +37,7 @@ let JATS = {
   SUBSUP: ['sub','sup'],
   TITLE_GROUP: ['article-title', 'subtitle', 'trans-title-group', 'alt-title', 'fn-group'],
   X: ['x'],
+  GENETICS_COMMENT: ['genetics-comment'],
 }
 
 JATS.ARTICLE_LINK = ['inline-supplementary-material'].concat(JATS.RELATED_ARTICLE)
@@ -59,5 +60,6 @@ JATS.PARA_LEVEL = JATS.BLOCK_DISPLAY
   .concat(JATS.RELATED_ARTICLE)
   .concat(JATS.REST_OF_PARA)
   .concat(JATS.X)
+  .concat(JATS.GENETICS_COMMENT)
 
 export default JATS
