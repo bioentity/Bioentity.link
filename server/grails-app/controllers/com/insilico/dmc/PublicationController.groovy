@@ -109,8 +109,9 @@ class PublicationController extends RestfulController<Publication> {
         def json = request.JSON
         String xml = json.content
          // Convert genetics-comment tags back to comments
-        xml = xml.replaceAll(/<genetics-comment>/, "<!--")
-                .replaceAll("</genetics-comment>", "-->")
+        //println(xml.matches("<genetics-comment>"))
+        //xml = xml.replaceFirst("<genetics-comment>", "<!--")
+//        xml = xml.replaceAll("</genetics-comment>", "-->")
 
         xmlFileName = publicationService.fixFileName(xmlFileName)
 
