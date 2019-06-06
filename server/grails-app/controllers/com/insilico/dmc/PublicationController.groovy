@@ -20,7 +20,6 @@ import org.neo4j.driver.v1.Record
 import org.neo4j.driver.v1.StatementResult
 import org.springframework.transaction.annotation.Transactional
 
-import java.util.regex.Matcher
 
 import static org.springframework.http.HttpStatus.*
 

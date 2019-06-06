@@ -520,6 +520,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"contrib-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"caption-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"ref-list-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"title-[\w\d]+\"/, "")
 
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1 />')
