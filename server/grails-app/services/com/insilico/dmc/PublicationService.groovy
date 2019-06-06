@@ -567,7 +567,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll("</captipn>\n</caption>", "</caption>")
 
         xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
-        xmlData = xmlData.replaceAll
+        xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
         return xmlData
     }
 
