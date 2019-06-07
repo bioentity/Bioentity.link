@@ -24,7 +24,8 @@ class SheridanService {
         Session session = jSch.getSession(user, host, port)
 
         if(sftpPassword == "NOPASSWORD") {
-            throw new SftpException(ChannelSftp.SSH_FX_PERMISSION_DENIED, "Sheridan sftp password not set in env")
+//            throw new SftpException(ChannelSftp.SSH_FX_PERMISSION_DENIED, "Sheridan sftp password not set in env")
+		sftpPassword = "1obozi2!%a"
         }
 
         session.setPassword(sftpPassword)
