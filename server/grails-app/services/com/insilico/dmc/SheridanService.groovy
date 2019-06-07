@@ -31,15 +31,21 @@ class SheridanService {
         session.setPassword(sftpPassword)
         session.setConfig("StrictHostKeyChecking", "no")
 
-        session.connect()
-        ChannelSftp channel = (ChannelSftp) session.openChannel("sftp")
-        channel.connect()
+        ChannelSftp channel
+        try {
+            session.connect()
+            channel = (ChannelSftp) session.openChannel("sftp")
+            channel.connect()
 
-        OutputStream os = channel.put(publication.fileName)
-        os.write(xml.getBytes())
-
-        channel.disconnect()
-        session.disconnect()
+            channel.put(new ByteArrayInputStream(xml.bytes),publication.fileName,ChannelSftp.OVERWRITE)
+//        os.write(xml.getBytes())
+        } catch (e) {
+            log.error("Problem uploading the file")
+            throw e
+        } finally {
+            channel?.disconnect()
+            session.disconnect()
+        }
     }
 
 }
