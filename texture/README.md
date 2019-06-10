@@ -12,6 +12,10 @@ Clone the repository.
 $ git clone https://github.com/substance/texture.git
 ```
 
+### Unzip node\_modules.zip
+
+Due to installation issues with some external dependencies, you need to intall node\_modules from the zip file. 
+
 Navigate to the source directory.
 
 ```bash
