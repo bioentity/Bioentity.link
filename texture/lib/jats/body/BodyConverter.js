@@ -35,6 +35,12 @@ export default {
     iterator.optional('sig-block', function(child) {
       node.sigBlock = converter.convertElement(child).id
     })
+    iterator.optional('sec-comment', function(child) {
+      let convertedNode = converter.convertElement(child)
+      console.log('converting sec comment',child,convertedNode)
+      node.nodes.push(convertedNode.id)
+    })
+    // console.log('Next',iterator.next())
     if (iterator.hasNext()) throw new Error('Illegal JATS: ' + el.outerHTML)
   },
 

@@ -247,13 +247,13 @@ abstract class Ingester {
     static String convertAllSec(String input) {
         Pattern p = Pattern.compile("<sec id=\"(.+?)\" sec-type=\"(.+?)\">")
         Matcher m = p.matcher(input)
-        return m.find() ? m.replaceAll($/<sec id=\"$1\" sec-type=\"$2\"><sec-comment id=\"$1\" sec-type=\"$2\"/>/$) : input
+        return m.find() ? m.replaceAll($/<sec-comment id=\"$1\" sec-type=\"$2\"/><sec id=\"$1\" sec-type=\"$2\">/$) : input
 
     }
 
     static String revertAllSec(String input) {
-        Pattern p = Pattern.compile("<sec id=\"(.+?)\"><sec-comment id=\"(.+?)\" sec-type=\"(.+?)\"/>")
+        Pattern p = Pattern.compile("<sec-comment id=\"(.+?)\" sec-type=\"(.+?)\"/><sec id=\"(.+?)\">")
         Matcher m = p.matcher(input)
-        return m.find() ? m.replaceAll($/<sec id=\"$2\" sec-type=\"$3\">/$) : input
+        return m.find() ? m.replaceAll($/<sec id=\"$1\" sec-type=\"$2\">/$) : input
     }
 }

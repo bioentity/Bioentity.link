@@ -104,6 +104,8 @@ class PublicationController extends RestfulController<Publication> {
         // convert  <sec to <sec-comment
         xmlData = Ingester.convertAllSec(xmlData)
 
+        println "converted XML data ${xmlData}"
+
         // Temp fix for XML parse error
         //        render publication.exportedData.value
         render xmlData

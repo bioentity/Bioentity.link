@@ -18,8 +18,8 @@ class PublicationConverterSpec extends Specification {
     void "test conversion into"() {
         given: "a set of words"
         String inputWord = "<sec id=\"s1\" sec-type=\"materials|methods\">"
-        String testWord = "<sec id=\"s1\" sec-type=\"materials|methods\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/>"
-        String otherWord = "<sec id=\"aasdfasdfasdfasfadsf\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/>"
+        String testWord = "<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"s1\" sec-type=\"materials|methods\">"
+        String otherWord = "<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"aasdfasdfasdfasfadsf\">"
 
         when: "we convert it"
         String outputWord = Ingester.convertAllSec(inputWord)
@@ -44,8 +44,8 @@ class PublicationConverterSpec extends Specification {
     void "test conversion doc"() {
         given: "a set of words"
         String inputWord = "<node>ABC<sec id=\"s1\" sec-type=\"materials|methods\">ABC</node>"
-        String testWord = "<node>ABC<sec id=\"s1\" sec-type=\"materials|methods\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/>ABC</node>"
-        String otherWord = "<node>ABC<sec id=\"aasdfasdfasdfasfadsf\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/>ABC</node>"
+        String testWord = "<node>ABC<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"s1\" sec-type=\"materials|methods\">ABC</node>"
+        String otherWord = "<node>ABC<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"aasdfasdfasdfasfadsf\">ABC</node>"
 
         when: "we convert it"
         String outputWord = Ingester.convertAllSec(inputWord)
@@ -70,8 +70,8 @@ class PublicationConverterSpec extends Specification {
     void "test conversion over multiple in doc"() {
         given: "a set of words"
         String inputWord = "ABC<sec id=\"s1\" sec-type=\"materials|methods\"><node>CCC</node></sec>DDDDD<sec id=\"s3\" sec-type=\"materials|methods\"><node>FFF</node></sec>EEEE"
-        String testWord = "ABC<sec id=\"s1\" sec-type=\"materials|methods\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/><node>CCC</node></sec>DDDDD<sec id=\"s3\" sec-type=\"materials|methods\"><sec-comment id=\"s3\" sec-type=\"materials|methods\"/><node>FFF</node></sec>EEEE"
-        String otherWord = "ABC<sec id=\"aasdfasdfasdfasfadsf\"><sec-comment id=\"s1\" sec-type=\"materials|methods\"/><node>CCC</node></sec>DDDDD<sec id=\"aasdfasdfasdfasfadsf\" sec-type=\"materials|methods\"><sec-comment id=\"s3\" sec-type=\"materials|methods\"/><node>FFF</node></sec>EEEE"
+        String testWord = "ABC<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"s1\" sec-type=\"materials|methods\"><node>CCC</node></sec>DDDDD<sec-comment id=\"s3\" sec-type=\"materials|methods\"/><sec id=\"s3\" sec-type=\"materials|methods\"><node>FFF</node></sec>EEEE"
+        String otherWord = "ABC<sec-comment id=\"s1\" sec-type=\"materials|methods\"/><sec id=\"aasdfasdfasdfasfadsf\"><node>CCC</node></sec>DDDDD<sec-comment id=\"s3\" sec-type=\"materials|methods\"/><sec id=\"aasdfasdfasdfasfadsf\" sec-type=\"materials|methods\"><node>FFF</node></sec>EEEE"
 
         when: "we convert it"
         String outputWord = Ingester.convertAllSec(inputWord)
