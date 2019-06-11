@@ -569,6 +569,8 @@ class PublicationService {
 
         xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
         xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
+
+        xmlData = Ingester.revertAllSec(xmlData)
         return xmlData
     }
 

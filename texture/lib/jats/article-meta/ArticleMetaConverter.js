@@ -108,6 +108,9 @@ export default {
     iterator.optional('custom-meta-group', function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })
+    // iterator.optional('sec-comment', function(child) {
+    //   node.nodes.push(converter.convertElement(child).id)
+    // })
     iterator.optional('genetics-comment', function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })

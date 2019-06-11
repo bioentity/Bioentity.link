@@ -48,6 +48,9 @@ export default {
     iterator.manyOf(JATS.PARA_LEVEL, function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })
+    // iterator.optional('sec-comment', function(child) {
+    //   node.nodes.push(converter.convertElement(child).id)
+    // })
 
     iterator.manyOf(['sec'], function(child) {
       node.nodes.push(converter.convertElement(child).id)

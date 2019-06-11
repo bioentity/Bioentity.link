@@ -1,6 +1,7 @@
 package com.insilico.dmc
 
 import com.google.gson.Gson
+import com.insilico.dmc.ingester.Ingester
 import com.insilico.dmc.lexicon.Lexicon
 import com.insilico.dmc.markup.KeyWord
 import com.insilico.dmc.markup.KeyWordSet
@@ -20,6 +21,7 @@ import org.neo4j.driver.v1.Record
 import org.neo4j.driver.v1.StatementResult
 import org.springframework.transaction.annotation.Transactional
 
+import java.util.regex.Pattern
 
 import static org.springframework.http.HttpStatus.*
 
@@ -98,6 +100,9 @@ class PublicationController extends RestfulController<Publication> {
         String xmlData = publication.exportedData.value
         xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
         xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
+
+        // convert  <sec to <sec-comment
+        xmlData = Ingester.convertAllSec(xmlData)
 
         // Temp fix for XML parse error
         //        render publication.exportedData.value

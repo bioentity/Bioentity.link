@@ -13,6 +13,7 @@ import java.util.regex.Pattern
  * Created by nathandunn on 4/7/17.
  */
 abstract class Ingester {
+
     abstract Publication extractMetaData(Publication publication)
 
     static Pattern startsWithAlphanumPattern = Pattern.compile("^\\p{Alnum}")
@@ -239,5 +240,20 @@ abstract class Ingester {
                 }
             }
         }
+    }
+
+//        xmlData = xmlData.findAll("<sec id=\"(.+?)\" sec-type=\"(.+?)\">")
+//    final Pattern pattern = Pattern.compile("<sec id=\"(.+?)\" sec-type=\"(.+?)\">", Pattern.DOTALL)
+    static String convertAllSec(String input) {
+        Pattern p = Pattern.compile("<sec id=\"(.+?)\" sec-type=\"(.+?)\">")
+        Matcher m = p.matcher(input)
+        return m.find() ? m.replaceAll($/<sec id=\"$1\" sec-type=\"$2\"><sec-comment id=\"$1\" sec-type=\"$2\"/>/$) : input
+
+    }
+
+    static String revertAllSec(String input) {
+        Pattern p = Pattern.compile("<sec id=\"(.+?)\"><sec-comment id=\"(.+?)\" sec-type=\"(.+?)\"/>")
+        Matcher m = p.matcher(input)
+        return m.find() ? m.replaceAll($/<sec id=\"$2\" sec-type=\"$3\">/$) : input
     }
 }
