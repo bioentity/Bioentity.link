@@ -71,9 +71,9 @@ export class PublicationListComponent implements OnInit {
         });
 
         this.publicationService.getPublications((this.page - 1) * this.pageSize, this.pageSize, this.selectedStatus, this.searchTerm, this.selectedSpecies).subscribe(applicationData => {
-            for (let line in applicationData) {
-                console.log(applicationData[line])
-            }
+            // for (let line in applicationData) {
+            //     console.log(applicationData[line])
+            // }
             this.publications = applicationData;
         });
     }

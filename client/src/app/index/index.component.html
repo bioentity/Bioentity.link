@@ -7,9 +7,9 @@
 
 <div *ngIf="alive">
     <div *ngIf="!authenticationService.isAuthenticated()">
-        <div class="alert alert-info">
-            Our system goes down periodically for maintenance.
-        </div>
+<!--        <div class="alert alert-info">-->
+<!--            Our system goes down periodically for maintenance.-->
+<!--        </div>-->
 
         <div class="jumbotron">
             <h1 class="bioentitylink-header">BioEntity.Link</h1>
@@ -17,6 +17,7 @@
                 <span class="bioentitylink-header">Bioentity.Link</span> embeds hyperlinks from biological terms in
                 science articles to authoritative
                 community-focused curated databases.
+                <a href="https://github.com/bioentity/" ><div [ngClass]="['fa','fa-github']"></div> GitHub</a>
             </p>
             <hr class="my-4">
             <!--<p class="lead">-->

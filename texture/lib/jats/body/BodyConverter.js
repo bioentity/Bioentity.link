@@ -28,7 +28,9 @@ export default {
       node.nodes.push(converter.convertElement(child).id)
     })
     iterator.manyOf('sec', function(child) {
-      node.nodes.push(converter.convertElement(child).id)
+      let convertedNode = converter.convertElement(child)
+      // console.log('converting sec',child,convertedNode)
+      node.nodes.push(convertedNode.id)
     })
     iterator.optional('sig-block', function(child) {
       node.sigBlock = converter.convertElement(child).id
