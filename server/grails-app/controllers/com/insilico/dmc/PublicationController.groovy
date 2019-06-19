@@ -20,6 +20,7 @@ import org.neo4j.driver.v1.Record
 import org.neo4j.driver.v1.StatementResult
 import org.springframework.transaction.annotation.Transactional
 
+
 import static org.springframework.http.HttpStatus.*
 
 @Api(value = "/api/v1", tags = ["Publication"], description = "Publication Api's")
@@ -87,19 +88,30 @@ class PublicationController extends RestfulController<Publication> {
     def findByFileName(String xmlFileName) {
         println "input file name : ${xmlFileName}"
         Publication publication = Publication.findByFileName(xmlFileName)
-        if(!publication) publication = Publication.findByFileName(xmlFileName+".xml")
-        if(!publication) publication = Publication.findByFileName(xmlFileName+".XML")
-        if(!publication){
-            log.error("No publication found for "+xmlFileName + " with .xml and .XML suffixes")
+        if (!publication) publication = Publication.findByFileName(xmlFileName + ".xml")
+        if (!publication) publication = Publication.findByFileName(xmlFileName + ".XML")
+        if (!publication) {
+            log.error("No publication found for " + xmlFileName + " with .xml and .XML suffixes")
         }
         println "publication found ${publication.fileName}"
+         // Convert <!-- -->  comments in genetics to tags that can be read by texture
+        String xmlData = publication.exportedData.value
+        xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
+        xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
+
         // Temp fix for XML parse error
-        render publication.exportedData.value
+        //        render publication.exportedData.value
+        render xmlData
     }
 
     def storeByFileName(String xmlFileName) {
         def json = request.JSON
         String xml = json.content
+         // Convert genetics-comment tags back to comments
+        //println(xml.matches("<genetics-comment>"))
+        //xml = xml.replaceFirst("<genetics-comment>", "<!--")
+//        xml = xml.replaceAll("</genetics-comment>", "-->")
+
         xmlFileName = publicationService.fixFileName(xmlFileName)
 
         try {
@@ -438,7 +450,7 @@ class PublicationController extends RestfulController<Publication> {
         // Make sure we don't already have this file ingested
         println "fileName: ${fileName}"
 
-        if(!fileName.endsWith(".xml")){
+        if (!fileName.endsWith(".xml")) {
             throw new RuntimeException("Publication ${fileName} must end with '.xml'")
         }
 //        Publication pub = Publication.findByFileName(fileName)
@@ -800,7 +812,6 @@ class PublicationController extends RestfulController<Publication> {
     }
 
 
-
     @Transactional
     def sendToPublisher() {
         println "send to publisher ${params}"
@@ -825,7 +836,7 @@ class PublicationController extends RestfulController<Publication> {
 
         try {
             sheridanService.sendToSheridan(xml, publication)
-        } catch(e) {
+        } catch (e) {
             println("Upload to Sheridan failed " + e)
         } finally {
             println("Upload to Sheridan succeeded")
@@ -902,15 +913,15 @@ class PublicationController extends RestfulController<Publication> {
 //            CurationActivity.executeUpdate("MATCH (p:Publication),(u:User) where p.doi={doi} and u.username = {username} create (p)-[r:REVIEWERS]->(ca:CurationActivity {uuid:'"+inputUUID+"',curationStatus:'"+curationStatus+"',version:0})<-[c:Curators]-(u) RETURN ca ",[doi:publication.doi,username:user.username])
 //            curationActivity = CurationActivity.executeQuery("MATCH (ca:CurationActivity) where ca.uuid={uuid} return ca",[uuid:inputUUID])[0] as CurationActivity
 //            curationActivity.curationStatus = curationStatus
-            curationActivity = new CurationActivity( curationStatus: curationStatus )
-            curationActivity.save(flush: true, failOnError:true)
+            curationActivity = new CurationActivity(curationStatus: curationStatus)
+            curationActivity.save(flush: true, failOnError: true)
             curationActivity.publication = publication
-            curationActivity.save(flush: true, failOnError:true)
+            curationActivity.save(flush: true, failOnError: true)
             curationActivity.uuid = inputUUID
-            curationActivity.save(flush: true, failOnError:true)
+            curationActivity.save(flush: true, failOnError: true)
             user.addToCurators(curationActivity)
             curationActivity.user = user
-            curationActivity.save(flush: true, failOnError:true)
+            curationActivity.save(flush: true, failOnError: true)
         } else {
 //            curationActivity.curationStatus = curationStatus
 //            curationActivity.save(flush: true, failOnError: true)
@@ -925,14 +936,14 @@ class PublicationController extends RestfulController<Publication> {
                 publication.status = PublicationStatusEnum.CURATING
                 publication.save(flush: true)
                 githubService.synchronizeLabelStatus(publication)
-                githubService.assign(publication,user)
-                githubService.addStartComment(publication,user)
+                githubService.assign(publication, user)
+                githubService.addStartComment(publication, user)
                 githubService.synchronizeLabelStatus(publication)
                 break
             case CurationStatusEnum.FINISHED:
             case CurationStatusEnum.NOT_ANNOTATED:
-                githubService.unassign(publication,user)
-                githubService.addFinishComment(publication,user)
+                githubService.unassign(publication, user)
+                githubService.addFinishComment(publication, user)
                 break
         }
 

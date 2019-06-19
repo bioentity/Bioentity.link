@@ -498,7 +498,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/kwd xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "kwd")
         xmlData = xmlData.replaceAll(/fig-count xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "fig-count")
         xmlData = xmlData.replaceAll(/title xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "title")
-
+        xmlData = xmlData.replaceAll(/list xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "list")
         xmlData = xmlData.replaceAll(/ext-link-type=\"doi\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="doi"')
         // Remove ids
         xmlData = xmlData.replaceAll(/ id=\"italic-\d+\"/, "")
@@ -520,6 +520,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"contrib-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"caption-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"ref-list-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"title-[\w\d]+\"/, "")
 
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1 />')
@@ -554,10 +555,20 @@ class PublicationService {
                 runHeader += matcher.group() + "\n"
             }
             xmlData = xmlData.replaceAll(/<\/article-title><\/title-group>/, "</article-title>\n" + runHeader + "</title-group>")
-            xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v2.3 20070202//EN" "journalpublishing.dtd">\n' + xmlData
+//            xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v2.3 20070202//EN" "journalpublishing.dtd">\n' + xmlData
+            // Grab the xml and doctype tags from the oringal document because texture loses them
+            String[] doctype = originalXml.split("\n", 3)
+            xmlData = doctype[0] + "\n" + doctype[1] + "\n" + xmlData
         }
+
+        // For some reason texture puts the caption tag in there twice
         xmlData = xmlData.replaceAll("<caption><caption", "<caption")
         xmlData = xmlData.replaceAll("</caption></caption>", "</caption>")
+        // Probably a better way to do this, but one case had a line return in it
+        xmlData = xmlData.replaceAll("</captipn>\n</caption>", "</caption>")
+
+        xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
+        xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
         return xmlData
     }
 

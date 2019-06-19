@@ -108,7 +108,10 @@ export default {
     iterator.optional('custom-meta-group', function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })
-    if (iterator.hasNext()) throw new Error('Illegal JATS: ' + el.outerHTML)
+    iterator.optional('genetics-comment', function(child) {
+      node.nodes.push(converter.convertElement(child).id)
+    })
+   if (iterator.hasNext()) throw new Error('Illegal JATS: ' + el.outerHTML)
   },
 
   export: function(node, el, converter) {
