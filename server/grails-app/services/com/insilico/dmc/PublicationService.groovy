@@ -565,7 +565,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll("<caption><caption", "<caption")
         xmlData = xmlData.replaceAll("</caption></caption>", "</caption>")
         // Probably a better way to do this, but one case had a line return in it
-        xmlData = xmlData.replaceAll("</captipn>\n</caption>", "</caption>")
+        xmlData = xmlData.replaceAll("</caption>\n</caption>", "</caption>")
 
         xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
         xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
