@@ -74,7 +74,9 @@ let _isSectionBackMatter = {
 
 function _flattenSections(doc, nodes, result, level) {
   nodes.forEach(function(node) {
-    if (node.type === 'section') {
+    // We don't want `sec` tags to be converted, so renaming to something that
+    // will never be found
+    if (node.type === 'section1') {
       let id = 'h_' + node.id;
       let titleId = node.title;
       doc.create({
@@ -115,6 +117,7 @@ function _createSections(doc, nodes) {
       nodes: item.nodes,
       backMatter: item.backMatter
     })
+    return item
   }
   let item, sec
 
