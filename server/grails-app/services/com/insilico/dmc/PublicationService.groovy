@@ -521,14 +521,25 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"caption-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"ref-list-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"title-[\w\d]+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"ext-link-[\w\d]+\"/, "")
 
         // Fix count elements
-        xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1 />')
+        xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1/>')
         xmlData = xmlData.replaceAll(/<\/.+-count>/, "")
         // Text above table, fig and media should be in caption
         xmlData = xmlData.replaceAll(/(?s)<table-wrap (.+?)<\/label>(.+?)<table /, '<table-wrap $1</label><caption>$2</caption><table ')
         // Remove weird unicode
         xmlData = xmlData.replaceAll(/\u200B/, "")
+
+        // Convert to unicode
+        xmlData = xmlData.replaceAll("&amp;lt;", "&#x003C;")
+        xmlData = xmlData.replaceAll("&amp;gt;", "&#x003E;")
+        xmlData = xmlData.replaceAll("&lt;", "&#x003C;")
+        xmlData = xmlData.replaceAll("&gt;", "&#x003E;")
+
+        // Remove space in closing tags
+        xmlData = xmlData.replaceAll(" />", "/>")
+
         xmlData = xmlData.replaceAll(/(?s)<\/front-stub>(.+?)<\/sub-article>/, '</front-stub><body>$1</body></sub-article>')
 
         // Different DTDs between elife and GSA
@@ -560,6 +571,19 @@ class PublicationService {
             String[] doctype = originalXml.split("\n", 3)
             xmlData = doctype[0] + "\n" + doctype[1] + "\n" + xmlData
         }
+
+        // * should be &#00X2A;
+        xmlData = xmlData.replaceAll(/ \* /, " &#x002A; ")
+        xmlData = xmlData.replaceAll(/>\*</, ">&#x002A;<")
+
+        // Remove empty italics
+        xmlData = xmlData.replaceAll("<italic> </italic>", " ")
+        xmlData = xmlData.replaceAll("<italic/>", "")
+
+        // self-uri should be self-closing
+        xmlData = xmlData.replaceAll("></self-uri>", "/>")
+
+
 
         // For some reason texture puts the caption tag in there twice
         xmlData = xmlData.replaceAll("<caption><caption", "<caption")
