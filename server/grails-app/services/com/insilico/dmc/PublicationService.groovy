@@ -471,7 +471,8 @@ class PublicationService {
 
     @NotTransactional
     String filterXml(String xmlData, String pubType, String originalXml) {
-        xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\" id=\"unsupported-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
+/*      xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\" id=\"unsupported-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\" xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
         xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\" id=\"unsupported-inline-\d+\"/, "")
         xmlData = xmlData.replaceAll(/table-wrap xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "table-wrap")
@@ -499,7 +500,9 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/fig-count xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "fig-count")
         xmlData = xmlData.replaceAll(/title xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "title")
         xmlData = xmlData.replaceAll(/list xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "list")
+        */
         xmlData = xmlData.replaceAll(/ext-link-type=\"doi\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="doi"')
+       // xmlData = xmlData.replaceAll(/ext-link-type=\"uri\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="uri"')
         // Remove ids
         xmlData = xmlData.replaceAll(/ id=\"italic-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"label-\d+\"/, "")
@@ -522,6 +525,8 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"ref-list-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"title-[\w\d]+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"ext-link-[\w\d]+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"unsupported-inline-\d+\"/, "")
 
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1/>')
