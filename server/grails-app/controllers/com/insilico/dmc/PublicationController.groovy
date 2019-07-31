@@ -464,9 +464,12 @@ class PublicationController extends RestfulController<Publication> {
 //            render jsonObject as JSON
 //        }
 
+        User admin = userService.getAdmin()
+
         Publication publication
         try {
             publication = publicationService.ingestPublicationContent(fileName, xmlFile)
+            githubService.addComment(publication, "@${admin.username} New publication uploaded.")
             render publication as JSON
         } catch (e) {
             JSONObject jsonObject = new JSONObject(
@@ -827,6 +830,11 @@ class PublicationController extends RestfulController<Publication> {
 
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
+        if(publication.doi.toLowercase().contains("genetics")) {
+            defaultPublisher = userService.getGeneticsPublisher()
+        } else if(publication.doi.toLowercase().contains("g3")) {
+            defaultPublisher = userService.getG3Publisher()
+        }
 
         String xml = publicationService.filterXml(
                 publication.exportedData.value,
@@ -842,10 +850,12 @@ class PublicationController extends RestfulController<Publication> {
             println("Upload to Sheridan succeeded")
         }
 
+        User admin = userService.getAdmin()
+
         // assign to publisher
         githubService.assignOnly(publication, defaultPublisher.username)
         // create a pub comment for the publisher that it is ready
-        githubService.addComment(publication, "@${user.username} marked publication ready for publisher review @${defaultPublisher.username}")
+        githubService.addComment(publication, "@${user.username} marked publication ready for publisher review. @${defaultPublisher.username} The article is now available on your server. @${admin.username}")
         // set pub status
         publication.status = PublicationStatusEnum.PUB_APPROVED
         // add pub label

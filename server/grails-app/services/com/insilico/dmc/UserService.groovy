@@ -11,4 +11,19 @@ class UserService {
         User user = User.findByUsername("bioentity-publisher")
         return user
     }
+
+    def getG3Publisher() {
+        User user = User.findByUername("G3-Database")
+        return user
+    }
+
+    def getGeneticsPublisher() {
+        User user = User.findByUsername("Genetics-Database")
+        return user
+    }
+
+    def getAdmin() {
+        User user = User.findByUsername("kyook")
+        return user
+    }
 }
