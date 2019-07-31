@@ -830,9 +830,9 @@ class PublicationController extends RestfulController<Publication> {
 
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
-        if(publication.doi.toLowercase().contains("genetics")) {
+        if(publication.doi.toLowerCase().contains("genetics")) {
             defaultPublisher = userService.getGeneticsPublisher()
-        } else if(publication.doi.toLowercase().contains("g3")) {
+        } else if(publication.doi.toLowerCase().contains("g3")) {
             defaultPublisher = userService.getG3Publisher()
         }
 
