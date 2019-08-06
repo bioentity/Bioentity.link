@@ -78,6 +78,9 @@ export class MarkupService {
     }
 
     generateLink(prefix: string, externalModId: string, doi: string) {
+        if(prefix == "WB" && !externalModId.startsWith("WB")) {
+            return "https://www.wormbase.org/species/c_elegans/strain/" + externalModId;
+        }
         return 'https://identifiers.org/bioentitylink/'+ prefix + ":" + externalModId + "?doi=" + doi;
     }
 }
