@@ -215,7 +215,7 @@ class MarkupApp {
                     let term = termData[w];
                     let found = 0;
                     let reWord = term.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_;:-]|[^A-Za-z0-9_;:-]" + reWord + "[^A-Za-z0-9_;:-]", "g");
+                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_:]|[^A-Za-z0-9_:-]" + reWord + "[^A-Za-z0-9_:]", "g");
                     //let hits;
                     while (hits = re.exec(paragraphNode.content)) {
 
