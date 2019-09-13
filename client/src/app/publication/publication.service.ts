@@ -37,7 +37,7 @@ export class PublicationService {
     }
 
     downloadOriginal(pub: Publication) {
-        window.open(environment.serverUrl + 'publication/content/' + pub.id, '_blank');
+        window.open(environment.serverUrl + 'publication/downloadOriginal/' + pub.id, '_blank');
     }
 
     getPublications(offset: number, max: number, status: any, search: string, species: string): Observable<any> {
