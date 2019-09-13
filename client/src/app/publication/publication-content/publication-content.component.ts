@@ -84,6 +84,10 @@ export class PublicationContentComponent implements OnInit {
         this.publicationService.downloadRawPub(this.selectedPub);
     }
 
+    exportOriginal() {
+        this.publicationService.downloadOriginal(this.selectedPub);
+    }
+
     findGithubLink(publication: Publication) {
         this.githubService.getPubLink(publication).subscribe(applicationData => {
             let link = applicationData.githubLink;
