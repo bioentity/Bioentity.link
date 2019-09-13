@@ -527,6 +527,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"ext-link-[\w\d]+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-inline-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/id=\"abstract-\d\"/, "")
 
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1/>')
