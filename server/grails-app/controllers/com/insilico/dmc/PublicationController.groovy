@@ -250,6 +250,23 @@ class PublicationController extends RestfulController<Publication> {
         outputStream.close()
     }
 
+    def downloadOriginal(Publication publication) {
+        response.setHeader("Content-disposition", "attachment; filename=raw-${publication.fileName}")
+        def xmlData = publication.originalData.value
+
+        if (publicationService.validatePubXml(xmlData)) {
+            println "Valid Raw XML for ${publication.doi} / ${publication.title}"
+        } else {
+            println "BAD Raw XML for ${publication.doi} / ${publication.title}"
+        }
+
+
+        def outputStream = response.outputStream
+        outputStream << xmlData
+        outputStream.flush()
+        outputStream.close()
+    }
+
     def download(Publication publication) {
         response.setHeader("Content-disposition", "attachment; filename=${publication.fileName}")
         def outputStream = response.outputStream
