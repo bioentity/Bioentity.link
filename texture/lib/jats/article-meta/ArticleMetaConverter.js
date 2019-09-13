@@ -111,7 +111,7 @@ export default {
     iterator.optional('genetics-comment', function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })
-   if (iterator.hasNext()) throw new Error('Illegal JATS: ' + el.outerHTML)
+   if (iterator.hasNext()) throw new Error('Illegal JATS: ' + el.innerHTML)
   },
 
   export: function(node, el, converter) {

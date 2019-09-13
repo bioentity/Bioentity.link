@@ -168,8 +168,8 @@ class MarkupApp {
 			} else if (node.startsWith('superscript')) {
 				superscriptNodes.push(nodes[node]);
 				let paragraph = window.doc.get(nodes[node].path[0]);
-				console.log("superscript 1 " + paragraph.content.substring(nodes[node].startOffset, nodes[node].endOffset))
-				console.log("superscript 2 " + paragraph.content.substring(paragraph.content.substring(0, nodes[node].startOffset).lastIndexOf(' ') + 1, nodes[node].startOffset))
+			//	console.log("superscript 1 " + paragraph.content.substring(nodes[node].startOffset, nodes[node].endOffset))
+			//	console.log("superscript 2 " + paragraph.content.substring(paragraph.content.substring(0, nodes[node].startOffset).lastIndexOf(' ') + 1, nodes[node].startOffset))
 				for(let w in termData) {
 				   // Handle the superscript	
 					if(paragraph.content.substring(nodes[node].startOffset, nodes[node].endOffset) == termData[w].value) {
@@ -205,6 +205,11 @@ class MarkupApp {
         }, "*");
 
         for (let node in nodes) {
+            if(node == "article-meta") {
+                for(metanode in window.doc.get(node).nodes) {
+                    console.log(window.doc.get(metanode));
+                }
+            }
             if (node.startsWith('paragraph') ) {
                 let paragraphNode = window.doc.get(node);
 				//console.log(paragraphNode)
@@ -375,6 +380,7 @@ class MarkupApp {
                             }
 
                         } else {
+                            /*
                             if (cmdState.mode == "delete") {
                                 console.log('Error trying to annotate: ' + term.value + ' because it is already linked.');
                             } else if (cmdState.mode == "expand") {
@@ -382,6 +388,7 @@ class MarkupApp {
                             } else if (cmdState.mode == "truncate") {
                                 console.log('Error trying to annotate: ' + term.value + ' because it is part of the linked word.');
                             }
+                            */
                             ++numErrors;
                         }
 

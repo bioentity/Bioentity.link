@@ -1,6 +1,7 @@
 import JATSImporter from './JATSImporter'
 import JATSExporter from './JATSExporter'
 
+import AbstractPackage from './abstract/package'
 import AffPackage from './aff/package'
 import ArticlePackage from './article/package'
 import ArticleMetaPackage from './article-meta/package'
@@ -34,6 +35,7 @@ import XrefPackage from './xref/package'
 export default {
   name: 'jats',
   configure: function(config) {
+    config.import(AbstractPackage)
     config.import(AffPackage)
     config.import(ArticlePackage)
     config.import(ArticleMetaPackage)
