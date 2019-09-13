@@ -31,7 +31,10 @@
             Linked
         </a>
         <a *ngIf="isAdmin()" href="#/publication/{{selectedPub.doi}}" (click)="exportRawPub()" title="Download Raw"
-           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">Original
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">Linked (Raw)
+        </a>
+         <a *ngIf="isAdmin()" href="#/publication/{{selectedPub.doi}}" (click)="exportOriginal()" title="Download Raw"
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">Unlinked
         </a>
         <a *ngIf="selectedPub.githubLink" href="{{selectedPub.githubLink}}"  title="Github"
            class="btn-outline btn-secondary link-hover btn btn-sm fa fa-github">

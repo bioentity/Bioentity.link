@@ -36,6 +36,10 @@ export class PublicationService {
         window.open(environment.serverUrl + 'publication/downloadRaw/' + pub.id, '_blank');
     }
 
+    downloadOriginal(pub: Publication) {
+        window.open(environment.serverUrl + 'publication/content/' + pub.id, '_blank');
+    }
+
     getPublications(offset: number, max: number, status: any, search: string, species: string): Observable<any> {
         this._publications = this.http.get(environment.serverUrl + 'publication?max=' + max + '&offset=' + offset + '&status=' + status + '&search=' + search + '&species=' + species)
             .map((res: Response) => res.json())
