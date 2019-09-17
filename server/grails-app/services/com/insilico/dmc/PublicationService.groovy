@@ -71,7 +71,7 @@ class PublicationService {
             return null
         } else if (fileContent.toLowerCase().indexOf("<journal-title>micropublication") != -1) {
             println "This is a micropublication, trying to see if elife ingester works"
-            journal = "elife"
+            journal = "micropublication"
         } else {
             // TODO: Return error if unable to determine journal
             println "Unable to determine journal so ignoring: ${fileName}"
@@ -93,9 +93,9 @@ class PublicationService {
             publication = elifeIngester.extractMetaData(publication)
         } else if (journal == "genetics") {
             publication = geneticsIngester.extractMetaData(publication)
-        }// else if (journal == "genetics old") {
-        //	publication = geneticsOldIngester.extractMetaData(publication)
-        //}
+        } else if (journal == "micropublication") {
+        	publication = elifeIngester.extractMetaData(publication)
+        }
         String doi = publication.doi
 
         if (Publication.countByDoi(doi) > 1) {
@@ -396,6 +396,8 @@ class PublicationService {
             content = elifeIngester.extractIndexableContent(publication)
         } else if (publication.journal == "genetics") {
             content = geneticsIngester.extractIndexableContent(publication)
+        } else if(publication.journal == "micropublication") {
+            content = elifeIngester.extractIndexableContent(publication)
         }
         println "initial size: " + content.size()
         println "contains word 1" + content.contains("myo-2")
@@ -603,7 +605,7 @@ class PublicationService {
     }
 
     String getPubType(Publication publication) {
-        if (publication.doi.toLowerCase().contains("/w2")) {
+        if (publication.doi.toLowerCase().contains("10.17912")) {
             return "micropublication"
         } else if (publication.doi.toLowerCase().contains("elife")) {
             return "elife"
