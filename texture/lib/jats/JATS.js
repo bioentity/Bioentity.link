@@ -27,6 +27,7 @@ let JATS = {
   JUST_TABLE: ['table-wrap'],
   KWD_GROUP: ['kwd-group'],
   LIST: ['def-list','list'],
+  LIST_ITEM: ['list-item'],
   MATH: ['tex-math','mml:math'],
   NOTHING_BUT_PARA: ['p'],
   PHRASE: ['abbrev','milestone-end','milestone-start','named-content','styled-content'],
@@ -55,6 +56,7 @@ JATS.ALL_PHRASE = JATS.ADDRESS_LINK
 JATS.PARA_LEVEL = JATS.BLOCK_DISPLAY
   .concat(JATS.BLOCK_MATH)
   .concat(JATS.LIST)
+  .concat(JATS.LIST_ITEM)
   .concat(JATS.MATH)
   .concat(JATS.NOTHING_BUT_PARA)
   .concat(JATS.RELATED_ARTICLE)
