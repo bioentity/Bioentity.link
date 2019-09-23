@@ -19,6 +19,8 @@ import FrontPackage from './front/package'
 import GraphicPackage from './graphic/package'
 import ItalicPackage from './italic/package'
 import LabelPackage from './label/package'
+import ListPackage from './list/package'
+import ListItemPackage from './list-item/package'
 import MonospacePackage from './monospace/package'
 import ParagraphPackage from './paragraph/package'
 import RefPackage from './ref/package'
@@ -53,6 +55,8 @@ export default {
     config.import(FrontPackage)
     config.import(GraphicPackage)
     config.import(LabelPackage)
+    config.import(ListPackage)
+    config.import(ListItemPackage)
     config.import(MonospacePackage)
     config.import(ParagraphPackage)
     config.import(RefPackage)
