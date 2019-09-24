@@ -221,15 +221,23 @@ abstract class Ingester {
 
     def evaluateSection(def sec, HashSet<String> wordBuffer) {
         sec.each { NodeChild section ->
+
             if (section.title) {
                 consume(wordBuffer, section.title)
             }
+
+
             section.p.each { NodeChild p ->
                 consume(wordBuffer, p)
             }
+
+
             section.sec.each { NodeChild subSection ->
                 if (subSection.title) {
                     consume(wordBuffer, subSection.title)
+                }
+                subSection.list.each { NodeChild list ->
+                    consume(wordBuffer, list)
                 }
                 subSection.p.each { NodeChild p ->
                     consume(wordBuffer, p)
@@ -237,6 +245,7 @@ abstract class Ingester {
                 subSection.sec.each { NodeChild subSubSection ->
                     evaluateSection(subSubSection, wordBuffer)
                 }
+
             }
         }
     }
