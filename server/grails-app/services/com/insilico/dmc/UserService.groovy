@@ -13,7 +13,7 @@ class UserService {
     }
 
     def getG3Publisher() {
-        User user = User.findByUername("G3-Database")
+        User user = User.findByUsername("G3-Database")
         return user
     }
 
