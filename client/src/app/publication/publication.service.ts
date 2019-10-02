@@ -78,9 +78,9 @@ export class PublicationService {
             doi: doi,
             user: authenticatedUser,
         };
-        let formData: FormData = new FormData();
-        formData.append('user', authenticatedUser);
-        formData.append('doi', doi);
+        //let formData: FormData = new FormData();
+        //formData.append('user', authenticatedUser);
+        //formData.append('doi', doi);
         return this.http.post(environment.serverUrl + 'publication/delete', data, options)
             .map((res: Response) => res.json())
             .publishReplay()
@@ -237,10 +237,10 @@ export class PublicationService {
             user: authenticatedUser,
             status: CurationStatus[status]
         };
-        let formData: FormData = new FormData();
-        formData.append('user', authenticatedUser);
-        formData.append('publication', publication);
-        formData.append('status', CurationStatus[status]);
+        //let formData: FormData = new FormData();
+        //formData.append('user', authenticatedUser);
+        //formData.append('publication', publication);
+        //formData.append('status', CurationStatus[status]);
         return this.http.post(environment.serverUrl + 'publication/createAnnotation', data, options)
             .map((res: Response) => res.json())
             .publishReplay()
@@ -256,9 +256,9 @@ export class PublicationService {
             user: authenticatedUser,
             status: CurationStatus[status]
         };
-        let formData: FormData = new FormData();
-        formData.append('user', authenticatedUser);
-        formData.append('publication', publication);
+        //let formData: FormData = new FormData();
+        //formData.append('user', authenticatedUser);
+        //formData.append('publication', publication);
         return this.http.post(environment.serverUrl + 'publication/sendToPublisher', data, options)
             .map((res: Response) => res.json())
             .publishReplay()
@@ -273,9 +273,9 @@ export class PublicationService {
             user: authenticatedUser,
             status: CurationStatus[status]
         };
-        let formData: FormData = new FormData();
-        formData.append('user', authenticatedUser);
-        formData.append('publication', publication);
+        //let formData: FormData = new FormData();
+        //formData.append('user', authenticatedUser);
+        //formData.append('publication', publication);
         return this.http.post(environment.serverUrl + 'publication/cancelSendToPublisher', data, options)
             .map((res: Response) => res.json())
             .publishReplay()

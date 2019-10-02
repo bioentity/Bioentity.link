@@ -538,8 +538,12 @@ export class PublicationDetailComponent implements OnInit {
         this.publicationService.sendToPublisher(this.selectedPub, this.authenticatedUser).subscribe(applicationData => {
             this.selectedPub = applicationData;
             this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
-            this.modalRef.close();
-        });
+            //this.modalRef.close();
+        },
+        error => {
+            console.log(error);
+        },
+        () => { this.modalRef.close()});
     }
 
     cancelSendToPublisher(processing) {
