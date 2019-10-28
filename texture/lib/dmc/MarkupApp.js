@@ -163,9 +163,9 @@ class MarkupApp {
 
 
 		for (let node in nodes) {
-			if(node.startsWith('subscript')) {
-				subscriptNodes.push(nodes[node]);
-			} else if (node.startsWith('superscript')) {
+			//if(node.startsWith('subscript')) {
+		//		subscriptNodes.push(nodes[node]);
+			if (node.startsWith('superscript') || node.startsWith('subscript')) {
 				superscriptNodes.push(nodes[node]);
 				let paragraph = window.doc.get(nodes[node].path[0]);
 			//	console.log("superscript 1 " + paragraph.content.substring(nodes[node].startOffset, nodes[node].endOffset))
@@ -205,23 +205,20 @@ class MarkupApp {
         }, "*");
 
         for (let node in nodes) {
-            if(node == "article-meta") {
-                for(metanode in window.doc.get(node).nodes) {
-                    console.log(window.doc.get(metanode));
-                }
-            }
+           // if(node == "article-meta") {
+           //     for(metanode in window.doc.get(node).nodes) {
+           //         console.log(window.doc.get(metanode));
+           //     }
+           // }
             if (node.startsWith('paragraph') ) {
                 let paragraphNode = window.doc.get(node);
-				//console.log(paragraphNode)
 				let hits;
 				let wordHits = 0;
 				for (let w in termData) {
-                    //let wordHits = 0;
                     let term = termData[w];
-                    let found = 0;
                     let reWord = term.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_:]|[^A-Za-z0-9_:-]" + reWord + "[^A-Za-z0-9_:]", "g");
-                    //let hits;
+                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_:]|[^A-Za-df-qs-z0-9_:]" + reWord + "[^A-Za-z0-9_:]", "g");
+                    
                     while (hits = re.exec(paragraphNode.content)) {
 
 						let startOffset = hits.index + 1;
@@ -229,17 +226,17 @@ class MarkupApp {
 						if (hits.index == 0) {
 							startOffset = 0;
 							endOffset = term.value.length;
-						}
-						
+                        }
+                        if(paragraphNode.content.substring(hits.index + term.value.length + 1, hits.index + term.value.length + 2) == "Δ") { 
+                           // console.log("delta");
+                           endOffset++;
+                        }	
 						entityMatches.push({path: [paragraphNode.id, 'content'], startOffset: startOffset, endOffset: endOffset, term: term, type: "word"})
 					}
 				}
 				
 				for(let entityMatch in entityMatches) {
 						let entity = entityMatches[entityMatch]
-//						if(entity.term.value == "frp1") {
-						//	console.log(entity)
-//						}
 						if(linkItalics && !((entity.path[0] + ":" + entity.startOffset) in italicNodes) &&
 							!((entity.path[0] + ":" + entity.endOffset) in italicNodes)
 						) {
@@ -268,12 +265,12 @@ class MarkupApp {
                             documentSession: documentSession
                         });
 
-						for(let node in subscriptNodes) {
-							if(subscriptNodes[node].path[0] == entity.path[0] && subscriptNodes[node].startOffset > startOffset && subscriptNodes[node].startOffset < endOffset) {
-								//console.log(entity.path[0] + " " + startOffset + " " + endOffset + " " + subscriptNodes[node].path[0] + " " + subscriptNodes[node].startOffset + " " + subscriptNodes[node].endOffset)
-								cmdState.mode = "subscript"	
-							}
-						}
+						//for(let node in subscriptNodes) {
+					//		if(subscriptNodes[node].path[0] == entity.path[0]) { //} && subscriptNodes[node].startOffset > startOffset && subscriptNodes[node].startOffset < endOffset) {
+							//	console.log(entity.path[0] + " " + startOffset + " " + endOffset + " " + subscriptNodes[node].path[0] + " " + subscriptNodes[node].startOffset + " " + subscriptNodes[node].endOffset)
+							//	cmdState.mode = "subscript"	
+							//}
+					//	}
 
 						if(cmdState.mode == "expand") {
 							
