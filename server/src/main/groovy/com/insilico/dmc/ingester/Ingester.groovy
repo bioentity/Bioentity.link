@@ -166,6 +166,7 @@ abstract class Ingester {
                     println "adding word ${word} -> ${wordToAdd}"
                 }
                 wordBuffer.add(wordToAdd)
+                wordBuffer.add(wordToAdd.toLowerCase())
             }
 //            wordBuffer.addAll(cleanPunctuation(it))
 //            debugString.each { innerDebug ->
