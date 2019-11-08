@@ -217,7 +217,7 @@ class MarkupApp {
 				for (let w in termData) {
                     let term = termData[w];
                     let reWord = term.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_:]|[^A-Za-df-qs-z0-9_:]" + reWord + "[^A-Za-z0-9_:]", "g");
+                    let re = new RegExp("^" + reWord + "[^A-Za-z0-9_]|[^A-Za-df-qs-z0-9_]" + reWord + "[^A-Za-z0-9_]", "g");
                     
                     while (hits = re.exec(paragraphNode.content)) {
 
@@ -227,6 +227,7 @@ class MarkupApp {
 							startOffset = 0;
 							endOffset = term.value.length;
                         }
+                        // SGD has deltas 
                         if(paragraphNode.content.substring(hits.index + term.value.length + 1, hits.index + term.value.length + 2) == "Δ") { 
                            // console.log("delta");
                            endOffset++;
@@ -300,6 +301,7 @@ class MarkupApp {
 
 							}
 
+                            try {
 							 let res = cmd.execute({
                                 commandState: {
                                     mode: "create"
@@ -307,6 +309,7 @@ class MarkupApp {
                                 documentSession: documentSession,
                                 selectionState: selectionState
                             });
+                            
 							// Save ext-link ID
 							term.extLinkId = res.anno.id;
                        		documentSession.transaction(function(tx, args) {
@@ -331,7 +334,10 @@ class MarkupApp {
 								})
 
 							}
-	
+	                        } catch(error) {
+                                console.log(error)
+                                console.log(term)
+                            }
 					        let saveTerm = JSON.parse(JSON.stringify(term));
 
                             try{
