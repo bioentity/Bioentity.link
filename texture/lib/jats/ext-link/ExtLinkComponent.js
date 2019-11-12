@@ -53,7 +53,8 @@ class ExtLinkComponent extends AnnotationComponent {
 
 	if (node.id.length > 20) {
 		el.removeClass('sm-highlighted')
-		
+		el.removeClass('sc-ext-link')
+		/*
 		if(node.entityType == "rule") {
 			el.addClass("ext-link-green")
 			el.attr('onclick', 'window.parent.postMessage({action: "editMarkup", term: "' + this.props.node.id + '", word: "' + word.text + '"}, "*")')
@@ -79,14 +80,17 @@ class ExtLinkComponent extends AnnotationComponent {
 
 
 		}
-
-		let match = node.attributes['xlink:href'].match(/public\/(.+):/)
-
+*/
+		let match = node.attributes['xlink:href'].match(/bioentitylink\/(.+):/)
 		let colors = {"FB": "#007bff", "WB": "#6c757d", "SGD": "#28a745", "MGI": "#dc3545", "POM": "#ffc107", "RGD": "#17a2b8", "ZFIN": "#343a40"}
+		let classes = {"FB": "ext-link-fb", "WB": "ext-link-wb", "SGD": "ext-link-sgd", "MGI": "ext-link-mgi", "POM": "ext-link-pom", "RGD": "ext-link-rgd", "ZFIN": "ext-link-zfin"}
 
 		if(match) {
-			el.attr('style', 'color:' + colors[match[1]])
-		}
+//			el.attr('style', 'color:' + colors[match[1]])
+			el.addClass(match[1].toLowerCase())
+			el.attr('onclick', 'window.parent.postMessage({action: "editMarkup", term: "' + this.props.node.id + '", word: "' + word.text + '"}, "*")')
+
+		} 
 
 	}
     el.tagName = 'a'

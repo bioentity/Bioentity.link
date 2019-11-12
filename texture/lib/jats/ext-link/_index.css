@@ -56,3 +56,38 @@
   background: #5bc0de;
   padding: 5px;
 }
+
+.fb {
+	color: #007bff;
+	border-bottom: 3px solid #007bff;
+}
+
+.wb {
+	color: #6c757d;
+	border-bottom: 3px solid #6c757d;
+}
+
+.sgd {
+	color: #28a745;
+	border-bottom: 3px solid #28a745;
+}
+
+.mgi {
+	color: #dc3545;
+	border-bottom: 3px solid #dc3545;
+}
+
+.pom {
+	color: #ffc107;
+	border-bottom: 3px solid #ffc107;
+}
+
+.rgd {
+	color: #17a2b8;
+	border-bottom: 3px solid #17a2b8;
+}
+
+.zfin {
+	color: #343a40;
+	border-bottom: 3px solid #343a40;
+}

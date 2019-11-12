@@ -6,6 +6,30 @@
   color: lightcoral;
 }
 
-.sc-ext-link .sc-italic {
+.wb .sc-italic {
+  color: #6c757d;
+}
+
+.fb .sc-italic {
   color: #007bff;
+}
+
+.sgd .sc-italic {
+  color: #28a745;
+}
+
+.mgi .sc-italic {
+  color: #dc3545;
+}
+
+.pom .sc-italic {
+  	color: #ffc107;
+}
+
+.rgd .sc-italic {
+  	color: #17a2b8;
+}
+
+.zfin .sc-italic {
+  	color: #343a40;
 }
