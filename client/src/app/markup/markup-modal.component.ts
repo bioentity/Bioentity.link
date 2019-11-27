@@ -62,7 +62,8 @@ export class MarkupModal {
         lexicon.publicName = this.markup.keyWord.value;
         lexicon.externalModId = this.externalModId;
         lexicon.lexiconSource = this.selectedSource;
-        lexicon.getLink();
+//        lexicon.getLink();
+        lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
         lexicon.curatorNotes = this.curatorComments;
         lexicon.getInternalLink();
         lexicon.reasonForAdding = this.reason;
@@ -71,6 +72,7 @@ export class MarkupModal {
         this.markup.finalLexicon = lexicon;
         this.lexiconService.createLexicon(lexicon).subscribe(applicationData => {
             lexicon = applicationData;
+            console.log(lexicon);
             this.markup.keyWord.uuid = UUID.UUID();
             this.markup.keyWord.keyWordSet = this.markup.keyWordSet;
             this.markup.keyWord.lexica = lexicon;
@@ -129,7 +131,8 @@ export class MarkupModal {
 
     deleteLink() {
         this.markupService.deleteMarkup(this.markup).subscribe(applicationData => {
-            window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: this.markup.extLinkId}}, "*");
+//            window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: this.markup.extLinkId}}, "*");
+            window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: this.markup.extLinkId, paragraph: this.markup.path}}, "*");
             this.markupChanged.emit('delete-link');
             this.activeModal.close();
         });
@@ -145,7 +148,8 @@ export class MarkupModal {
 
             this.markupService.deleteAllMarkups(markupIds).subscribe(applicationData => {
                 for (let markup of markups) {
-                        window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: markup.extLinkId}}, "*");
+       //                 window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: markup.extLinkId}}, "*");
+                    window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: markup.extLinkId, paragraph: markup.path}}, "*");
                 }
                 this.markupChanged.emit('delete-all-links');
                 this.activeModal.close();
