@@ -63,6 +63,8 @@ export class PublicationDetailComponent implements OnInit {
     markupModal: NgbModalRef;
     messageListener: Function;
 
+    submitAlert = false;
+    alertMessage = "";
 
     authenticatedUser: User;
     curationComments: any = [];
@@ -299,7 +301,7 @@ export class PublicationDetailComponent implements OnInit {
                 this.publicationIndexComponent.clearIndexPub();
             }
             // TODO: Need to reload texture iframe
-            // Could also just window.location.reload()
+            window.location.reload()
         });
     }
 
@@ -534,16 +536,33 @@ export class PublicationDetailComponent implements OnInit {
 
     sendToPublisher(processing) {
         // alert('setting the publisher status and assigning to the publisher')
-        this.modalRef = this.modalService.open(processing);
-        this.publicationService.sendToPublisher(this.selectedPub, this.authenticatedUser).subscribe(applicationData => {
-            this.selectedPub = applicationData;
-            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
-            //this.modalRef.close();
-        },
-        error => {
-            console.log(error);
-        },
-        () => { this.modalRef.close()});
+      //  this.modalRef = this.modalService.open(processing);
+        this.submitAlert = true;
+        this.alertMessage = "Validating links...";
+        this.publicationService.validateLinks(this.selectedPub).subscribe(
+            result => {
+                this.alertMessage = "Links Validated.";
+                this.selectedPub = result;
+            },
+            error => {
+                this.alertMessage = "Link validation failed.";
+                console.log(error);
+            },
+            () => {
+                this.alertMessage = "Sending XML to Publisher..."
+                this.publicationService.sendToPublisher(this.selectedPub, this.authenticatedUser).subscribe(applicationData => {
+                    this.alertMessage = "XML Uploaded to Publisher.";
+                    this.selectedPub = applicationData;
+                    this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
+            //this.modddalRef.close();
+                },
+                error => {
+                    this.alertMessage = "XML Upload failed.";
+                    console.log(error);
+                },
+                () => { this.alertMessage = "Complete."})
+            }
+        )
     }
 
     cancelSendToPublisher(processing) {
