@@ -213,7 +213,9 @@ class LexiconController {
 
         Lexicon exists = Lexicon.findByExternalModId(lexicon.externalModId)
         if (exists != null) {
-            respond exists
+            println "exists"
+            render exists as JSON
+            return
         }
 
         if (lexicon.hasErrors()) {
