@@ -843,7 +843,7 @@ class PublicationController extends RestfulController<Publication> {
         println "pub ${publication as JSON}"
         println "uewr ${user as JSON}"
 
-        publication = publicationService.validateLinks(publication)
+        //publication = publicationService.validateLinks(publication)
 
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
@@ -863,9 +863,9 @@ class PublicationController extends RestfulController<Publication> {
             sheridanService.sendToSheridan(xml, publication)
         } catch (e) {
             println("Upload to Sheridan failed " + e)
-        } finally {
-            println("Upload to Sheridan succeeded")
-        }
+        } //finally {
+           // println("Upload to Sheridan succeeded")
+       // }
 
         User admin = userService.getAdmin()
 
