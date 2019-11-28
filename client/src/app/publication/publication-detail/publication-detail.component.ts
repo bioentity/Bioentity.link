@@ -319,7 +319,7 @@ export class PublicationDetailComponent implements OnInit {
         this.publicationService.setCurationStatus(this.selectedPub, this.authenticatedUser, CurationStatus.STARTED).subscribe(applicationData => {
             this.filterCuratorResults(applicationData.curators);
             this.publicationService.applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet).subscribe(applicationData => {
-                console.log('apply KWS: ' + JSON.stringify(applicationData.words));
+              //  console.log('apply KWS: ' + JSON.stringify(applicationData.words));
                 this.selectedPub = applicationData;
                 this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
                 this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
@@ -486,7 +486,12 @@ export class PublicationDetailComponent implements OnInit {
     getCurationNotes(publication: Publication) {
 
         this.githubService.getComments(publication).subscribe(applicationData => {
-            this.curationComments = applicationData;
+            for (let comment of applicationData) {
+                console.log(comment.comment)
+                if(comment.comment.indexOf("publication") == -1) {
+                    this.curationComments.push(comment)
+                }
+            }
         });
     }
 
