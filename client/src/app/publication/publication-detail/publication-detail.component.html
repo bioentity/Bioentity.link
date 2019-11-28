@@ -45,12 +45,16 @@
                             Assign
                         </div>
                         <div class="card-body" style="padding-top: 10px; padding-right: 5px;">
-                            <ul>
-                                <li *ngFor="let curator of assignableCurators" style="padding-top: 10px;">
+                            <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let curator of assignableCurators" style="padding-top: 10px;">
+                                <div class="col-6">
                                     <a routerLink="/user/{{curator.username}}">{{curator.username}}</a>
-                                    <button role="button" style="margin-left: 30px;" class="btn-primary btn btn-sm"
+                                </div>
+                                <div class="col-6">
+                                    <button role="button" class="btn-primary btn btn-sm" style="float: right;"
                                             (click)="assignUser(curator,processing)">Assign
                                     </button>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -62,7 +66,7 @@
                         </div>
                         <div *ngIf="selectedPub.status !== 'CURATOR_FINISHED'" class="card-body" style="padding: 10px;">
                             <button role="button"
-                                    (click)="sendToPublisher(processing)" class="btn btn-warning">
+                                    (click)="senoPublisher(processing)" class="btn btn-warning">
                                 Send to Publisher as Ready
                             </button>
                             <ngb-alert *ngIf="submitAlert" type="warning">{{alertMessage}}</ngb-alert>
@@ -112,17 +116,17 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h5 *ngIf="!curationComments || curationComments.length==0">Curation Notes</h5>
-                        <h5 *ngIf="curationComments && curationComments.length>0">
-                            <a [href]="curationComments[0].issueUrl">
+                        <h5>    
+                        <a [href]="selectedPub.githubLink">
                                 <i class="fa fa-external-link"></i>
                                 Curation Notes
                             </a>
                         </h5>
                     </div>
                     <div class="card-body" *ngIf="curationComments">
+                          
                         <ul>
-                            <li *ngFor="let comment of curationComments">
+                            <li *ngFor="let comment of curationComments"> 
                                 <a [href]="comment.url">
                                     {{comment.comment}}
                                     {{comment.date}}
