@@ -66,7 +66,7 @@
                         </div>
                         <div *ngIf="selectedPub.status !== 'CURATOR_FINISHED'" class="card-body" style="padding: 10px;">
                             <button role="button"
-                                    (click)="senoPublisher(processing)" class="btn btn-warning">
+                                    (click)="sendToPublisher(processing)" class="btn btn-warning">
                                 Send to Publisher as Ready
                             </button>
                             <ngb-alert *ngIf="submitAlert" type="warning">{{alertMessage}}</ngb-alert>
