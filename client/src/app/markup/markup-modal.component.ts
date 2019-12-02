@@ -72,6 +72,8 @@ export class MarkupModal {
         this.markup.finalLexicon = lexicon;
         this.lexiconService.createLexicon(lexicon).subscribe(applicationData => {
             lexicon = applicationData;
+            lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
+
             console.log(lexicon);
             this.markup.keyWord.uuid = UUID.UUID();
             this.markup.keyWord.keyWordSet = this.markup.keyWordSet;
@@ -80,6 +82,7 @@ export class MarkupModal {
                 this.markup.keyWord = applicationData;
                 // For some reason, lexica is null here
                 this.markup.keyWord.lexica = lexicon;
+                
                 // Save to server
                 let lexObject = {
                     selection: {
