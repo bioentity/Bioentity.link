@@ -21,7 +21,14 @@ export default class ServerXMLStore {
 
         let data = {content: xml};
 
-        request('PUT', serverURL, data, cb)
+        request('PUT', serverURL, data, function(err, data) {
+            if (err) return cb(err);
+            cb(null, data);
+            if(data) {
+                window.location.reload();
+            }   
+        });
+        
     }
 }
 
