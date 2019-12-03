@@ -228,10 +228,10 @@ class MarkupApp {
 							endOffset = term.value.length;
                         }
                         // SGD has deltas 
-                        if(paragraphNode.content.substring(hits.index + term.value.length + 1, hits.index + term.value.length + 2) == "Δ") { 
+                       // if(paragraphNode.content.substring(hits.index + term.value.length + 1, hits.index + term.value.length + 2) == "Δ") { 
                            // console.log("delta");
-                           endOffset++;
-                        }	
+                         //  endOffset++;
+                       // }	
 						entityMatches.push({path: [paragraphNode.id, 'content'], startOffset: startOffset, endOffset: endOffset, term: term, type: "word"})
 					}
 				}
@@ -302,56 +302,46 @@ class MarkupApp {
 							}
 
                             try {
-							 let res = cmd.execute({
-                                commandState: {
-                                    mode: "create"
-                                },
-                                documentSession: documentSession,
-                                selectionState: selectionState
-                            });
+								let res = cmd.execute({
+       	                        	commandState: {
+                                	    mode: "create"
+                                	},
+                                	documentSession: documentSession,
+                                	selectionState: selectionState
+                            	});
                             
-							// Save ext-link ID
-							term.extLinkId = res.anno.id;
-                       		documentSession.transaction(function(tx, args) {
-								tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
-								tx.set([res.anno.id, 'entityType'], "mu")
+								// Save ext-link ID
+								term.extLinkId = res.anno.id;
+                       			documentSession.transaction(function(tx, args) {
+									tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
+									tx.set([res.anno.id, 'entityType'], "mu")
+								})
 
-							})
-
-							if(entityMatches[entityMatch].type == "superscript") {
+								if(entityMatches[entityMatch].type == "superscript") {
 					
-								documentSession.transaction(function(tx, args) {
-									tx.set([res.anno.id, 'startOffset'], startOffset - 1)
-									tx.set([res.anno.id, 'entityType'], "superscript")
-								})
+									documentSession.transaction(function(tx, args) {
+										tx.set([res.anno.id, 'startOffset'], startOffset - 1)
+										tx.set([res.anno.id, 'entityType'], "superscript")
+									})
+								} else if(entityMatches[entityMatch].type == "basesup") {
+									documentSession.transaction(function(tx, args) {
+										tx.set([res.anno.id, 'endOffset'], endOffset + 1)
+									})
+								}
+						        let saveTerm = JSON.parse(JSON.stringify(term));
 
-							} else if(entityMatches[entityMatch].type == "basesup") {
-
-
-								documentSession.transaction(function(tx, args) {
-									tx.set([res.anno.id, 'endOffset'], endOffset + 1)
-
-								})
-
-							}
-	                        } catch(error) {
-                                console.log(error)
-                                console.log(term)
-                            }
-					        let saveTerm = JSON.parse(JSON.stringify(term));
-
-                            try{
                                 window.parent.postMessage({
                                     action: 'saveLink'
                                     ,hit: hits
                                     ,term: saveTerm
                                     ,xmlId: xmlId
                                 }, "*");
-                            }
-                            catch(e){
-                                alert('error saving link: '+JSON.stringify(e));
-                            }
 
+                        	} catch(error) {
+                                console.log(error)
+                                console.log(term)
+							}
+							
 						} else if (cmdState.mode == "create") {
                           
 							  let res = cmd.execute({

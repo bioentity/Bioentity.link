@@ -28,7 +28,8 @@ class ExtLinkComponent extends AnnotationComponent {
     super.didMount.apply(this, arguments)
 
     let node = this.props.node
-    node.on('properties:changed', this.rerender, this)
+	node.on('properties:changed', this.rerender, this)
+
   }
 
   dispose() {
@@ -43,7 +44,7 @@ class ExtLinkComponent extends AnnotationComponent {
 	}
 
   render($$) { // eslint-disable-line
-    let node = this.props.node;
+	let node = this.props.node;
     let el = super.render.apply(this, arguments)
 	let word = this.props.children[0]
 	while(typeof word.text !== 'string') {
@@ -81,16 +82,37 @@ class ExtLinkComponent extends AnnotationComponent {
 
 		}
 */
-		let match = node.attributes['xlink:href'].match(/bioentitylink\/(.+):/)
-		let colors = {"FB": "#007bff", "WB": "#6c757d", "SGD": "#28a745", "MGI": "#dc3545", "POM": "#ffc107", "RGD": "#17a2b8", "ZFIN": "#343a40"}
-		let classes = {"FB": "ext-link-fb", "WB": "ext-link-wb", "SGD": "ext-link-sgd", "MGI": "ext-link-mgi", "POM": "ext-link-pom", "RGD": "ext-link-rgd", "ZFIN": "ext-link-zfin"}
-
-		if(match) {
-//			el.attr('style', 'color:' + colors[match[1]])
-			el.addClass(match[1].toLowerCase())
+		//if(!node.attributes['xlink:href']) {
+		//	console.log(this)
+		//}
+		//while(!this.props.node.attributes['xlink:href']) {
+		//}
+		//setTimeout(function() {
+		//	console.log(props)
+			let match = this.props.node.attributes['xlink:href'].match(/bioentitylink\/(.+):/)
 			el.attr('onclick', 'window.parent.postMessage({action: "editMarkup", term: "' + this.props.node.id + '", word: "' + word.text + '"}, "*")')
 
-		} 
+			if(match) {
+				el.addClass(match[1].toLowerCase())
+
+			}
+		//}, 500)
+		//console.log(el)
+//		} else {
+		//	console.log(this.props.node.attributes)
+	//	}
+		//
+		//else {
+		//	setTimeout(function() {
+				//let match = node.attributes['xlink:href'].match(/bioentitylink\/(.+):/)
+//				console.log(node.attributes['xlink:href'])
+		//		if(match) {
+				//	el.addClass(match[1].toLowerCase())
+				//	el.attr('onclick', 'window.parent.postMessage({action: "editMarkup", term: "' + node.id + '", word: "' + word.text + '"}, "*")')
+			//	}
+
+//			}, 500);
+		//}
 
 	}
     el.tagName = 'a'
