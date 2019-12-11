@@ -24,9 +24,9 @@ export default class ServerXMLStore {
         request('PUT', serverURL, data, function(err, data) {
             if (err) return cb(err);
             cb(null, data);
-            if(data) {
-                window.location.reload();
-            }   
+            //if(data) {
+            //    window.location.reload();
+            //}   
         });
         
     }
