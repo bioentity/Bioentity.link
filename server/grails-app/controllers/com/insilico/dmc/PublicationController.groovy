@@ -613,6 +613,9 @@ class PublicationController extends RestfulController<Publication> {
 
         for(def line in output) {
             if(line.key == "ids") {
+                if(line.value.size() == 0) {
+                    view += "No links\n"
+                }
                 for(def id in line.value) {
                     view += id + "\n"
                 }
