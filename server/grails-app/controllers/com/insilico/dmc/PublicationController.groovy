@@ -589,6 +589,39 @@ class PublicationController extends RestfulController<Publication> {
         render publication as JSON
     }
 
+    def linksTable(Publication publication) {
+        def output = [:]
+        output["Journal"] = publication.journal.toUpperCase()
+        output["Title"]  = publication.title
+        output["Author"] = publication.authors[0]
+        output["DOI"] = publication.doi
+        output["ids"] = []
+        def markups = publication.markups
+        def markupsCount = [:]
+        for(def markup in markups) {
+            if(!markupsCount.containsKey(markup.finalLexicon.externalModId)) {
+                markupsCount[markup.finalLexicon.externalModId] = 0
+            }
+            markupsCount[markup.finalLexicon.externalModId]++
+        }
+
+        for(def markup in markupsCount) {
+            output["ids"].add(markup.key + "\t" + markup.value)
+        }
+
+        def view = ""
+
+        for(def line in output) {
+            if(line.key == "ids") {
+                for(def id in line.value) {
+                    view += id + "\n"
+                }
+            } else {
+                view += line.key + "\t" + line.value + "\n"
+            }
+        }
+        render(text: view, contentType: 'text/plain')
+    }
 
     @ApiOperation(
             value = "Get publication",
