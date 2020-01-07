@@ -46,6 +46,13 @@ abstract class Ingester {
             for (int i = 1; i <= strainMatch.groupCount(); i++) {
                 String item = strainMatch.group(i)
                 if (!badStartPattern.matcher(item).matches()) {
+                    if (item.contains("[")) {
+                        def itemSplit = item.split("\\[")
+                        itemSplit.each { itemIter ->
+                                outputArray.add(itemIter)
+                        }
+                    }
+
                     if (item.contains("(")) {
                         def itemSplit = item.split("\\(")
                         itemSplit.each { itemIter -> outputArray.add(itemIter) }
