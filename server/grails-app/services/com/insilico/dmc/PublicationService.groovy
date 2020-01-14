@@ -565,8 +565,9 @@ class PublicationService {
 
 
             while (matcher.find()) {
-                xmlData = xmlData.substring(0, matcher.start()) + "&#x" + Integer.toHexString((int) matcher.group()) + ";" + xmlData.substring(matcher.end(), xmlData.length())
-                matcher = xmlData =~ /[^\x00-\x7F]/
+                 xmlData = xmlData.substring(0, matcher.start()) + "&#x" + Integer.toHexString(matcher.group().codePointAt(0)) + ";" + xmlData.substring(matcher.end(), xmlData.length())
+
+                 matcher = xmlData =~ /[^\x00-\x7F]/
             }
 
             def runHeader = "";
