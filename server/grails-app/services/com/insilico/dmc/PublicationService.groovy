@@ -506,7 +506,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ext-link-type=\"doi\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="doi"')
        // xmlData = xmlData.replaceAll(/ext-link-type=\"uri\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="uri"')
         // Remove ids
-        xmlData = xmlData.replaceAll(/ id=\"italic-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"italic-[\w\d]+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"label-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"subscript-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"superscript-\d+\"/, "")
