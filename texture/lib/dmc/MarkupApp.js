@@ -2,6 +2,7 @@
  * Created by nathandunn on 6/10/17.
  */
 import {AnnotationCommand, request, SelectionState} from "substance";
+import ItalicCommand from "../jats/italic/ItalicCommand";
 
 class MarkupApp {
 
@@ -244,14 +245,131 @@ class MarkupApp {
 							console.log("Not linking " + entity.term.value + " because it isn't in italics")
 							continue
 						} 
-						
-						let term = entityMatches[entityMatch].term;
-						let startOffset = entityMatches[entityMatch].startOffset
-						let endOffset = entityMatches[entityMatch].endOffset
+                    
+                        for(let italic in italicNodes) {
+                            if(entity.path[0] == italicNodes[italic].path[0] && entity.startOffset >= italicNodes[italic].startOffset && entity.endOffset <= italicNodes[italic].endOffset) {
+                                if(entity.startOffset != italicNodes[italic].startOffset || entity.endOffset != italicNodes[italic].endOffset) {
+                                    let italicCommand = new ItalicCommand({name: "italic", nodeType: "italic"})
+                                    let italicSelect = documentSession.createSelection({
+                                        type: 'property',
+                                        path: entity.path,
+                                        startOffset: italicNodes[italic].startOffset,
+                                        endOffset: italicNodes[italic].endOffset
+                                    })
+                                    selectionState.setSelection(italicSelect)
+                                    try {
+                                    italicCommand.execute({
+                                        commandState: {
+                                            mode: 'delete'
+                                        },
+                                        selectionState: selectionState,
+                                        documentSession: documentSession
+                                    })
+                                } catch(e) {
+                                   // console.log("Can't delete italic")
+                                   // console.log(e)
+                                   continue
+                                }
+
+                                    let res
+                                    try {
+                                    if(entity.startOffset > italicNodes[italic].startOffset) {
+                                        italicSelect = documentSession.createSelection({
+                                            type: 'property',
+                                            path: entity.path,
+                                            startOffset: italicNodes[italic].startOffset,
+                                            endOffset: entity.startOffset
+                                        })
+                                        selectionState.setSelection(italicSelect)
+                                        res = italicCommand.execute({
+                                            commandState: {
+                                                mode: 'create'
+                                            },
+                                            selectionState: selectionState,
+                                            documentSession: documentSession
+                                        })
+                                        italicNodes[entity.path + ':' + italicNodes[italic].startOffset] = res.anno
+                                        italicNodes[entity.path + ':' + entity.startOffset] = res.anno
+                                        //italicNodes[entity.path + ':' + ]
+                                    
+                                    //    documentSession.transaction(function(tx, args) {
+									//	    tx.set([res.anno.id, 'startOffset'], entry.startOffset)
+									//    })
+                                    }
+                                } catch(e) {
+                                    console.log("Can't itali first part")
+                                }
+
+                                try {
+                                    italicSelect = documentSession.createSelection({
+                                            type: 'property',
+                                        path: entity.path,
+                                        startOffset: entity.startOffset + 1,
+                                        endOffset: entity.endOffset
+                                    })
+                                    selectionState.setSelection(italicSelect)
+                                    res = italicCommand.execute({
+                                        commandState: {
+                                            mode: 'create'
+                                        },
+                                        selectionState: selectionState,
+                                        documentSession: documentSession
+                                    })
+ 
+                                    documentSession.transaction(function(tx, args) {
+										tx.set([res.anno.id, 'startOffset'], entity.startOffset)
+                                    })
+                                    italicNodes[entity.path + ':' + entity.startOffset] = res.anno
+                                    italicNodes[entity.path + ':' + entity.endOffset] = res.anno
+                                } catch(e) {
+                                    console.log("Can't itali entity")
+                                    console.log(e)
+                                }
+
+                                try {
+                                    if(entity.endOffset < italicNodes[italic].endOffset) {
+                                        italicSelect = documentSession.createSelection({
+                                            type: 'property',
+                                            path: entity.path,
+                                            startOffset: entity.endOffset + 1,
+                                            endOffset: italicNodes[italic].endOffset
+                                        })
+                                        selectionState.setSelection(italicSelect)
+                                        res = italicCommand.execute({
+                                            commandState: {
+                                                mode: 'create'
+                                            },
+                                            selectionState: selectionState,
+                                            documentSession: documentSession
+                                        })
+                                        
+                                        documentSession.transaction(function(tx, args) {
+									        tx.set([res.anno.id, 'startOffset'], entity.endOffset)
+                                        })
+                                        italicNodes[entity.path + ':' + entity.endOffset] = res.anno
+                                        italicNodes[entity.path + ':' + italicNodes[italic].endOffset] = res.anno
+ 
+                                    }
+                                } catch(e) {
+                                    //console.log("Can't itali end")
+                                    //console.log(e)
+                                    continue
+                                }
+                                    delete italicNodes[italic]
+
+                                    break;
+
+                                }
+                            }
+                        }
+
+						let term = entity.term;
+						let startOffset = entity.startOffset
+						let endOffset = entity.endOffset
 
                         let sel = documentSession.createSelection({
                             type: 'property',
-                            path: entityMatches[entityMatch].path,
+                            path: entity.path,
                             startOffset: startOffset,
                             endOffset: endOffset
                         });
@@ -275,25 +393,25 @@ class MarkupApp {
 
 						if(cmdState.mode == "expand") {
 							
-							if(entityMatches[entityMatch].type == "superscript") {
+							if(entity.type == "superscript") {
 					
 
 								startOffset++
 
 								sel = documentSession.createSelection({
     	                        	type: 'property',
-	    	                        path: entityMatches[entityMatch].path,
+	    	                        path: entity.path,
     	    	                    startOffset: startOffset,
         	    	                endOffset: endOffset
             	    	        });
 								selectionState.setSelection(sel);
 
-							} else if(entityMatches[entityMatch].type == "basesup") {
+							} else if(entity.type == "basesup") {
 								endOffset--
 
 								sel = documentSession.createSelection({
     	                        	type: 'property',
-	    	                        path: entityMatches[entityMatch].path,
+	    	                        path: entity.path,
     	    	                    startOffset: startOffset,
         	    	                endOffset: endOffset
             	    	        });
@@ -358,18 +476,18 @@ class MarkupApp {
 								tx.set([res.anno.id, 'entityType'], "mu")
 
 							})
-		                   let saveTerm = JSON.parse(JSON.stringify(term));
+		                    let saveTerm = JSON.parse(JSON.stringify(term));
 
                             try{
                                 window.parent.postMessage({
-                                    action: 'saveLink'
-                                    ,hit: hits
-                                    ,term: saveTerm
-                                    ,xmlId: xmlId
+                                    action: 'saveLink',
+                                    hit: hits,
+                                    term: saveTerm,
+                                    xmlId: xmlId
                                 }, "*");
                             }
                             catch(e){
-                                alert('error saving link: '+JSON.stringify(e));
+                                alert('error saving link: ' + JSON.stringify(e));
                             }
 
                         } else {
