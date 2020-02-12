@@ -1,3 +1,5 @@
+import XMLIterator from '../../util/XMLIterator'
+
 'use strict'
 
 export default {
@@ -30,15 +32,26 @@ export default {
       styled-content | fn | target | xref | sub | sup | x)*
   */
 
-  export: function(node, el, converter) { // eslint-disable-line
+  export: function (node, el, converter) { // eslint-disable-line
     el.attr({
-		'ext-link-type': 'uri',
-		'xlink:href': node.attributes['xlink:href']
-	//	'entityType': 'mu'
+      'ext-link-type': 'uri',
+      'xlink:href': node.attributes['xlink:href']
+      //	'entityType': 'mu'
     })
-    //el.append(
-     // converter.annotatedText([node.id, 'label'])
-    //)
+
+  },
+
+  import: function (node, el, converter) {
+    
+    if (node.getChildren()) {
+      let children = node.getChildren()
+      let iterator = new XMLIterator(children)
+
+      iterator.optional('italic', function (child) {
+        node.italic = converter.convertElement(child).id
+      })
+    }
+    
   }
 
 }
