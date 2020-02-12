@@ -19,6 +19,9 @@ export default class ServerXMLStore {
         let serverURL = getServerBaseUrl() +  '/publication/storeByFileName/' + documentId + '.xml';
         console.log('write server URL: ' + serverURL);
 
+
+        xml.replace("&lt;", "&#x003C;");  
+        xml.replace("&gt;", "&#x003E;");      
         let data = {content: xml};
 
         request('PUT', serverURL, data, function(err, data) {
