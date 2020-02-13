@@ -49,14 +49,14 @@
                     <i *ngIf="requiresAction(keyWord)" class="fa fa-warning warning" style="color:orange;"></i>
                     <i *ngIf="!requiresAction(keyWord)" class="fa fa-check" style="color:green;"></i>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <button href="" (click)="highlightEntity(keyWord.markups)" class="btn-sm btn  btn-info"
                             role="button">
                         <i class="fa fa-arrow-circle-left"></i>
                     </button>
 
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     {{keyWord.value}}
                 </div>
                 <div class="small col-1">
@@ -64,7 +64,7 @@
                 </div>
 
 
-                <div class="small col-2">
+                <div class="small col-3">
                     {{getClasses(keyWord)}}
                 </div>
                 <div class="col-1">
