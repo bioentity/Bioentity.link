@@ -120,7 +120,7 @@ class GithubService {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        // println "found an issue for publication ${ghIssue}"
         String inputText = (showLink ? "   ${getPublicationLink(publication)}\n" : '')
         inputText += text
         ghIssue.comment(inputText)
@@ -150,7 +150,7 @@ class GithubService {
     List<GHUser> getAssigned(Publication publication) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees()
         println "assignees for issue ${assignees}"
         return assignees
@@ -160,7 +160,7 @@ class GithubService {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees() ?: new ArrayList<>()
         println "assignees for issue ${assignees}"
         GHUser ghUser = github.getUser(username)
@@ -178,7 +178,7 @@ class GithubService {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees()
         println "assignees for issue ${assignees}"
         GHUser ghUser = github.getUser(username)
@@ -242,7 +242,7 @@ class GithubService {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+       // println "found an issue for publication ${ghIssue}"
         println "gh user ${ghIssue}"
         ghIssue.setLabels(publicationStatusEnum.labelText)
 
@@ -252,7 +252,7 @@ class GithubService {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         ghIssue.comment("Publication closed by @${user.username} because also being deleted from the linking server ${getPublicationLink(publication)}.")
         ghIssue.close()
 
