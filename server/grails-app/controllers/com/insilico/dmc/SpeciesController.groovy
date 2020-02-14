@@ -5,6 +5,7 @@ import grails.rest.*
 import grails.converters.*
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
+import grails.transaction.Transactional
 
 class SpeciesController extends RestfulController {
     static responseFormats = ['json', 'xml']
@@ -49,4 +50,12 @@ class SpeciesController extends RestfulController {
 
         render species as JSON
     }
+
+    @Transactional
+	def save(Species species) {
+        species.save()
+        render species as JSON
+
+    }
+
 }
