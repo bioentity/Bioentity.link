@@ -169,7 +169,14 @@ class PublicationController extends RestfulController<Publication> {
 
         //markupService.revertPub(publication)
 
-        List<Node> nodeList = KeyWordSet.executeQuery("MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon),(p:Publication)--(c:Content)--(i:ContentWordIndex) where kws.name={kwsName} and p.fileName = {fileName} and i.word=k.value RETURN {root:k, lexica:collect(l)}", [kwsName: keyWordSet.name, fileName: publication.fileName])
+        List<Node> nodeList = KeyWordSet.executeQuery("""
+        MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon),
+        (p:Publication)--(c:Content)--(i:ContentWordIndex) 
+        WHERE kws.name = {kwsName} 
+        AND p.fileName = {fileName} 
+        AND i.word=k.value RETURN {root:k, lexica:collect(l)}""", 
+        [kwsName: keyWordSet.name, fileName: publication.fileName])
+
         List<KeyWord> keyWordList = new ArrayList<>()
         nodeList.unique().each {
             KeyWord keyWord = it["root"] as KeyWord
@@ -229,6 +236,7 @@ class PublicationController extends RestfulController<Publication> {
     }
 
     def show(Publication publication) {
+        println publication
         [publication: publication]
     }
 
@@ -589,6 +597,12 @@ class PublicationController extends RestfulController<Publication> {
         render publication as JSON
     }
 
+    @Transactional
+    def addToIndex(Publication publication, String word) {
+        publicationService.addToIndex(publication, word)
+        render publication as JSON
+    }
+
     def linksTable(Publication publication) {
         def output = [:]
         output["Journal"] = publication.journal.toUpperCase()
@@ -827,7 +841,7 @@ class PublicationController extends RestfulController<Publication> {
         List<GHUser> assignableUserList = githubService.getAssignable()
         List<GHUser> ghUserList = githubService.getAssigned(publication)
 
-        println "totla user list ${assignableUserList.size()}"
+        println "total user list ${assignableUserList.size()}"
         println "gh user list ${ghUserList.size()}"
         assignableUserList = assignableUserList - ghUserList
         println "assignable user list ${assignableUserList.size()}"
