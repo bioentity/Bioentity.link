@@ -42,6 +42,9 @@
         <a *ngIf="!selectedPub.githubLink" (click)="githubLink(selectedPub)"  title="Github"
            class="btn-outline btn-warning warning-download link-hover btn btn-sm fa fa-github">
         </a>
+        <a href="#/publication/{{selectedPub.doi}}" (click)="exportSummary()" title="Link Summary"
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">Link Summary
+        </a>
     </div>
 </div>
 
