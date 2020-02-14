@@ -149,6 +149,7 @@
                                 <div class="statusButton">
                                     {{getStatusString() | titlecase | replaceAll: '_': ' ' }}
                                 </div>
+                                <ngb-alert *ngIf="linking" [dismissible]="false" type="warning">{{linkingMessage}}</ngb-alert>
                             </td>
                         </tr>
 
@@ -173,8 +174,7 @@
                                 >
                                     Select Set to Link
                                 </button>
-       
-		                         <div *ngIf="linking">Linking ...</div>
+                                
                             </td>       
                  </tr>
 					<tr>
