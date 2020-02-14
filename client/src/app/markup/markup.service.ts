@@ -50,8 +50,8 @@ export class MarkupService {
     deleteMarkup(markup: Markup) {
         let formData: FormData = new FormData();
         formData.append('markup', JSON.stringify(markup));
-        console.log('deleting markup ' + JSON.stringify(markup));
-        this._deleteMarkupStatus = this.http.delete(environment.serverUrl + 'markup/delete/'+markup.id,formData)
+       // console.log('deleting markup ' + JSON.stringify(markup));
+        this._deleteMarkupStatus = this.http.delete(environment.serverUrl + 'markup/delete/' + markup.id, formData)
             .map((res: Response) =>	res.json())
             .publishReplay()
             .refCount();
@@ -65,10 +65,17 @@ export class MarkupService {
             .refCount();
     }
 
+    getMarkupsForExtLinkId(extLinkId: string) {
+        return this.http.get(environment.serverUrl + 'markup/getByExtLinkId?extLinkId=' + extLinkId)
+            .map((res: Response) =>	res.json())
+            .publishReplay()
+            .refCount();
+    }
+
     deleteAllMarkups(markups: any) {
         let formData: FormData = new FormData();
         formData.append('markups', JSON.stringify(markups));
-        console.log('deleting markup ' + JSON.stringify(markups));
+      //  console.log('deleting markup ' + JSON.stringify(markups));
 
         this._deleteMarkupStatus = this.http.post(environment.serverUrl + 'markup/deleteAll',formData)
             .map((res: Response) =>	res.json())
