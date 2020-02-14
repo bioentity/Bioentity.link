@@ -110,7 +110,7 @@ export class MarkupModal {
     }
 
     saveLexicon(linkAll) {
-                            this.isCollapsed = false;
+        this.isCollapsed = false;
 
         let lexicon = new Lexicon();
         lexicon.publicName = this.markup.keyWord.value;
@@ -167,7 +167,7 @@ export class MarkupModal {
         window.frames[0].postMessage({ action: 'updateLink', terms: terms }, "*");
         this.markupChanged.emit('update-link');
         this.isSaved = true;
-        this.isCollapsed = true;
+       // this.isCollapsed = true;
         //this.activeModal.close();
     }
 
