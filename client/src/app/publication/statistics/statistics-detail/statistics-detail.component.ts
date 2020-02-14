@@ -268,11 +268,13 @@ export class StatisticsDetailComponent implements OnInit {
     }
 
 	setHighlights() {
-        console.log("setting highlights");
+       // console.log("setting highlights");
         let extLinks = [];
         for (let kw of this.linkedWords) {
             for (let mu of kw.markups) {
-                extLinks.push(mu.extLinkId)
+                let location = JSON.parse(mu.locationJson)
+                //console.log(location)
+               extLinks[location.path[0]] = mu.extLinkId
             }
         }
         window.frames[0].postMessage({action: 'setHighlights', terms: extLinks}, "*")
