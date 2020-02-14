@@ -366,13 +366,13 @@ class MarkupApp {
 
 
 
-
+/*
         window.parent.postMessage({
             action: 'finishedLinking',
             totalHits: totalWordHits
 
         }, "*");
-
+*/
         /*
         let finalMessage = "Total words " + totalWordsFound + " Total links: " + totalWordHits;
         let detailButton = "  &nbsp;&nbsp;<button style='display: inline;' type='button' onclick='var e = document.getElementById(\"hitDetails\"); e.style.display = (e.style.display == \"block\") ? \"none\" : \"block\";'>Toggle details</button>";
@@ -391,6 +391,7 @@ class MarkupApp {
 
         // force save of final XML
         documentSession.save();
+        callback('finishedLinking')
     }
 
     // finalMessage += "</ul>";
