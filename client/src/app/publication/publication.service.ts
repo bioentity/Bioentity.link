@@ -298,10 +298,11 @@ export class PublicationService {
     }
 
     downloadLinksSummary(publication: Publication) {
-        return this.http.get(environment.serverUrl + 'publication/linksTable/'+publication.id )
-            .map((res: Response) => res.json())
-            .publishReplay()
-            .refCount();
+        //return this.http.get(environment.serverUrl + 'publication/linksTable/' + publication.id)
+        //    .map((res: Response) => res.json())
+        //    .publishReplay()
+        //    .refCount();
+        window.open(environment.serverUrl + 'publication/linksTable/' + publication.id, '_blank')
     }
 
 }
