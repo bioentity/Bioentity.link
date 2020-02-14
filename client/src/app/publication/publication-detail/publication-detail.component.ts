@@ -1,23 +1,23 @@
-import {Component, Input, OnInit, ViewChild, Renderer2, EventEmitter, Output} from "@angular/core";
-import {PublicationService} from "../publication.service";
-import {NgbAccordion, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {Publication, PublicationStatusEnum} from "../publication";
-import {KeyWordSet} from "../../key-word/key-word-set";
-import {KeyWordService} from "../../key-word/key-word.service";
-import {isNumeric} from "rxjs/util/isNumeric";
-import {StatisticsService} from "../statistics/statistics.service";
-import {MarkupService} from "../../markup/markup.service";
-import {MarkupModal} from "../../markup/markup-modal.component";
-import {RuleService} from '../../rule/rule.service';
-import {RuleSet} from '../../rule/rule-set';
-import {Rule} from '../../rule/rule';
-import {PublicationIndexComponent} from "../publication-index/publication-index.component";
-import {PublicationStatisticsComponent} from "../statistics/statistics.component";
-import {AuthenticationService} from "../../authentication/authentication.service";
-import {CurationStatus} from "../../user/curation-status.enum";
-import {User} from "../../user/user";
-import {GithubService} from "../github.service";
-import {UserService} from "../../user/user.service";
+import { Component, Input, OnInit, ViewChild, Renderer2, EventEmitter, Output } from "@angular/core";
+import { PublicationService } from "../publication.service";
+import { NgbAccordion, NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import { Publication, PublicationStatusEnum } from "../publication";
+import { KeyWordSet } from "../../key-word/key-word-set";
+import { KeyWordService } from "../../key-word/key-word.service";
+import { isNumeric } from "rxjs/util/isNumeric";
+import { StatisticsService } from "../statistics/statistics.service";
+import { MarkupService } from "../../markup/markup.service";
+import { MarkupModal } from "../../markup/markup-modal.component";
+import { RuleService } from '../../rule/rule.service';
+import { RuleSet } from '../../rule/rule-set';
+import { Rule } from '../../rule/rule';
+import { PublicationIndexComponent } from "../publication-index/publication-index.component";
+import { PublicationStatisticsComponent } from "../statistics/statistics.component";
+import { AuthenticationService } from "../../authentication/authentication.service";
+import { CurationStatus } from "../../user/curation-status.enum";
+import { User } from "../../user/user";
+import { GithubService } from "../github.service";
+import { UserService } from "../../user/user.service";
 
 @Component({
     selector: 'publication-detail',
@@ -49,14 +49,15 @@ export class PublicationDetailComponent implements OnInit {
     // rules: Rule[];
     selectedRule: Rule;
     linking: boolean;
-	linkItalics: boolean;
+    linkingMessage = "";
+    linkItalics: boolean;
     // numWords: number;
     modalRef: NgbModalRef;
     currentPub: Publication;
     numLinks: number;
     bulkLinks: any[];
 
-    checkDate: Date = null ;
+    checkDate: Date = null;
     invalidLinks: any[] = [];
     validLinks: any[] = [];
 
@@ -84,7 +85,7 @@ export class PublicationDetailComponent implements OnInit {
 
 
     constructor(private publicationService: PublicationService
-        , private  keywordService: KeyWordService
+        , private keywordService: KeyWordService
         , private statisticsService: StatisticsService
         , private markupService: MarkupService
         , private ruleService: RuleService
@@ -94,7 +95,7 @@ export class PublicationDetailComponent implements OnInit {
         , private githubService: GithubService
         , private renderer: Renderer2) {
         this.linking = false;
-		this.linkItalics = false;
+        this.linkItalics = false;
     }
 
     saveLink(term: any, xmlId: string) {
@@ -154,18 +155,20 @@ export class PublicationDetailComponent implements OnInit {
             } else if (action == 'setHighlights') {
                 this.setHighlights();
             } else if (action == 'finishedLinking') {
-                this.linking = false;
+                // this.linking = false;
+                this.linkingMessage = "Linking complete. Saving to server."
                 this.markupService.saveBulkLinks(this.bulkLinks, this.selectedPub.fileName).subscribe(applicationData => {
                     this.selectedPub = applicationData;
                     if (this.modalRef) {
                         this.modalRef.close();
                     }
                     this.getLinkedTerms();
+                    this.linkingMessage = "Done."
                 });
-                if (eventData.totalHits == "0") {
-                    this.modalRef.close();
-                }
-                console.log("Finished linking")
+                // if (eventData.totalHits == "0") {
+                //     this.modalRef.close();
+                // }
+                // console.log("Finished linking")
             }
         }
     };
@@ -240,7 +243,7 @@ export class PublicationDetailComponent implements OnInit {
 
     ngOnChanges() {
         if (this.selectedPub) {
-            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
+            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null;
             this.getLinkedTerms();
             this.statisticsService.getMarkupSource(this.selectedPub).subscribe(applicationData => {
                 this.markupSources = applicationData;
@@ -285,6 +288,7 @@ export class PublicationDetailComponent implements OnInit {
 
     getLinkedTerms() {
         this.statisticsService.getLinkedTerms(this.selectedPub).subscribe(applicationData => {
+            console.log("fetched terms " + applicationData.length)
             this.linkedWords = applicationData.sort((n1, n2) => {
                 return n1.value.localeCompare(n2.value);
             });
@@ -315,24 +319,37 @@ export class PublicationDetailComponent implements OnInit {
         this.linking = true;
         this.numLinks = 0;
         this.bulkLinks = [];
-        this.modalRef = this.modalService.open(content);
-        this.publicationService.setCurationStatus(this.selectedPub, this.authenticatedUser, CurationStatus.STARTED).subscribe(applicationData => {
-            this.filterCuratorResults(applicationData.curators);
-            this.publicationService.applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet).subscribe(applicationData => {
-              //  console.log('apply KWS: ' + JSON.stringify(applicationData.words));
-                this.selectedPub = applicationData;
-                this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
-                this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
-                    this.markupSources = a2;
-                });
-                let wordData = applicationData.words;
-                for (let i = 0; i < wordData.length; i++) {
-                    wordData[i].lexica[0].link = this.markupService.generateLink(wordData[i].lexica[0].lexiconSource.prefix,wordData[i].lexica[0].externalModId,this.selectedPub.doi);
-                }
-                window.frames[0].postMessage({action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics}, "*");
-                console.log("SENT");
+        // this.modalRef = this.modalService.open(content);
+        this.linkingMessage = "Setting curation on github"
+        this.publicationService
+            .setCurationStatus(
+                this.selectedPub,
+                this.authenticatedUser,
+                CurationStatus.STARTED
+            ).subscribe(applicationData => {
+                this.filterCuratorResults(applicationData.curators);
+                this.linkingMessage = "Requesting keywords from server"
+                this.publicationService
+                    .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
+                    .subscribe(applicationData => {
+                        this.linkingMessage = "Linking keywords in texture"
+                        //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
+                        this.selectedPub = applicationData;
+                        this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
+                        this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
+                            this.markupSources = a2;
+                        });
+                        let wordData = applicationData.words;
+                        for (let i = 0; i < wordData.length; i++) {
+                            wordData[i].lexica[0].link = this.markupService.generateLink(
+                                wordData[i].lexica[0].lexiconSource.prefix,
+                                wordData[i].lexica[0].externalModId,
+                                this.selectedPub.doi
+                            );
+                        }
+                        window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics }, "*")             //console.log("SENT");
+                    });
             });
-        });
     }
 
 
@@ -388,11 +405,12 @@ export class PublicationDetailComponent implements OnInit {
         if (this.linkedWords) {
             for (let kw of this.linkedWords) {
                 for (let mu of kw.markups) {
-                    extLinks.push(mu.extLinkId)
+                    let location = JSON.parse(mu.locationJson)
+                    extLinks[location.path[0]] = mu.extLinkId
                 }
             }
         }
-        window.frames[0].postMessage({action: 'setHighlights', terms: extLinks}, "*")
+       window.frames[0].postMessage({ action: 'setHighlights', terms: extLinks }, "*")
     }
 
     updateStatistics() {
@@ -401,36 +419,46 @@ export class PublicationDetailComponent implements OnInit {
 
 
     open(id) {
-        this.markupModal = this.modalService.open(MarkupModal);
+        this.markupModal = this.modalService.open(MarkupModal, { backdrop: 'static' });
         this.markupModal.componentInstance.markupChanged.subscribe(applicationData => {
             console.log('handling: ' + applicationData);
             this.updateStatistics()
         });
+        
+        this.markupModal.componentInstance.extLinkId = id
+        this.markupModal.componentInstance.isSaved = true;
+
+        /*
         // this.markupModal.componentInstance.handleLinks = this.getLinkedTerms();
-        if (this.linkedWords.length == 0) {
-            this.getLinkedTerms();
-        }
-        console.log(this.linkedWords);
-        for (let kw of this.linkedWords) {
-            for (let mu of kw.markups) {
-                if (mu.extLinkId == id) {
-                    this.markupModal.componentInstance.markup = mu;
-                    this.markupModal.componentInstance.doi = this.selectedPub.doi;
-                    this.markupModal.componentInstance.isSaved = true;
-                    return;
+        if (this.linkedWords && this.linkedWords.length == 0) {
+            console.log("fetching links")
+            this.getLinkedTerms());
+
+            this.markupModal.componentInstance.doi = this.selectedPub.doi;
+
+            //console.log(this.linkedWords);
+            for (let kw of this.linkedWords) {
+                for (let mu of kw.markups) {
+                    if (mu.extLinkId == id) {
+                        this.markupModal.componentInstance.markup = mu;
+                        return;
+                    }
                 }
             }
         }
-        this.getLinkedTerms();
+        //this.getLinkedTerms();
         console.log("Can't find markup for this ID");
-        this.markupModal.close();
+        //this.markupModal.close();
+        //this.markupModal.componentInstance.missingId = id;
+        this.markupModal.componentInstance.notFound = true;
+        */
     }
 
     createLexicon(link) {
         link.publication = this.selectedPub;
         link.keyWordSet = this.markupSources[0];
         this.bulkLinks = [];
-        this.markupModal = this.modalService.open(MarkupModal)
+        this.markupModal = this.modalService.open(MarkupModal, { backdrop: 'static' })
         this.markupModal.result.then((result) => {
             console.log("modal closed");
             this.updateLinks = Math.random()
@@ -453,7 +481,7 @@ export class PublicationDetailComponent implements OnInit {
 
     applyRule() {
         if (this.selectedRule) {
-            window.frames[0].postMessage({action: 'applyRule', rule: this.selectedRule}, "*");
+            window.frames[0].postMessage({ action: 'applyRule', rule: this.selectedRule }, "*");
         }
 
     }
@@ -488,7 +516,7 @@ export class PublicationDetailComponent implements OnInit {
         this.githubService.getComments(publication).subscribe(applicationData => {
             for (let comment of applicationData) {
                 console.log(comment.comment)
-                if(comment.comment.indexOf("publication") == -1) {
+                if (comment.comment.indexOf("publication") == -1) {
                     this.curationComments.push(comment)
                 }
             }
@@ -541,7 +569,7 @@ export class PublicationDetailComponent implements OnInit {
 
     sendToPublisher(processing) {
         // alert('setting the publisher status and assigning to the publisher')
-      //  this.modalRef = this.modalService.open(processing);
+        //  this.modalRef = this.modalService.open(processing);
         this.submitAlert = true;
         this.alertMessage = "Validating links...";
         this.publicationService.validateLinks(this.selectedPub).subscribe(
@@ -558,14 +586,14 @@ export class PublicationDetailComponent implements OnInit {
                 this.publicationService.sendToPublisher(this.selectedPub, this.authenticatedUser).subscribe(applicationData => {
                     this.alertMessage = "XML Uploaded to Publisher.";
                     this.selectedPub = applicationData;
-                    this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
-            //this.modddalRef.close();
+                    this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null;
+                    //this.modddalRef.close();
                 },
-                error => {
-                    this.alertMessage = "XML Upload failed.";
-                    console.log(error);
-                },
-                () => { this.alertMessage = "Complete."})
+                    error => {
+                        this.alertMessage = "XML Upload failed.";
+                        console.log(error);
+                    },
+                    () => { this.alertMessage = "Complete." })
             }
         )
     }
@@ -575,7 +603,7 @@ export class PublicationDetailComponent implements OnInit {
         this.modalRef = this.modalService.open(processing);
         this.publicationService.cancelSendToPublisher(this.selectedPub, this.authenticatedUser).subscribe(applicationData => {
             this.selectedPub = applicationData;
-            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
+            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null;
             this.modalRef.close();
         });
     }
@@ -584,7 +612,7 @@ export class PublicationDetailComponent implements OnInit {
         this.modalRef = this.modalService.open(processing);
         this.publicationService.validateLinks(this.selectedPub).subscribe(applicationData => {
             this.selectedPub = applicationData;
-            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null ;
+            this.linkValidationJson = this.selectedPub.linkValidationJson ? JSON.parse(this.selectedPub.linkValidationJson) : null;
             this.modalRef.close();
         });
     }
