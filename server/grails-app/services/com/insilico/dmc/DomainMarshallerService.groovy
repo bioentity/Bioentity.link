@@ -87,6 +87,7 @@ class DomainMarshallerService {
             def returnArray = [:]
             returnArray['name'] = it?.name
             returnArray['taxonId'] = it?.taxonId
+            return returnArray
         }
 
         JSON.registerObjectMarshaller(LexiconSource) {

@@ -76,9 +76,8 @@
             return baseServerUrl ;
         }
 
-        function receiveMessage(event)
-        {
-            if(!event.isTrusted){
+        function receiveMessage(event) {
+            if(!event.isTrusted) {
                 alert('not trusted');
                 return ;
             }
@@ -90,7 +89,18 @@
 //            console.log("Terms: " + terms);
             if(action=="linkPub"){
 				
-                this.markupApp.searchWords(terms, eventData.linkItalics);
+                let linkPub = new Promise((resolve, reject)=> {
+                    setTimeout(function() {
+                        this.markupApp.searchWords(terms, eventData.linkItalics, resolve);
+                    }, 0);
+                }).then((message) => {
+                    window.parent.postMessage({
+                        action: message,
+    //                    totalHits: totalWordHits
+
+                    }, "*");
+                  //  console.log(message)
+                })
         	} else if(action=="navigate") {
 				
 				window.app.childNodes[0].send('tocEntrySelected', terms.path);
@@ -117,16 +127,26 @@
 					console.log("timeout to allow pub to load")
 					setTimeout(function() {
 						window.app.childNodes[0].contentHighlights.set(hl)
-					}, 1000)
+					}, 500)
 				}
 			} else if(action == "deleteExtLink") {
 				let nodeId = terms.extLinkId
-				window.app.state.documentSession.transaction(function(tx, args) {
+				let deleteTx = window.app.state.documentSession.transaction(function(tx, args) {
 					tx.delete(nodeId)
-				})
+                })
+                window.app.state.documentSession.save()
 
-				window.app.state.documentSession.save()
-			} else if(action == "updateLink") {
+                
+			} else if(action == "deleteAllLinks") {
+                for(let nodeId in terms.extLinkIds) {
+                	window.app.state.documentSession.transaction(function(tx, args) {
+					    tx.delete(terms.extLinkIds[nodeId])
+                    })
+                }
+                window.app.state.documentSession.save()
+
+                
+            } else if(action == "updateLink") {
 				window.app.state.documentSession.transaction(function(tx, args) {
 					tx.set([terms.extLinkId, 'hrefLink'], terms.link)
 				})
@@ -151,9 +171,9 @@
             // event.data is "hi there yourself!  the secret response is: rheeeeet!"
         }
         window.addEventListener("message", receiveMessage, false);
-			 window.parent.postMessage({
-        		    action: 'setHighlights'
-        			}, "*");
+	    window.parent.postMessage({
+        	action: 'setHighlights'
+        }, "*");
 
     </script>
 </head>

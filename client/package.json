@@ -28,7 +28,6 @@
     "core-js": "^2.5.0",
     "font-awesome": "^4.7.0",
     "rxjs": "^5.1.0",
-    "substance-texture": "git://github.com/substance/texture.git#develop",
     "typescript-collections": "^1.2.3",
     "zone.js": "^0.8.4"
   },

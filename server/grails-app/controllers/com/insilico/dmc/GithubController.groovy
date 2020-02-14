@@ -5,7 +5,7 @@ import grails.converters.*
 import grails.transaction.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
-import org.kohsuke.github.GHCommitComment
+import org.kohsuke.github.GHIssueComment
 import org.kohsuke.github.GHIssue
 
 @Transactional
@@ -50,30 +50,18 @@ class GithubController {
         }
 
         GHIssue issue = githubService.getIssueForPublication(publication)
-        List<GHCommitComment> comments = issue.getComments()
-
+        def comments = issue.getComments()
         JSONArray array = new JSONArray()
         comments.each { comment ->
-            println "COMMENT: ${comment}"
             if (comment.body && comment.body.trim().size() > 1) {
                 JSONObject jsonObject = new JSONObject()
                 jsonObject.comment = comment?.body?.size() > 50 ? comment.body.substring(0, 50) + " ..." : comment?.body
                 jsonObject.authorName = comment.user.name
                 jsonObject.authorLink = comment.user.htmlUrl
                 jsonObject.date = comment.createdAt.format("yyyy-MMM-dd")
-
-                if(comment.url){
-                    try {
-                        // NOTE: we get rate limits when pulling the API this way often
-                        def remoteUrl = JSON.parse(comment.url.text)
-                        jsonObject.url = remoteUrl.html_url
-                        jsonObject.issueUrl = remoteUrl.issue_url
-                    } catch (e) {
-                        println "ignoring 403 ${e.message}"
-                        jsonObject.url = publication.githubLink
-                        jsonObject.issueUrl = publication.githubLink
-                    }
-                }
+                jsonObject.issueUrl = comment.url
+                // comment.getHtmlUrl() returns null, so just using the issue link
+                jsonObject.url = comment.getHtmlUrl()
                 array.add(jsonObject)
             }
         }

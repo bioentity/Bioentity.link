@@ -179,6 +179,21 @@ class PublicationService {
         return ContentWordIndex.executeUpdate("MATCH (p:Publication)--(c:Content)-[r]-(i:ContentWordIndex) where p.fileName = {fileName} delete r", [fileName: publication.fileName])
     }
 
+    def addToIndex(Publication publication, String word) {
+          ContentWordIndex contentWordIndex = new ContentWordIndex(
+            word: word
+        ).save()
+
+        int addedNew = ContentWordIndex.executeUpdate("""
+            MATCH (p:Publication)-[r:ORIGINALDATA]-(c:Content), (cwi:ContentWordIndex) 
+            WHERE p.fileName = {fileName} AND cwi.word = {words} 
+            CREATE (c)-[:CONTENTS]->(cwi) 
+            RETURN p, length(c.value), cwi.word""",
+            [fileName: publication.fileName, word: word]
+        )
+        
+    }
+
     Integer getPubCountFromString(String search, String status, String species, max, offset) {
 
 
@@ -399,21 +414,22 @@ class PublicationService {
         } else if(publication.journal == "micropublication") {
             content = elifeIngester.extractIndexableContent(publication)
         }
-        println "initial size: " + content.size()
-        println "contains word 1" + content.contains("myo-2")
+        
+        //println "initial size: " + content.size()
+        //println "contains word 1" + content.contains("myo-2")
         content = content - StopWord.all.value
-        println "removed stop words: " + content.size()
-        println "contains word 2" + content.contains("myo-2")
+        //println "removed stop words: " + content.size()
+        //println "contains word 2" + content.contains("myo-2")
 
         content = filterTerms(content)
-        println "filtered terms: " + content.size()
-        println "contains word 3" + content.contains("myo-2")
+        //println "filtered terms: " + content.size()
+        //println "contains word 3" + content.contains("myo-2")
         // find contentWordIndex
         def existingWordIndices = ContentWordIndex.findAllByWordInList(content as List)
         def existingWords = existingWordIndices.word
         def newWords = content - existingWords
-        println "contains word 4" + existingWords.contains("myo-2")
-        println "contains word 5 - new " + newWords.contains("myo-2")
+        //println "contains word 4" + existingWords.contains("myo-2")
+        //println "contains word 5 - new " + newWords.contains("myo-2")
 //        def newWordIndices = ContentWordIndex.findAllByWordNotInList(content as List)
 
         Set<ContentWordIndex> contentWordIndexSet = []

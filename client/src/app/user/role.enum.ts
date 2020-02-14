@@ -2,6 +2,8 @@ export enum RoleEnum {
     ADMIN,
     INSILICO_CURATOR,
     MOD_CURATOR,
+    FLY_CURATOR,
+    WORM_CURATOR,
     PUBLISHER_PAID,
     PUBLISHER_UNPAID,
     TIER1_USER,

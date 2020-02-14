@@ -109,7 +109,7 @@ class MarkupController extends RestfulController {
 
     @Transactional
     def saveBulkLinks() {
-        println "saving link ${params}"
+        //println "saving link ${params}"
         println "saving with filename ${params.fileName}"
         Publication publication = Publication.findByFileName(params.fileName )
         println "found pub: ${publication}"
@@ -199,7 +199,7 @@ class MarkupController extends RestfulController {
 
 
     def getByExtLinkId() {
-        Markup markup = Markup.findByExtLinkId(params.extlinkid)
+        Markup markup = Markup.findByExtLinkId(params.extLinkId)
         render markup as JSON
     }
 

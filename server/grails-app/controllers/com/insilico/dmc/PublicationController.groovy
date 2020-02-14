@@ -169,7 +169,14 @@ class PublicationController extends RestfulController<Publication> {
 
         //markupService.revertPub(publication)
 
-        List<Node> nodeList = KeyWordSet.executeQuery("MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon),(p:Publication)--(c:Content)--(i:ContentWordIndex) where kws.name={kwsName} and p.fileName = {fileName} and i.word=k.value RETURN {root:k, lexica:collect(l)}", [kwsName: keyWordSet.name, fileName: publication.fileName])
+        List<Node> nodeList = KeyWordSet.executeQuery("""
+        MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon),
+        (p:Publication)--(c:Content)--(i:ContentWordIndex) 
+        WHERE kws.name = {kwsName} 
+        AND p.fileName = {fileName} 
+        AND i.word=k.value RETURN {root:k, lexica:collect(l)}""", 
+        [kwsName: keyWordSet.name, fileName: publication.fileName])
+
         List<KeyWord> keyWordList = new ArrayList<>()
         nodeList.unique().each {
             KeyWord keyWord = it["root"] as KeyWord
@@ -229,6 +236,7 @@ class PublicationController extends RestfulController<Publication> {
     }
 
     def show(Publication publication) {
+        println publication
         [publication: publication]
     }
 
@@ -589,6 +597,12 @@ class PublicationController extends RestfulController<Publication> {
         render publication as JSON
     }
 
+    @Transactional
+    def addToIndex(Publication publication, String word) {
+        publicationService.addToIndex(publication, word)
+        render publication as JSON
+    }
+
     def linksTable(Publication publication) {
         def output = [:]
         output["Journal"] = publication.journal.toUpperCase()
@@ -806,53 +820,53 @@ class PublicationController extends RestfulController<Publication> {
     def getCurators(Publication publication) {
         JSONObject returnObject = new JSONObject()
         JSONObject curators = new JSONObject()
-        println "find all by publication ${publication} -> ${publication.doi}"
+        //println "find all by publication ${publication} -> ${publication.doi}"
         def curationActivities = CurationActivity.findAllByPublication(publication)
 
 
-        println "curation activity found ${curationActivities} "
+        //println "curation activity found ${curationActivities} "
 
         curationActivities.each {
-            println "it: ${it}"
+          //  println "it: ${it}"
             JSONObject jsonObject = new JSONObject(
-                    username: it.user.username,
-                    status: it.curationStatus.name()
+                username: it.user.username,
+                status: it.curationStatus.name()
             )
 
             curators.put(it.user.username, jsonObject)
         }
 
-        println "curator list: ${curators as JSON}"
+        //println "curator list: ${curators as JSON}"
 
         List<GHUser> assignableUserList = githubService.getAssignable()
         List<GHUser> ghUserList = githubService.getAssigned(publication)
 
-        println "totla user list ${assignableUserList.size()}"
-        println "gh user list ${ghUserList.size()}"
+        //println "total user list ${assignableUserList.size()}"
+        //println "gh user list ${ghUserList.size()}"
         assignableUserList = assignableUserList - ghUserList
-        println "assignable user list ${assignableUserList.size()}"
+        //println "assignable user list ${assignableUserList.size()}"
 
         // get all users from the DB
         List<String> usernameList = assignableUserList.collect { it.login }
-        println "username list ${usernameList}"
+        //println "username list ${usernameList}"
         Set<String> existingUsers = User.findAllByUsernameInList(usernameList).collect { it.username } as Set
         assignableUserList = assignableUserList.findAll {
             existingUsers.contains(it.login)
         }
 
-        println "github curator list: ${curators as JSON}"
+        //println "github curator list: ${curators as JSON}"
 
         for (GHUser user in ghUserList) {
             if (!curators.containsKey(user.login)) {
-                println "not contained for ${user.login} so creating"
+              //  println "not contained for ${user.login} so creating"
                 def curatorObject = new JSONObject(
                         username: user.login,
                         status: CurationStatusEnum.ASSIGNED.name()
                 )
                 curators.put(user.login, curatorObject)
-            } else {
-                println "Contained by ${user.login} "
-            }
+            }// else {
+             //   println "Contained by ${user.login} "
+           // }
         }
 
         for (GHUser user in assignableUserList) {
@@ -953,19 +967,19 @@ class PublicationController extends RestfulController<Publication> {
 
     @Transactional
     def createAnnotation() {
-        println "set annotation: ${params}"
-        println "json: ${request.JSON}"
+       // println "set annotation: ${params}"
+       // println "json: ${request.JSON}"
         def publication = Publication.findById(request.JSON.publication.id)
         def user = User.findById(request.JSON.user.id)
         String status = request.JSON.status
         def inputObject = request.JSON
-        println "input object ${inputObject as JSON}"
-        println "status ${status}"
-        println "pub ${publication as JSON}"
-        println "uewr ${user as JSON}"
+       // println "input object ${inputObject as JSON}"
+       // println "status ${status}"
+       // println "pub ${publication as JSON}"
+       // println "uewr ${user as JSON}"
 
         CurationActivity curationActivity = CurationActivity.findByPublicationAndUser(publication, user)
-        println "curation activate ${curationActivity as JSON}"
+        //println "curation activate ${curationActivity as JSON}"
 
         CurationStatusEnum curationStatus = CurationStatusEnum.getForString(status)
         if (!curationActivity) {
@@ -985,10 +999,10 @@ class PublicationController extends RestfulController<Publication> {
             user.addToCurators(curationActivity)
             curationActivity.user = user
             curationActivity.save(flush: true, failOnError: true)
-        } else {
+        } //else {
 //            curationActivity.curationStatus = curationStatus
 //            curationActivity.save(flush: true, failOnError: true)
-        }
+       // }
 
 //        curationActivity.curationStatus = CurationStatusEnum.getForString(status)
 //        curationActivity.save(flush: true, failOnError: true)

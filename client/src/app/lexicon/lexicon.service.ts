@@ -71,6 +71,13 @@ export class LexiconService {
         return this._selectedLex;
     }
 
+    getLexiconByModId(id: string) {
+        return this.http.get(environment.serverUrl + 'lexicon/getLexicaByModId/' + id)
+          .map((res: Response) => res.json())
+            .publishReplay()
+            .refCount();
+    }
+
     getLexiconSources(): Observable<any> {
         this._lexiconSources = this.http.get(environment.serverUrl + 'lexiconSource/')
             .map((res: Response) => res.json())

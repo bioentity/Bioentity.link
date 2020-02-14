@@ -222,6 +222,14 @@ export class PublicationService {
         window.open(environment.serverUrl + 'publication/downloadIndices/' + selectedPub.id, '_blank');
     }
 
+    addIndex(selectedPub: Publication, word: string) {
+        
+        return this.http.post(environment.serverUrl + 'publication/addIndex/' + selectedPub.id, word)
+            .map((res: Response) => res.json())
+            .publishReplay()
+            .refCount();
+    }
+
     getCurators(publication: Publication) {
         return this.http.get(environment.serverUrl + 'publication/getCurators/' + publication.id)
             .map((res: Response) => res.json())
@@ -288,4 +296,12 @@ export class PublicationService {
             .publishReplay()
             .refCount();
     }
+
+    downloadLinksSummary(publication: Publication) {
+        return this.http.get(environment.serverUrl + 'publication/linksTable/'+publication.id )
+            .map((res: Response) => res.json())
+            .publishReplay()
+            .refCount();
+    }
+
 }

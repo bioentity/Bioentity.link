@@ -42,9 +42,9 @@ class GithubService {
 
         GitHub github = GitHub.connect()
         GHRateLimit rateLimit = github.getRateLimit()
-        println "RATE LIMIT: ${rateLimit as JSON}"
-        println rateLimit.limit + " remain: " + rateLimit.remaining
-        println rateLimit.reset
+       // println "RATE LIMIT: ${rateLimit as JSON}"
+        //println rateLimit.limit + " remain: " + rateLimit.remaining
+        //println rateLimit.reset
 
 
 
@@ -53,35 +53,35 @@ class GithubService {
 
 
         if (publication.issue) {
-            println "found issue within the pub already  ${publication.issue} so returning"
+          //  println "found issue within the pub already  ${publication.issue} so returning"
             return repo.getIssue(publication.issue)
         }
 
-        println "trying to get issue "
+       // println "trying to get issue "
         GHIssue issue = repo.getIssues(GHIssueState.OPEN).find() {
             return it.title == publication.doi
         }
-        println "tried to find an issue for ${publication.doi}"
+      //  println "tried to find an issue for ${publication.doi}"
         if (!issue) {
-            if (issuesBeingCreated.contains(publication.doi)) {
-                println "already creating an issue for ${publication.doi}"
-            } else {
-                println "issue not found so reating ${publication.doi}"
+        //    if (issuesBeingCreated.contains(publication.doi)) {
+        //        println "already creating an issue for ${publication.doi}"
+        //    } else {
+                println "issue not found so creating ${publication.doi}"
                 issuesBeingCreated.push(publication.doi)
                 GHIssueBuilder issueBuilder = repo.createIssue(publication.doi)
                 String pubLink = getPublicationLink(publication)
                 issueBuilder.body(pubLink)
                 issue = issueBuilder.create()
                 issuesBeingCreated.remove(publication.doi)
-            }
+        //    }
         }
 
         if (!issue) {
             throw new RuntimeException("There was an error creating an issue for ${publication.doi}")
         }
 
-        println "html url: " + issue.getHtmlUrl()
-        println "api url: " + issue.getApiURL()
+        //println "html url: " + issue.getHtmlUrl()
+        //println "api url: " + issue.getApiURL()
 
         if (!publication.githubLink) {
             publication.githubLink = issue.getHtmlUrl()
@@ -119,8 +119,9 @@ class GithubService {
     def addComment(Publication publication, String text, Boolean showLink = true) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
+        println "add comment"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        // println "found an issue for publication ${ghIssue}"
         String inputText = (showLink ? "   ${getPublicationLink(publication)}\n" : '')
         inputText += text
         ghIssue.comment(inputText)
@@ -149,47 +150,51 @@ class GithubService {
 
     List<GHUser> getAssigned(Publication publication) {
         if (Environment.currentEnvironment == Environment.TEST) return null
+        println "get assigned"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees()
-        println "assignees for issue ${assignees}"
+      //  println "assignees for issue ${assignees}"
         return assignees
     }
 
     def assignOnly(Publication publication, String username) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
+        println "assign only"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees() ?: new ArrayList<>()
-        println "assignees for issue ${assignees}"
+       // println "assignees for issue ${assignees}"
         GHUser ghUser = github.getUser(username)
-        println "gh user ${ghIssue}"
+       // println "gh user ${ghIssue}"
 
         if (!assignees.contains(ghUser)) {
-            println "Assigned user ${ghUser.name} to ${publication.doi}"
+       //     println "Assigned user ${ghUser.name} to ${publication.doi}"
             ghIssue.addAssignees(ghUser)
-        } else {
-            println "User already assigned"
         }
+       // } else {
+        //    println "User already assigned"
+        //}
     }
 
     def unassignOnly(Publication publication, String username) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
+        println "unassign only"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         List<GHUser> assignees = ghIssue.getAssignees()
-        println "assignees for issue ${assignees}"
+        //println "assignees for issue ${assignees}"
         GHUser ghUser = github.getUser(username)
-        println "gh user ${ghIssue}"
+        //println "gh user ${ghIssue}"
 
         if (assignees.contains(ghUser)) {
-            println "Removed user ${ghUser.name} from ${publication.doi}"
+           // println "Removed user ${ghUser.name} from ${publication.doi}"
             ghIssue.removeAssignees(ghUser)
-        } else {
-            println "User not assigned"
-        }
+        } //else {
+         //   println "User not assigned"
+       //}
     }
 
     List<GHUser> getAssignable() {
@@ -241,9 +246,10 @@ class GithubService {
     def setLabel(Publication publication, PublicationStatusEnum publicationStatusEnum) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
+        println "set label"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
-        println "gh user ${ghIssue}"
+       // println "found an issue for publication ${ghIssue}"
+        //println "gh user ${ghIssue}"
         ghIssue.setLabels(publicationStatusEnum.labelText)
 
     }
@@ -251,8 +257,9 @@ class GithubService {
     def closePub(Publication publication, User user) {
         if (Environment.currentEnvironment == Environment.TEST) return null
         GitHub github = GitHub.connect()
+        println "close pub"
         GHIssue ghIssue = getIssueForPublication(publication)
-        println "found an issue for publication ${ghIssue}"
+        //println "found an issue for publication ${ghIssue}"
         ghIssue.comment("Publication closed by @${user.username} because also being deleted from the linking server ${getPublicationLink(publication)}.")
         ghIssue.close()
 

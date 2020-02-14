@@ -124,6 +124,18 @@ class LexiconController {
         respond lexica
     }
 
+    def getLexicaByModId(String id) {
+        Lexicon lexicon = Lexicon.findByExternalModId(id)
+        if(!lexicon) {
+              JSONObject returnObject = new JSONObject()
+            returnObject.error = "Could not find lexicon for ${id}"
+//            response.status = 404
+            render returnObject as JSON
+            return
+        }
+        render lexicon as JSON
+    }
+
     def lookup(String id) {
         Lexicon lexicon = Lexicon.findByUuid(id)
         lexicon = lexicon ?: Lexicon.findByExternalModId(id)
