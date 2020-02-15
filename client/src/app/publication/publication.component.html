@@ -43,6 +43,9 @@
         <a href="#/publication/{{selectedPub.doi}}" (click)="exportPub()" title="Download"
            class="btn-outline btn-secondary link-hover primary-download btn btn-sm fa fa-download">
         </a>
+        <a href="#/publication/{{selectedPub.doi}}" (click)="exportOriginal()" title="Download"
+           class="btn-outline btn-secondary link-hover btn btn-sm fa fa-download">
+        </a>
         <!--<div class="mr-2 outlineLinks">-->
             <!--<a *ngIf="selectedPub.githubLink" href="{{selectedPub.githubLink}}"  title="Github"-->
                <!--class="btn-outline btn-secondary link-hover btn btn-sm fa fa-github">-->
