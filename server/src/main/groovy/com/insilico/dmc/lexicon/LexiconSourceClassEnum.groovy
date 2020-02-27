@@ -16,6 +16,7 @@ enum LexiconSourceClassEnum {
    ,FISH
    ,GENOTYPE
    ,MOLECULE
+   ,OTHER
    ,PHENOTYPE
    ,REARRANGEMENT
    ,REAGENT
