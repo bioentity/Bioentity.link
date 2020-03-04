@@ -329,27 +329,37 @@ export class PublicationDetailComponent implements OnInit {
             ).subscribe(applicationData => {
                 this.filterCuratorResults(applicationData.curators);
                 this.linkingMessage = "Requesting keywords from server"
-                this.publicationService
-                    .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
-                    .subscribe(applicationData => {
-                        this.linkingMessage = "Linking keywords in texture"
-                        //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
-                        this.selectedPub = applicationData;
-                        this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
-                        this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
-                            this.markupSources = a2;
-                        });
-                        let wordData = applicationData.words;
-                        for (let i = 0; i < wordData.length; i++) {
-                            wordData[i].lexica[0].link = this.markupService.generateLink(
-                                wordData[i].lexica[0].lexiconSource.prefix,
-                                wordData[i].lexica[0].externalModId,
-                                this.selectedPub.doi
-                            );
-                        }
-                        window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics }, "*")             //console.log("SENT");
-                    });
-            });
+
+            },
+                error => {
+                    this.linkingMessage = "Setting curation failed. Requesting keywords from server anyway."
+                },
+                () => {
+                    this.publicationService
+                        .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
+                        .subscribe(applicationData => {
+                            this.linkingMessage = "Linking keywords in texture"
+                            //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
+                            this.selectedPub = applicationData;
+                            this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
+                            this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
+                                this.markupSources = a2;
+                            });
+                            let wordData = applicationData.words;
+                            for (let i = 0; i < wordData.length; i++) {
+                                wordData[i].lexica[0].link = this.markupService.generateLink(
+                                    wordData[i].lexica[0].lexiconSource.prefix,
+                                    wordData[i].lexica[0].externalModId,
+                                    this.selectedPub.doi
+                                );
+                            }
+                            window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics }, "*")             //console.log("SENT");
+                        },
+                            error => {
+                                this.linkingMessage = "There was an error. Please try again."
+                            });
+                }
+            );
     }
 
 
@@ -410,7 +420,7 @@ export class PublicationDetailComponent implements OnInit {
                 }
             }
         }
-       window.frames[0].postMessage({ action: 'setHighlights', terms: extLinks }, "*")
+        window.frames[0].postMessage({ action: 'setHighlights', terms: extLinks }, "*")
     }
 
     updateStatistics() {
@@ -424,7 +434,7 @@ export class PublicationDetailComponent implements OnInit {
             console.log('handling: ' + applicationData);
             this.updateStatistics()
         });
-        
+
         this.markupModal.componentInstance.extLinkId = id
         this.markupModal.componentInstance.isSaved = true;
 
