@@ -12,7 +12,10 @@ enum LexiconSourceClassEnum {
    ,ANATOMY
    ,ANTIBODY
    ,CLONE
+   ,DATATYPE
+   ,DISEASE
    ,EQUIPMENT
+   ,EXPRESSION
    ,FISH
    ,GENOTYPE
    ,MOLECULE
