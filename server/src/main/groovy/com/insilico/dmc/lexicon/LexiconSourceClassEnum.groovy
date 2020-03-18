@@ -18,7 +18,9 @@ enum LexiconSourceClassEnum {
    ,EXPRTYPE
    ,FISH
    ,GENOTYPE
+   ,GENEONTOLOGY
    ,INSERTION
+   ,LIFESTAGE
    ,MOLECULE
    ,OTHER
    ,PHENTYPE
