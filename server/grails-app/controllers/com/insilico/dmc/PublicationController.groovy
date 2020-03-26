@@ -41,6 +41,34 @@ class PublicationController extends RestfulController<Publication> {
         super(Publication)
     }
 
+    def fetchLexica(String doiPrefix, String doiSuffix) {
+        String doiString = doiPrefix + "/" + doiSuffix
+        Publication publication = Publication.findByDoi(doiString)
+
+        JSONObject returnObject = new JSONObject()
+
+
+        def markups = publication.markups
+        def sources = [:]
+
+        for(def markup in markups) {
+            def lex = markup.finalLexicon
+            if(!sources.containsKey(lex.lexiconSource.className)) {
+                sources[lex.lexiconSource.className] = new HashSet()
+            }
+            def entity = ["value": lex.publicName, "modId": lex.externalModId]
+            sources[lex.lexiconSource.className].add(entity)
+
+        }
+
+        def data = ["entities": sources]
+
+        render data as JSON
+    }
+
+
+
+
     def findByDoi(String doiPrefix, String doiSuffix) {
         println "finding by doi ${doiPrefix} ${doiSuffix} ${params}"
         String doiString = doiPrefix + "/" + doiSuffix
@@ -1069,4 +1097,5 @@ class PublicationController extends RestfulController<Publication> {
         render publication as JSON
     }
 
+  
 }
