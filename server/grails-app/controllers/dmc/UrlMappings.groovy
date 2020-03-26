@@ -20,6 +20,7 @@ class UrlMappings {
         "/publication/storeByFileName/${xmlFileName}.xml"(controller: 'publication', action:'storeByFileName')
         "/publication/find/$id"(controller: "publication", action: "find",[params:params])
         "/publication/find/$doiPrefix/$doiSuffix"(controller: "publication", action: "findByDoi")
+        "/publication/lexica/$doiPrefix/$doiSuffix"(controller: "publication", action: "fetchLexica")
 
         "/"(view:"/index")
         "/notFound"(view:"/notFound")
