@@ -51,6 +51,7 @@ export class PublicationDetailComponent implements OnInit {
     linking: boolean;
     linkingMessage = "";
     linkItalics: boolean;
+    linkCaseInsensitive: boolean;
     // numWords: number;
     modalRef: NgbModalRef;
     currentPub: Publication;
@@ -96,6 +97,7 @@ export class PublicationDetailComponent implements OnInit {
         , private renderer: Renderer2) {
         this.linking = false;
         this.linkItalics = false;
+        this.linkCaseInsensitive = false;
     }
 
     saveLink(term: any, xmlId: string) {
@@ -326,40 +328,41 @@ export class PublicationDetailComponent implements OnInit {
                 this.selectedPub,
                 this.authenticatedUser,
                 CurationStatus.STARTED
-            ).subscribe(applicationData => {
-                this.filterCuratorResults(applicationData.curators);
-                this.linkingMessage = "Requesting keywords from server"
+            ).subscribe(
+                applicationData => {
+                    this.filterCuratorResults(applicationData.curators);
+                    this.linkingMessage = "Requesting keywords from server"
 
-            },
+                },
                 error => {
                     this.linkingMessage = "Setting curation failed. Requesting keywords from server anyway."
-                },
-                () => {
-                    this.publicationService
-                        .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
-                        .subscribe(applicationData => {
-                            this.linkingMessage = "Linking keywords in texture"
-                            //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
-                            this.selectedPub = applicationData;
-                            this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
-                            this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
-                                this.markupSources = a2;
-                            });
-                            let wordData = applicationData.words;
-                            for (let i = 0; i < wordData.length; i++) {
-                                wordData[i].lexica[0].link = this.markupService.generateLink(
-                                    wordData[i].lexica[0].lexiconSource.prefix,
-                                    wordData[i].lexica[0].externalModId,
-                                    this.selectedPub.doi
-                                );
-                            }
-                            window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics }, "*")             //console.log("SENT");
-                        },
-                            error => {
-                                this.linkingMessage = "There was an error. Please try again."
-                            });
-                }
-            );
+                })
+            .add(() => {
+                this.publicationService
+                    .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
+                    .subscribe(applicationData => {
+                        this.linkingMessage = "Linking keywords in texture"
+                        //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
+                        this.selectedPub = applicationData;
+                        this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
+                        this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
+                            this.markupSources = a2;
+                        });
+                        let wordData = applicationData.words;
+                        for (let i = 0; i < wordData.length; i++) {
+                            wordData[i].lexica[0].link = this.markupService.generateLink(
+                                wordData[i].lexica[0].lexiconSource.prefix,
+                                wordData[i].lexica[0].externalModId,
+                                this.selectedPub.doi
+                            );
+                        }
+                        window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics, linkCaseInsensitive: this.linkCaseInsensitive }, "*")          
+                           //console.log("SENT");
+                    },
+                        error => {
+                            this.linkingMessage = "There was an error. Please try again."
+                        });
+            });
     }
 
 

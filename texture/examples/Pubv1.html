@@ -91,7 +91,7 @@
 				
                 let linkPub = new Promise((resolve, reject)=> {
                     setTimeout(function() {
-                        this.markupApp.searchWords(terms, eventData.linkItalics, resolve);
+                        this.markupApp.searchWords(terms, eventData.linkItalics, eventData.linkCaseInsensitive, resolve);
                     }, 0);
                 }).then((message) => {
                     window.parent.postMessage({
