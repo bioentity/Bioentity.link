@@ -178,12 +178,18 @@
                             </td>       
                  </tr>
 					<tr>
-						<td colspan="2" align="right">
-							<input type="checkbox" class="form-check-input" id="italicCheck" [(ngModel)]="linkItalics" />
-							<label class="form-check-label" for="italicCheck">Italic only</label>
+						<td colspan="2" style="padding: 15px;">
+                            <div class="form-check">
+							    <input type="checkbox" class="form-check-input" id="italicCheck" [(ngModel)]="linkItalics" />
+                                <label class="form-check-label" for="italicCheck">Italic only</label>
+                            </div>
+                            
+                            <div class="form-check">
+							    <input type="checkbox" class="form-check-input" id="caseInsensitiveCheck" [(ngModel)]="linkCaseInsensitive" />
+                                <label class="form-check-label" for="caseInsensitiveCheck">Case-insensitive</label>
+                            </div>
 						</td>
-					</tr>
-					
+                    </tr>
                             
 
 
