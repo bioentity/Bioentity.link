@@ -202,7 +202,7 @@ class PublicationController extends RestfulController<Publication> {
         (p:Publication)--(c:Content)--(i:ContentWordIndex) 
         WHERE kws.name = {kwsName} 
         AND p.fileName = {fileName} 
-        AND k.value CONTAINS i.word RETURN {root:k, lexica:collect(l)}""", 
+        AND k.value STARTS WITH i.word RETURN {root:k, lexica:collect(l)}""", 
         [kwsName: keyWordSet.name, fileName: publication.fileName])
 
         List<KeyWord> keyWordList = new ArrayList<>()
