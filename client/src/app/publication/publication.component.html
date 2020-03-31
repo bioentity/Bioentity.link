@@ -12,7 +12,7 @@
 
         <publication-content *ngIf="pubLockedBy==null && selectedPub && selectedPub.githubLink" [defaultRole]="this.user ? this.user.defaultRole : null" [selectedPub]="selectedPub"></publication-content>
     </div>
-    <div *ngIf="selectedPub && selectedPub.githubLink" [ngClass]="{'col-3': showRHS, 'col-7': showBigRHS, 'hidden-lg-up': !showRHS && !showBigRHS}">
+    <div *ngIf="selectedPub && selectedPub.githubLink" [ngClass]="{'col-4': showRHS, 'col-7': showBigRHS, 'hidden-lg-up': !showRHS && !showBigRHS}">
         <button class="btn btn-sm" role="button" (click)="toggleExpand()">
             <i [ngClass]="{'fa-compress':isExpand,'fa-expand':!isExpand,'fa':true}" aria-hidden="true"></i>
         </button>
