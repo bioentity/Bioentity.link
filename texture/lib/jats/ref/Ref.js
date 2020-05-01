@@ -18,7 +18,9 @@ class Ref extends DocumentNode {
     Get parsed DOM version of XML content
   */
   getDOM() {
-    return DOMElement.parseXML(this.xmlContent)
+    
+    let doc = DOMElement.parseXML('<ref>' + this.xmlContent + '</ref>')
+    return doc.children
   }
 
 }
