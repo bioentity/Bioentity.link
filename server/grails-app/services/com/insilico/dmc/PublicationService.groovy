@@ -587,7 +587,7 @@ class PublicationService {
             }
 
             def runHeader = "";
-            matcher = originalXml =~ /<\?RF.*\?>/
+            matcher = originalXml =~ /<\?.*\?>/
             while (matcher.find()) {
                 runHeader += matcher.group() + "\n"
             }
