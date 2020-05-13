@@ -587,10 +587,16 @@ class PublicationService {
             }
 
             def runHeader = "";
-            matcher = originalXml =~ /<\?.*\?>/
+            matcher = originalXml =~ /<\?RF.*\?>/
             while (matcher.find()) {
                 runHeader += matcher.group() + "\n"
             }
+            
+            matcher = originalXml =~ /<\?Affiliations_Display.*\?>/
+            while (matcher.find()) {
+                runHeader += matcher.group() + "\n"
+            }
+
             xmlData = xmlData.replaceAll(/<\/article-title><\/title-group>/, "</article-title>\n" + runHeader + "</title-group>")
 //            xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v2.3 20070202//EN" "journalpublishing.dtd">\n' + xmlData
             // Grab the xml and doctype tags from the oringal document because texture loses them
