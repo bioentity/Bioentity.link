@@ -646,10 +646,11 @@ class PublicationController extends RestfulController<Publication> {
         def markups = publication.markups
         def markupsCount = [:]
         for(def markup in markups) {
-            if(!markupsCount.containsKey(markup.finalLexicon.externalModId)) {
-                markupsCount[markup.finalLexicon.externalModId] = 0
+            def markupKey = markup.finalLexicon.publicName + '\t' + markup.finalLexicon.externalModId
+            if(!markupsCount.containsKey(markupKey)) {
+                markupsCount[markupKey] = 0
             }
-            markupsCount[markup.finalLexicon.externalModId]++
+            markupsCount[markupKey]++
         }
 
         for(def markup in markupsCount) {
