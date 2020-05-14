@@ -2,6 +2,7 @@ package com.insilico.dmc.ingester
 
 import com.insilico.dmc.publication.Content
 import com.insilico.dmc.publication.Publication
+import com.insilico.dmc.user.Author
 import groovy.util.slurpersupport.GPathResult
 import groovy.util.slurpersupport.NodeChild
 
@@ -57,6 +58,20 @@ class GeneticsIngester extends Ingester {
 
         String title = articleMeta['title-group']['article-title'].text()
         publication.title = title
+
+        GPathResult contribGroup = articleMeta['contrib-group']
+        contribGroup['contrib'].each {
+            if (it.@'contrib-type' == 'author') {
+                def author = new Author()
+                author.firstName = it.name.'given-names'.text()
+                author.lastName = it.name.surname.text()
+                println it.name.'given-names'.text()
+                println it.name.surname.text()
+                author.save(flush: true)
+                publication.addToAuthors(author)
+            }
+        }
+
         publication.save(flush: true)
         return publication
     }

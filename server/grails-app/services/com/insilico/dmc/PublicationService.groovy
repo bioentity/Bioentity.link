@@ -161,6 +161,10 @@ class PublicationService {
         pubDeleteCount += Publication.executeUpdate("MATCH (p:Publication)-[r]-(kws:KeyWordSet) WHERE p.doi = {doi} DELETE r", [doi: publication.doi])
 
         pubDeleteCount += Publication.executeUpdate("MATCH (p:Publication)-[r]-(c:CurationActivity)-[q]-() WHERE p.doi = {doi} DELETE r,c,q", [doi: publication.doi])
+
+        // Delete authors
+        pubDeleteCount += Publication.executeUpdate("MATCH (p:Publication)-[r]-(a:Author) WHERE p.doi = {doi} DELETE r,a", [doi: publication.doi])
+
         // Then, delete the pub
         pubDeleteCount += Publication.executeUpdate("MATCH (p:Publication)-[r]-(c:Content)-[q]-(cwi:ContentWordIndex) WHERE p.doi = {doi} DELETE r,c,q", [doi: publication.doi])
 

@@ -635,7 +635,12 @@ class PublicationController extends RestfulController<Publication> {
         def output = [:]
         output["Journal"] = publication.journal.toUpperCase()
         output["Title"]  = publication.title
-        output["Author"] = publication.authors[0]
+        def authors = []
+        publication.authors.each {
+
+            authors << it.lastName + ', ' + it.firstName
+        }
+        output["Authors"] = authors.join('; ')
         output["DOI"] = publication.doi
         output["ids"] = []
         def markups = publication.markups
