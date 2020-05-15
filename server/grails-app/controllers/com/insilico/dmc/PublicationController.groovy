@@ -230,6 +230,7 @@ class PublicationController extends RestfulController<Publication> {
         jsonObject.remove("exportedData")
         jsonObject.remove("originalData")
         jsonObject.remove("markupSource")
+        jsonObject.remove("authors")
         JSONObject markupSource = new JSONObject()
         markupSource.id = keyWordSet.id //publication.markupSource.id
         markupSource.name = keyWordSet.name //publication.markupSource.name
