@@ -230,6 +230,7 @@ class PublicationController extends RestfulController<Publication> {
         jsonObject.remove("exportedData")
         jsonObject.remove("originalData")
         jsonObject.remove("markupSource")
+	jsonObject.remove("authors")
         JSONObject markupSource = new JSONObject()
         markupSource.id = keyWordSet.id //publication.markupSource.id
         markupSource.name = keyWordSet.name //publication.markupSource.name
@@ -525,6 +526,7 @@ class PublicationController extends RestfulController<Publication> {
             githubService.addComment(publication, "@${admin.username} New publication uploaded.")
             render publication as JSON
         } catch (e) {
+	    println(e.getStackTrace())
             JSONObject jsonObject = new JSONObject(
                     "error": e.message
             )
