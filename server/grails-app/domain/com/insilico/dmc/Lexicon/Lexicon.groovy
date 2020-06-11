@@ -25,10 +25,11 @@ class Lexicon {
     String internalLink
 
     String findLink() {
-        if(!this.link && this.lexiconSource?.urlConstructor){
-            this.link = this.link ?: this.lexiconSource.urlConstructor.toExternalForm().replace("@@ID@@", this.externalModId);
-        }
-        return this.link
+        //if(!this.link && this.lexiconSource?.urlConstructor){
+        //    this.link = this.link ?: this.lexiconSource.urlConstructor.toExternalForm().replace("@@ID@@", this.externalModId);
+        //}
+        //return this.link
+        this.lexiconSource.urlConstructor.toExternalForm().replace("@@ID@@", this.externalModId)
     }
 
     def findInternalLink() {
