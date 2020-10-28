@@ -11,7 +11,7 @@ function getFullName(node) {
 
   if (name) {
     let surname = name.find('surname').text()
-    let givenNames = name.find('given-names').text()
+    let givenNames = name.find('given-names') ? name.find('given-names').text() : ''
     return [givenNames, surname].join(' ')
   } else if (stringName) {
     return stringName.text()

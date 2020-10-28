@@ -91,6 +91,7 @@
 				
                 let linkPub = new Promise((resolve, reject)=> {
                     setTimeout(function() {
+			console.log(eventData)
                         this.markupApp.searchWords(terms, eventData.linkItalics, eventData.linkCaseInsensitive, resolve);
                     }, 0);
                 }).then((message) => {
