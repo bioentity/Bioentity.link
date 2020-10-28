@@ -1,4 +1,20 @@
 
+
+## Update instructions
+
+Production branch is `production`, and should not be pushed as it contains the password.
+
+Git changes from master via `git pull origin master`. 
+
+Update in order:
+- `cd client`
+- `./update_bioentity.sh`
+- `cd ../texture`
+- `./update_production.sh``
+- `cd ../server`
+- Follow instrucions in the README.md for server
+
+
 # BioEntity.Link Production update
 
 - SSH into the server (this is how Nathan do, but you can login separately and `sudo su ubuntu`):
