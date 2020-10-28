@@ -12,6 +12,7 @@ grails:
         url: bolt://localhost:7687
         username: neo4j
         password: LAT8gjThKJ26TR
+## these are ignored except for test
 environments:
     development:
       neo4j:
@@ -22,7 +23,7 @@ environments:
       neo4j:
           url: bolt://localhost:7687
           username: neo4j
-          password: demo
+          password: LAT8gjThKJ26TR
     test:
       neo4j:
           type: embedded

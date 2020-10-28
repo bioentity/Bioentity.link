@@ -183,9 +183,9 @@ class KeyWordSetController extends RestfulController<KeyWordSet> {
     def getKeyWordsFromIndex() {
         JSONObject index = request.JSON as JSONObject
         JSONArray entities = index.index as JSONArray
-      //  println(entities)
+
         Set<Node> nodeList = KeyWordSet.executeQuery("""
-        WITH {index} as words
+	WITH {index} AS words
         MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon)--(ls:LexiconSource)
         WHERE kws.name={kwsName} AND
         k.value IN words
@@ -195,7 +195,6 @@ class KeyWordSetController extends RestfulController<KeyWordSet> {
         ls.source AS source,
         ls.className AS type""",
         [kwsName: index.kws, index: entities])
-        print("Complete")
         render nodeList as JSON
     }
 

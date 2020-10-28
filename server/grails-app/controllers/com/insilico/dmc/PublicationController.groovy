@@ -208,9 +208,10 @@ class PublicationController extends RestfulController<Publication> {
         AND p.fileName = {fileName} 
         AND ((k.value CONTAINS ' ' AND k.value STARTS WITH i.word) OR (k.value = i.word)) RETURN {root:k, lexica:collect(l)}""", 
         [kwsName: keyWordSet.name, fileName: publication.fileName])
-*/
         
-        List<Node> nodeList = KeyWordSet.executeQuery("""
+	*/
+
+	List<Node> nodeList = KeyWordSet.executeQuery("""
         MATCH (p:Publication)--(c:Content)--(i:ContentWordIndex) 
         WHERE p.fileName = {fileName} 
         WITH collect(i.word) as words
@@ -219,7 +220,6 @@ class PublicationController extends RestfulController<Publication> {
         AND ANY(x in split(k.value, ' ') WHERE x in words)
         RETURN {root:k, lexica:collect(l)}""", 
         [kwsName: keyWordSet.name, fileName: publication.fileName])
-        
 
         List<KeyWord> keyWordList = new ArrayList<>()
         nodeList.unique().each {
@@ -246,7 +246,7 @@ class PublicationController extends RestfulController<Publication> {
         jsonObject.remove("exportedData")
         jsonObject.remove("originalData")
         jsonObject.remove("markupSource")
-        jsonObject.remove("authors")
+	jsonObject.remove("authors")
         JSONObject markupSource = new JSONObject()
         markupSource.id = keyWordSet.id //publication.markupSource.id
         markupSource.name = keyWordSet.name //publication.markupSource.name
@@ -542,6 +542,7 @@ class PublicationController extends RestfulController<Publication> {
             githubService.addComment(publication, "@${admin.username} New publication uploaded.")
             render publication as JSON
         } catch (e) {
+	    println(e.getStackTrace())
             JSONObject jsonObject = new JSONObject(
                     "error": e.getMessage()
             )

@@ -67,8 +67,6 @@ class GeneticsIngester extends Ingester {
                 def author = new Author()
                 author.firstName = it.name.'given-names'.text()
                 author.lastName = it.name.surname.text()
-                println it.name.'given-names'.text()
-                println it.name.surname.text()
                 author.save(flush: true)
                 try {
                     publication.addToAuthors(author)
