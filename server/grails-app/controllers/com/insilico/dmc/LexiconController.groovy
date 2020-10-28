@@ -140,8 +140,9 @@ class LexiconController {
         Lexicon lexicon = Lexicon.findByUuid(id)
         lexicon = lexicon ?: Lexicon.findByExternalModId(id)
         if (!lexicon && id.contains(":")) {
-            String sourcePrefix = id.split(":")[0]
-            String modId = id.split(":")[1]
+            def splitId = id.split(":") as List
+            String sourcePrefix = splitId.remove(0)
+            String modId = splitId.join("")
             def lexiconSources = LexiconSource.findAllByPrefix(sourcePrefix)
             for(ls in lexiconSources){
                 lexicon = lexicon ?: Lexicon.findByExternalModIdAndLexiconSource(modId,ls)
@@ -223,11 +224,12 @@ class LexiconController {
             return
         }
 
-        Lexicon exists = Lexicon.findByExternalModId(lexicon.externalModId)
-        if (exists != null) {
-            println "exists"
-            render exists as JSON
-            return
+        for(lex in lexicon.lexiconSource.lexica) {
+            if (lex.externalModId === lexicon.externalModId) {
+                println "exists"
+                render exists as JSON
+                return
+            }
         }
 
         if (lexicon.hasErrors()) {

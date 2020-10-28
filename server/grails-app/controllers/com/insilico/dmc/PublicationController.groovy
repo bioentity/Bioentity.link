@@ -21,6 +21,10 @@ import org.neo4j.driver.v1.StatementResult
 import org.springframework.transaction.annotation.Transactional
 
 
+import groovy.time.TimeCategory 
+import groovy.time.TimeDuration
+
+
 import static org.springframework.http.HttpStatus.*
 
 @Api(value = "/api/v1", tags = ["Publication"], description = "Publication Api's")
@@ -196,7 +200,7 @@ class PublicationController extends RestfulController<Publication> {
         }
 
         //markupService.revertPub(publication)
-
+/*
         List<Node> nodeList = KeyWordSet.executeQuery("""
         MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon),
         (p:Publication)--(c:Content)--(i:ContentWordIndex) 
@@ -204,6 +208,18 @@ class PublicationController extends RestfulController<Publication> {
         AND p.fileName = {fileName} 
         AND ((k.value CONTAINS ' ' AND k.value STARTS WITH i.word) OR (k.value = i.word)) RETURN {root:k, lexica:collect(l)}""", 
         [kwsName: keyWordSet.name, fileName: publication.fileName])
+*/
+        
+        List<Node> nodeList = KeyWordSet.executeQuery("""
+        MATCH (p:Publication)--(c:Content)--(i:ContentWordIndex) 
+        WHERE p.fileName = {fileName} 
+        WITH collect(i.word) as words
+        MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon)
+        WHERE kws.name = {kwsName}
+        AND ANY(x in split(k.value, ' ') WHERE x in words)
+        RETURN {root:k, lexica:collect(l)}""", 
+        [kwsName: keyWordSet.name, fileName: publication.fileName])
+        
 
         List<KeyWord> keyWordList = new ArrayList<>()
         nodeList.unique().each {
@@ -527,7 +543,7 @@ class PublicationController extends RestfulController<Publication> {
             render publication as JSON
         } catch (e) {
             JSONObject jsonObject = new JSONObject(
-                    "error": e.message
+                    "error": e.getMessage()
             )
             response.status = 500
             render jsonObject as JSON

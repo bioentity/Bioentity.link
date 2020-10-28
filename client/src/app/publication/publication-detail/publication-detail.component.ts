@@ -1,23 +1,23 @@
-import { Component, Input, OnInit, ViewChild, Renderer2, EventEmitter, Output } from "@angular/core";
-import { PublicationService } from "../publication.service";
+import { Component, Input, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { NgbAccordion, NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { Publication, PublicationStatusEnum } from "../publication";
+import { isNumeric } from "rxjs/util/isNumeric";
+import { AuthenticationService } from "../../authentication/authentication.service";
 import { KeyWordSet } from "../../key-word/key-word-set";
 import { KeyWordService } from "../../key-word/key-word.service";
-import { isNumeric } from "rxjs/util/isNumeric";
-import { StatisticsService } from "../statistics/statistics.service";
-import { MarkupService } from "../../markup/markup.service";
 import { MarkupModal } from "../../markup/markup-modal.component";
-import { RuleService } from '../../rule/rule.service';
-import { RuleSet } from '../../rule/rule-set';
+import { MarkupService } from "../../markup/markup.service";
 import { Rule } from '../../rule/rule';
-import { PublicationIndexComponent } from "../publication-index/publication-index.component";
-import { PublicationStatisticsComponent } from "../statistics/statistics.component";
-import { AuthenticationService } from "../../authentication/authentication.service";
+import { RuleSet } from '../../rule/rule-set';
+import { RuleService } from '../../rule/rule.service';
 import { CurationStatus } from "../../user/curation-status.enum";
 import { User } from "../../user/user";
-import { GithubService } from "../github.service";
 import { UserService } from "../../user/user.service";
+import { GithubService } from "../github.service";
+import { Publication, PublicationStatusEnum } from "../publication";
+import { PublicationIndexComponent } from "../publication-index/publication-index.component";
+import { PublicationService } from "../publication.service";
+import { PublicationStatisticsComponent } from "../statistics/statistics.component";
+import { StatisticsService } from "../statistics/statistics.service";
 
 @Component({
     selector: 'publication-detail',
@@ -322,6 +322,7 @@ export class PublicationDetailComponent implements OnInit {
         this.numLinks = 0;
         this.bulkLinks = [];
         // this.modalRef = this.modalService.open(content);
+
         this.linkingMessage = "Setting curation on github"
         this.publicationService
             .setCurationStatus(
@@ -331,38 +332,41 @@ export class PublicationDetailComponent implements OnInit {
             ).subscribe(
                 applicationData => {
                     this.filterCuratorResults(applicationData.curators);
-                    this.linkingMessage = "Requesting keywords from server"
+                    //  this.linkingMessage = "Requesting keywords from server"
 
                 },
                 error => {
-                    this.linkingMessage = "Setting curation failed. Requesting keywords from server anyway."
-                })
-            .add(() => {
-                this.publicationService
-                    .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
-                    .subscribe(applicationData => {
-                        this.linkingMessage = "Linking keywords in texture"
-                        //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
-                        this.selectedPub = applicationData;
-                        this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
-                        this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
-                            this.markupSources = a2;
-                        });
-                        let wordData = applicationData.words;
-                        for (let i = 0; i < wordData.length; i++) {
-                            wordData[i].lexica[0].link = this.markupService.generateLink(
-                                wordData[i].lexica[0].lexiconSource.prefix,
-                                wordData[i].lexica[0].externalModId,
-                                this.selectedPub.doi
-                            );
-                        }
-                        window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics, linkCaseInsensitive: this.linkCaseInsensitive }, "*")          
-                           //console.log("SENT");
-                    },
-                        error => {
-                            this.linkingMessage = "There was an error. Please try again."
-                        });
-            });
+                    this.linkingMessage = "Setting curation failed."// Requesting keywords from server anyway."
+                });
+        //  .add(() => {
+
+        this.publicationService
+            .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
+            .subscribe(
+                applicationData => {
+                    this.linkingMessage = "Linking keywords in texture"
+                    //    console.log('apply KWS: ' + JSON.stringify(applicationData.words));
+                    this.selectedPub = applicationData;
+                    this.selectedPub.status = PublicationStatusEnum[PublicationStatusEnum[applicationData.statusString]];
+                    this.statisticsService.getMarkupSource(this.selectedPub).subscribe(a2 => {
+                        this.markupSources = a2;
+                    });
+                    let wordData = applicationData.words;
+                    for (let i = 0; i < wordData.length; i++) {
+                        wordData[i].lexica[0].link = this.markupService.generateLink(
+                            wordData[i].lexica[0].lexiconSource.prefix,
+                            wordData[i].lexica[0].externalModId,
+                            this.selectedPub.doi
+                        );
+                    }
+                    window.frames[0].postMessage({ action: 'linkPub', publication: this.selectedPub, terms: wordData, linkItalics: this.linkItalics, linkCaseInsensitive: this.linkCaseInsensitive }, "*")
+                    //console.log("SENT");
+                },
+                error => {
+                    this.linkingMessage = "There was an error. Please try again."
+                }
+            );
+        //   });
     }
 
 

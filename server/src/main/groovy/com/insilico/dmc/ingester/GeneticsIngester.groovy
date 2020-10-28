@@ -59,6 +59,8 @@ class GeneticsIngester extends Ingester {
         String title = articleMeta['title-group']['article-title'].text()
         publication.title = title
 
+        publication.save(flush: true)
+
         GPathResult contribGroup = articleMeta['contrib-group']
         contribGroup['contrib'].each {
             if (it.@'contrib-type' == 'author') {
@@ -68,7 +70,11 @@ class GeneticsIngester extends Ingester {
                 println it.name.'given-names'.text()
                 println it.name.surname.text()
                 author.save(flush: true)
-                publication.addToAuthors(author)
+                try {
+                    publication.addToAuthors(author)
+                } catch(e) {
+                    println "Cannot add author ${author.firstName} ${author.lastName} to ${title}"
+                }
             }
         }
 

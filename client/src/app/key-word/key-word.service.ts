@@ -85,4 +85,12 @@ export class KeyWordService {
         window.open(environment.serverUrl + 'keyWordSet/primary/' + kwsUuid,'_blank');
     }
 
+    toggleHidden(kws: KeyWordSet) {
+        console.log(kws.id)
+        return this.http.get(environment.serverUrl + 'keyWordSet/toggleHidden/' + kws.id)
+			.map((res: Response) => res.json())
+			.publishReplay()
+			.refCount();
+    }
+
 }

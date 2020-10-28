@@ -11,6 +11,7 @@ class KeyWordSet {
     String name
     String description
     String uuid
+    boolean isHidden
 
     static constraints = {
         name nullable: false, unique: true
@@ -28,6 +29,7 @@ class KeyWordSet {
         description type: "text"
 //        name index: true
 //        uuid index: true
+        isHidden defaultValue: false
     }
 
 //    String getIdString(){

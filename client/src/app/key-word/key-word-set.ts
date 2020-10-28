@@ -9,7 +9,8 @@ export class KeyWordSet {
     keywords: KeyWord[];
     name: string ;
     description: string ;
-	keyWordCount: number;
+    keyWordCount: number;
+    isHidden: boolean;
 
     constructor(){
     }

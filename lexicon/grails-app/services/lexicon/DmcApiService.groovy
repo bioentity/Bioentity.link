@@ -19,7 +19,7 @@ class DmcApiService {
 
     def getByWord(source, word) {
 		def	url = 'http://localhost:8080/lexiconSource/getLexicon/' + source + '?word=' + word
-
+		println source
 		return JSON.parse(url.toURL().text)
     }
 

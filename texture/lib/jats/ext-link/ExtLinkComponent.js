@@ -93,6 +93,7 @@ class ExtLinkComponent extends AnnotationComponent {
 			el.attr('onclick', 'window.parent.postMessage({action: "editMarkup", term: "' + this.props.node.id + '", word: "' + word.text + '"}, "*")')
 
 			if(match) {
+				console.log(match[1].toLowerCase())
 				el.addClass(match[1].toLowerCase())
 
 			}

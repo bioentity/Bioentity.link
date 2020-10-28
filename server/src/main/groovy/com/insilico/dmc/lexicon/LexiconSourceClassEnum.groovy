@@ -11,6 +11,7 @@ enum LexiconSourceClassEnum {
    ,ABBERATION
    ,ANATOMY
    ,ANTIBODY
+   ,ASSAY
    ,CLONE
    ,DISEASE
    ,EQUIPMENT

@@ -117,6 +117,7 @@ class DomainMarshallerService {
             returnArray['name'] = it?.name
             returnArray['uuid'] = it?.uuid
             returnArray['description'] = it?.description
+            returnArray['isHidden'] = it?.isHidden
             return returnArray
         }
 
