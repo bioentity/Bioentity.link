@@ -1,11 +1,11 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
-import {Lexicon} from '../lexicon';
-import {LexiconSource} from '../lexicon-source';
-import {LexiconService} from '../lexicon.service';
-import {Species} from '../../species/species';
+import { Lexicon } from '../lexicon';
+import { LexiconSource } from '../lexicon-source';
+import { LexiconService } from '../lexicon.service';
+import { Species } from '../../species/species';
 
 @Component({
     selector: 'lexicon-content',
@@ -19,10 +19,10 @@ export class LexiconContentComponent implements OnInit {
     @Input() selectedSource: LexiconSource;
     lexica: Lexicon[];
     searchTerm = "";
-	editAlert = "";
-	editError = false;
-	newAlert = "";
-	newError = false;
+    editAlert = "";
+    editError = false;
+    newAlert = "";
+    newError = false;
 
     lexiconTypes = ["Gene", "Phenotype", "Anatomy", "Allele", "Abberation", "Anatomy",
         "Clone", "Equipment", "Fish", "Genotype", "Molecule", "Rearrangement", "Reagent",
@@ -42,9 +42,9 @@ export class LexiconContentComponent implements OnInit {
 
     updateLexica() {
         this.lexica = new Array<Lexicon>();
-//        this.lexiconService.getLexicaCount(this.selectedSource, this.searchTerm).subscribe(applicationData => {
-  //          this.lexicaSize = applicationData.lexicaCount;
-    //    });
+        //        this.lexiconService.getLexicaCount(this.selectedSource, this.searchTerm).subscribe(applicationData => {
+        //          this.lexicaSize = applicationData.lexicaCount;
+        //    });
         this.lexiconService.getLexicaBySource(this.selectedSource, this.searchTerm, (this.page - 1) * this.pageSize, this.pageSize).subscribe(applicationData => {
             /*	for (let lex of applicationData) {
                     if (this.searchTerm != null) {
@@ -60,8 +60,8 @@ export class LexiconContentComponent implements OnInit {
 
             }*/
             this.lexica = applicationData.lexica;
-			this.lexicaSize = applicationData.lexicaCount;
-			
+            this.lexicaSize = applicationData.lexicaCount;
+
         });
     }
 
@@ -70,31 +70,31 @@ export class LexiconContentComponent implements OnInit {
         //	if(this.searchTerm.length < 3) {
         //	return;
         //}
-        setTimeout(300);
+        setTimeout(() => { this.updateLexica() }, 300);
         //if (term == "") {
         //    term = null;
         //}
         //this.searchTerm = term;
-        this.updateLexica();
+        //this.updateLexica();
     }
 
     newLexicon = new Lexicon();
 
     create() {
         this.newLexicon.lexiconSource = this.selectedSource;
-//        this.lexiconService.checkLexicon(this.newLexicon).subscribe(applicationData => {
-  //          if(applicationData.error) {
-    //       		this.newAlert = applicationData.error;
-	//			this.newError = true;
-	//		} else {
-            	this.lexiconService.createLexicon(this.newLexicon).subscribe(applicationData => {
-                	this.updateLexica();
-	                this.clearAddLexicaForm();
-					this.newAlert = "Saved";
-					this.newError = true;		
-    	        });
-	//		}
-      //  });
+        //        this.lexiconService.checkLexicon(this.newLexicon).subscribe(applicationData => {
+        //          if(applicationData.error) {
+        //       		this.newAlert = applicationData.error;
+        //			this.newError = true;
+        //		} else {
+        this.lexiconService.createLexicon(this.newLexicon).subscribe(applicationData => {
+            this.updateLexica();
+            this.clearAddLexicaForm();
+            this.newAlert = "Saved";
+            this.newError = true;
+        });
+        //		}
+        //  });
     }
 
     confirmDelete() {
@@ -132,17 +132,17 @@ export class LexiconContentComponent implements OnInit {
     }
 
     updateLexicon() {
-		//this.lexiconService.checkLexicon(this.editLex).subscribe(applicationData => {
-		//	if(applicationData.error) {
-		//		this.editAlert = applicationData.error;
-	//			this.editError = true;
-	//		} else {
-			    this.lexiconService.updateLexicon(this.editLex).subscribe(applicationData => {
-					this.editLex = new Lexicon();
-					this.updateLexica();
-				});
-	//		}
-	//	});
+        //this.lexiconService.checkLexicon(this.editLex).subscribe(applicationData => {
+        //	if(applicationData.error) {
+        //		this.editAlert = applicationData.error;
+        //			this.editError = true;
+        //		} else {
+        this.lexiconService.updateLexicon(this.editLex).subscribe(applicationData => {
+            this.editLex = new Lexicon();
+            this.updateLexica();
+        });
+        //		}
+        //	});
     }
 
     cancelEdit() {

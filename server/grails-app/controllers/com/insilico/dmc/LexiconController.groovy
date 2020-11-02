@@ -4,6 +4,8 @@ import com.insilico.dmc.lexicon.Lexicon
 import com.insilico.dmc.lexicon.LexiconSource
 import com.insilico.dmc.markup.Markup
 import com.insilico.dmc.markup.MarkupObject
+import com.insilico.dmc.markup.KeyWord
+import com.insilico.dmc.markup.KeyWordSet
 import com.insilico.dmc.publication.Publication
 import grails.converters.JSON
 import grails.transaction.Transactional
@@ -218,46 +220,73 @@ class LexiconController {
 
     @Transactional
     def save(Lexicon lexicon) {
-		def s = Species.findById(lexicon.lexiconSource.species)
-		println s
         if (lexicon == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        for(lex in lexicon.lexiconSource.lexica) {
-            if (lex.externalModId === lexicon.externalModId) {
-                println "exists"
-                render exists as JSON
-                return
+        def lexica = Lexicon.findAllByExternalModId(lexicon.externalModId)
+        def exists = false
+        for(lex in lexica) {
+            if (lex.lexiconSource == lexicon.lexiconSource) {
+                exists = true
+                lexicon.uuid = lex.uuid
+                println "mod id exists in lexicon source"
             }
         }
 
         if (lexicon.hasErrors()) {
             transactionStatus.setRollbackOnly()
-			println lexicon.lexiconSource.species
             respond lexicon.errors, view: 'create'
             return
         }
-
-        println "saving"
+        /*
         Lexicon lexiconObject = new Lexicon(
-                uuid: lexicon.uuid
-                , externalModId: lexicon.externalModId
-                , synonym: lexicon.synonym
-                , publicName: lexicon.publicName
-                , link: lexicon.link
+            uuid: lexicon.uuid,
+            externalModId: lexicon.externalModId,
+            synonym: lexicon.synonym,
+            publicName: lexicon.publicName,
+            link: lexicon.link,
+            lexiconSource: lexicon.lexiconSource,
         ).save(flush: true, failOnError: true)
-        println "saved"
+        */
+       // lexicon.save()
 
+        if (!exists) {       
+        LexiconSource.executeUpdate("""
+            MATCH (ls:LexiconSource) 
+            WHERE ls.uuid = {lexiconSourceUUID} 
+            CREATE (l:Lexicon {  })
+            SET l.uuid = {uuid}
+            SET l.externalModId = {externalModId}
+            SET l.synonym = {synonym}
+            SET l.link = {link}
+            MERGE (l)<-[:LEXICA]-(ls)
+        """, [lexiconSourceUUID: lexicon.lexiconSource.uuid, uuid: lexicon.uuid, externalModId: lexicon.externalModId, synonym: lexicon.synonym, link: lexicon.link])
+        }
 
-        LexiconSource.executeUpdate("MATCH (l:Lexicon),(ls:LexiconSource) where l.uuid = {lexiconUUID} and ls.uuid = {lexiconSourceUUID} create (l)<-[:LEXICA]-(ls)",
-                [lexiconUUID: lexiconObject.uuid, lexiconSourceUUID: lexicon.lexiconSource.uuid]
-        )
-        println "saved 3 "
+        def keyWordSets = KeyWordSet.findAllBySources(lexicon.lexiconSource)
+        KeyWord keyWord = KeyWord.findOrCreateByValue(lexicon.publicName)
+        println "uuid " + keyWord.uuid
+        if (!keyWord.uuid) {
+            println "setting uuid"
+            keyWord.uuid = UUID.randomUUID().toString()
+            keyWord.save(flush: true)
+        }
 
-        render lexiconObject as JSON
+        for(kws in keyWordSets) {        
+            
+            KeyWord.executeUpdate("MATCH (k:KeyWord), (kws:KeyWordSet), (l:Lexicon) WHERE k.uuid = {keyWordUUID} AND kws.uuid = {keyWordSetUUID} AND l.uuid = {lexiconUUID} CREATE (k)<-[:KEYWORDS]-(kws), (l)<-[:KEYWORDS]-(k)",
+                [keyWordUUID: keyWord.uuid , keyWordSetUUID: kws.uuid , lexiconUUID: lexicon.uuid] 
+            )
+        }
+        
+        JSONArray ja = new JSONArray()
+        ja.add(lexicon)
+        ja.add(keyWord)
+        println ja as JSON
+        render ja as JSON
     }
 
     def edit(Lexicon lexica) {
@@ -376,7 +405,9 @@ class LexiconController {
             return
         }
 
-        return Lexicon.executeUpdate("MATCH (l:Lexicon)-[r]-() WHERE ID(l) = {id} DELETE l,r", [id: lexicon.id])
+        Lexicon.executeUpdate("MATCH (l:Lexicon)-[r]-() WHERE ID(l) = {id} DELETE l,r", [id: lexicon.id])
+
+        respond lexicon
     }
 
     def search() {

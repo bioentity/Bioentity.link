@@ -98,7 +98,7 @@ class DomainMarshallerService {
             returnArray['source'] = it?.source
             returnArray['notes'] = it?.notes
             returnArray['prefix'] = it?.prefix
-            returnArray['urlConstructor'] = it.urlConstructor.toString()
+            returnArray['urlConstructor'] = it?.urlConstructor.toString()
             returnArray['uuid'] = String.valueOf(it?.uuid)
             return returnArray
         }
@@ -108,6 +108,7 @@ class DomainMarshallerService {
             returnArray['id'] = String.valueOf(it?.id)
             returnArray['value'] = it?.value
             returnArray['lexica'] = it?.lexica
+            returnArray['uuid'] = it?.uuid
             return returnArray
         }
 

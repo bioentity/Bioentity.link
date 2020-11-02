@@ -125,38 +125,44 @@ export class MarkupModal {
         // TODO: save user that added this
         this.markup.finalLexicon = lexicon;
         this.lexiconService.createLexicon(lexicon).subscribe(applicationData => {
-            lexicon = applicationData;
+            console.log(lexicon)
+            console.log(applicationData)
+            lexicon = applicationData[0]
+            // this.markup.keyWord = applicationData[1]
             lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
 
-            console.log(lexicon);
-            this.markup.keyWord.uuid = UUID.UUID();
+            this.markup.keyWord.uuid = applicationData[1].uuid
             this.markup.keyWord.keyWordSet = this.markup.keyWordSet;
             this.markup.keyWord.lexica = lexicon;
+
+            
+
+            /*
             this.keyWordService.addKeyWord(this.markup.keyWord, this.markup.keyWordSet).subscribe(applicationData => {
                 this.markup.keyWord = applicationData;
                 // For some reason, lexica is null here
                 this.markup.keyWord.lexica = lexicon;
+                */
 
-                // Save to server
-                let lexObject = {
-                    selection: {
-                        path: [this.markup.path],
-                        startOffset: this.markup.start,
-                        endOffset: this.markup.end
-                    },
-                    extLinkId: this.markup.extLinkId,
-                    lexica: [lexicon],
-                    id: this.markup.keyWord.id,
-                    uuid: this.markup.keyWord.uuid
-                };
-                this.markupService.saveLink(lexObject, this.markup.publication.fileName.substr(0, this.markup.publication.fileName.length - 4)).subscribe(applicationData => {
-                    if (linkAll) {
-
-                        this.applyKeyWord();
-                    }
-                });
-
+            // Save to server
+            let lexObject = {
+                selection: {
+                    path: [this.markup.path],
+                    startOffset: this.markup.start,
+                    endOffset: this.markup.end
+                },
+                extLinkId: this.markup.extLinkId,
+                lexica: [lexicon],
+                id: this.markup.keyWord.id,
+                uuid: this.markup.keyWord.uuid
+            };
+            this.markupService.saveLink(lexObject, this.markup.publication.fileName.substr(0, this.markup.publication.fileName.length - 4)).subscribe(applicationData => {
+                if (linkAll) {
+                    this.applyKeyWord();
+                }
             });
+
+            // });
         });
 
         //let link = this.selectedSource.urlConstructor.replace("@@ID@@", this.externalModId);
@@ -167,14 +173,13 @@ export class MarkupModal {
         window.frames[0].postMessage({ action: 'updateLink', terms: terms }, "*");
         this.markupChanged.emit('update-link');
         this.isSaved = true;
-       // this.isCollapsed = true;
+        // this.isCollapsed = true;
         //this.activeModal.close();
     }
 
     applyKeyWord() {
         this.markup.keyWord.lexica = [this.markup.keyWord.lexica];
         let wordData = [this.markup.keyWord];
-        console.log(wordData);
         window.frames[0].postMessage({ action: 'linkPub', publication: this.markup.publication, terms: wordData }, "*");
         this.markupChanged.emit('add-keywords');
     }
@@ -190,7 +195,7 @@ export class MarkupModal {
     deleteLink() {
         this.markupService.deleteMarkup(this.markup).subscribe(applicationData => {
             //            window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: this.markup.extLinkId}}, "*");
-                  window.frames[0].postMessage({action: 'deleteExtLink', terms: {extLinkId: this.markup.extLinkId, paragraph: this.markup.path}}, "*");
+            window.frames[0].postMessage({ action: 'deleteExtLink', terms: { extLinkId: this.markup.extLinkId, paragraph: this.markup.path } }, "*");
             this.markupChanged.emit('delete-link');
             this.activeModal.close();
         });
@@ -211,7 +216,7 @@ export class MarkupModal {
                     //console.log(markup)
                     extLinkIds.push(markup.extLinkId)
                 }
-                    window.frames[0].postMessage({ action: 'deleteAllLinks', terms: { extLinkIds: extLinkIds } }, "*");
+                window.frames[0].postMessage({ action: 'deleteAllLinks', terms: { extLinkIds: extLinkIds } }, "*");
                 //}
                 this.markupChanged.emit('delete-all-links');
                 this.activeModal.close();

@@ -4,7 +4,6 @@ import extend from 'lodash/extend'
 class ExtLinkTool extends AnnotationTool {
 
 	executeCommand(props) {
-		console.log(this.context)
 		let selectionState = this.context.documentSession.selectionState
 		let paragraph = this.context.doc.get(selectionState.selection.path[0]).content
 

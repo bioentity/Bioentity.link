@@ -75,19 +75,19 @@ class MarkupController extends RestfulController {
         }
         JSONObject selectionObject = termObject.selection
         Markup markup = new Markup(
-                publication: publication
-                , uuid: UUID.randomUUID().toString()
-                , status: MarkupStatusEnum.MATCHED
-                , type: MarkupTypeEnum.LINK
-                , path: selectionObject.path[0]
-                , locationStart: selectionObject.startOffset
-                , locationEnd: selectionObject.endOffset
-                , locationJson: selectionObject.toString()
-                , extLinkId: termObject.extLinkId
+            publication: publication,
+            uuid: UUID.randomUUID().toString(),
+            status: MarkupStatusEnum.MATCHED,
+            type: MarkupTypeEnum.LINK,
+            path: selectionObject.path[0],
+            locationStart: selectionObject.startOffset,
+            locationEnd: selectionObject.endOffset,
+            locationJson: selectionObject.toString(),
+            extLinkId: termObject.extLinkId,
         ).save(failOnError: true, insert: true)
         keyWord.addToMarkups(markup)
 
-        Lexicon lexicon = Lexicon.findById(termObject.lexica[0].id)
+        Lexicon lexicon = Lexicon.findByUuid(termObject.lexica[0].uuid)
         println "found a lexicon: ${lexicon}"
         lexicon.addToMarkups(markup)
 
@@ -119,11 +119,11 @@ class MarkupController extends RestfulController {
         for (def termObject in termObjects.termData) {
 //            println "saving term: ${termObject as JSON}"
 //            KeyWord keyWord = KeyWord.findByUuid(termObject.uuid)
-            KeyWord keyWord = KeyWord.findById(termObject.id)
-            Lexicon lexicon = Lexicon.findById(termObject.lexica[0].id)
+            KeyWord keyWord = KeyWord.findByUuid(termObject.uuid)
+            Lexicon lexicon = Lexicon.findByUuid(termObject.lexica[0].uuid)
             JSONObject selectionObject = termObject.selection
 
-
+            println keyWord
 			def markup = [
                 publication: publication.fileName,
                 uuid: UUID.randomUUID().toString(),

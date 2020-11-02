@@ -185,16 +185,18 @@ class KeyWordSetController extends RestfulController<KeyWordSet> {
         JSONArray entities = index.index as JSONArray
 
         Set<Node> nodeList = KeyWordSet.executeQuery("""
-	WITH {index} AS words
+	    WITH {index} AS words
         MATCH (kws:KeyWordSet)--(k:KeyWord)--(l:Lexicon)--(ls:LexiconSource)
         WHERE kws.name={kwsName} AND
-        k.value IN words
+        ANY(x in split(k.value, ' ') WHERE x in words)
         RETURN k.value AS match, 
         replace(ls.urlConstructor, "@@ID@@", l.externalModId) AS url, 
         l.externalModId AS sourceId, 
         ls.source AS source,
         ls.className AS type""",
         [kwsName: index.kws, index: entities])
+
+        println nodeList
         render nodeList as JSON
     }
 
@@ -337,12 +339,12 @@ class KeyWordSetController extends RestfulController<KeyWordSet> {
         println "kws: ${kws}"
         println "params: ${params}"
         KeyWord keyWord = new KeyWord(
-                value: params.value
-                ,uuid: params.uuid
+            value: params.value,
+            uuid: params.uuid
         )
 
         println "saving kw"
-        keyWord.save(flush:true,failOnError: true)
+        keyWord.save(flush:true, failOnError: true)
         println "SAVED kw"
 
 
