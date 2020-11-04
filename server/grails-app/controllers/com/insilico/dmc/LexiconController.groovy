@@ -405,8 +405,8 @@ class LexiconController {
             return
         }
 
-        Lexicon.executeUpdate("MATCH (l:Lexicon)-[r]-() WHERE ID(l) = {id} DELETE l,r", [id: lexicon.id])
-
+        Lexicon.executeUpdate("MATCH (l:Lexicon)-[r]-() WHERE ID(l) = {id} DELETE l, r", [id: lexicon.id])
+     
         respond lexicon
     }
 

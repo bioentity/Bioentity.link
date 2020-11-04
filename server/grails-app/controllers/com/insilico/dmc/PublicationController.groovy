@@ -57,12 +57,20 @@ class PublicationController extends RestfulController<Publication> {
 
         for(def markup in markups) {
             def lex = markup.finalLexicon
-            if(!sources.containsKey(lex.lexiconSource.className)) {
-                sources[lex.lexiconSource.className] = new HashSet()
-            }
-            def entity = ["value": lex.publicName, "modId": lex.externalModId]
-            sources[lex.lexiconSource.className].add(entity)
+            
 
+            
+            try {
+                if(!sources.containsKey(lex.lexiconSource.className)) {
+                    sources[lex.lexiconSource.className] = new HashSet()
+                }
+                def entity = ["value": lex.publicName, "modId": lex.externalModId]
+                sources[lex.lexiconSource.className].add(entity)
+            } catch(e) {
+                println markup.keyWord.value
+            }
+            
+            
         }
 
         def data = ["entities": sources]
