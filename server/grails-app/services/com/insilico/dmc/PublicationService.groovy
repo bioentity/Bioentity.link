@@ -51,7 +51,7 @@ class PublicationService {
         if (fileContent.indexOf("elife</journal-id>") != -1) {
             println "journal is elife, so USING: ${fileName}"
             journal = "elife"
-        } else if (fileContent.toLowerCase().indexOf("genetics</journal-id>") != -1) {
+        } else if (fileContent.toLowerCase().indexOf("genetics</journal-id>") != -1 || fileContent.toLowerCase().indexOf("g3journal</journal-id>") != -1) {
             println "journal is genetics, so USING: ${fileName}"
             journal = "genetics"
             fileContent = fileContent.replaceAll(/(<\?RFR:.+\?>)/) { all, content -> "<!--${content}-->" }
@@ -493,6 +493,9 @@ class PublicationService {
 
     @NotTransactional
     String filterXml(String xmlData, String pubType, String originalXml) {
+        xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/specifications.silverchair.com\/xsd\/1\/24\/SCJATS-journalpublishing.xsd\"/, "")
+        // Add it back
+        xmlData = xmlData.replaceAll(/<article /, "<article xmlns=\"http://specifications.silverchair.com/xsd/1/24/SCJATS-journalpublishing.xsd\" ") 
         xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
 /*      xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\" id=\"unsupported-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\" xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
@@ -523,7 +526,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/title xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "title")
         xmlData = xmlData.replaceAll(/list xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "list")
         */
-        xmlData = xmlData.replaceAll(/ext-link-type=\"doi\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="doi"')
+       // xmlData = xmlData.replaceAll(/ext-link-type=\"doi\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="doi"')
        // xmlData = xmlData.replaceAll(/ext-link-type=\"uri\" xmlns:xlink=\"http:\/\/www\.w3\.org\/1999\/xlink\"/, 'ext-link-type="uri"')
         // Remove ids
         xmlData = xmlData.replaceAll(/ id=\"italic-[\w\d]+\"/, "")
@@ -549,14 +552,15 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"ext-link-[\w\d]+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-inline-\d+\"/, "")
-        xmlData = xmlData.replaceAll(/id=\"abstract-\d\"/, "")
-        xmlData = xmlData.replaceAll(/id=\"list-item-\d+\"/, "")
-
+        xmlData = xmlData.replaceAll(/ id=\"abstract-\d\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"list-item-\d+\"/, "")
+        xmlData = xmlData.replaceAll(/ id=\"section-\d+\"/, "")
+        
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1/>')
         xmlData = xmlData.replaceAll(/<\/.+-count>/, "")
         // Text above table, fig and media should be in caption
-        xmlData = xmlData.replaceAll(/(?s)<table-wrap (.+?)<\/label>(.+?)<table /, '<table-wrap $1</label><caption>$2</caption><table ')
+        // xmlData = xmlData.replaceAll(/(?s)<table-wrap (.+?)<\/label>(.+?)<table /, '<table-wrap $1</label><caption>$2</caption><table ')
         // Remove weird unicode
         xmlData = xmlData.replaceAll(/\u200B/, "")
 
@@ -565,10 +569,10 @@ class PublicationService {
         xmlData = xmlData.replaceAll("&amp;gt;", "&#x003E;")
         xmlData = xmlData.replaceAll("&lt;", "&#x003C;")
         xmlData = xmlData.replaceAll("&gt;", "&#x003E;")
-
+        
         // Remove space in closing tags
-        xmlData = xmlData.replaceAll(" />", "/>")
-
+       // xmlData = xmlData.replaceAll(" />", "/>")
+        /*
         xmlData = xmlData.replaceAll(/(?s)<\/front-stub>(.+?)<\/sub-article>/, '</front-stub><body>$1</body></sub-article>')
 
         // Different DTDs between elife and GSA
@@ -580,6 +584,8 @@ class PublicationService {
 
             xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d3 20150301//EN"  "JATS-archivearticle1.dtd">\n' + xmlData
         } else {
+            */
+            /*
             // Scan GSA articles for special unicode characters
             def matcher = xmlData =~ /[^\x00-\x7F]/
 
@@ -589,7 +595,7 @@ class PublicationService {
 
                  matcher = xmlData =~ /[^\x00-\x7F]/
             }
-
+            
             def runHeader = "";
             matcher = originalXml =~ /<\?RF.*\?>/
             while (matcher.find()) {
@@ -600,12 +606,19 @@ class PublicationService {
             while (matcher.find()) {
                 runHeader += matcher.group() + "\n"
             }
-
+            
             xmlData = xmlData.replaceAll(/<\/article-title><\/title-group>/, "</article-title>\n" + runHeader + "</title-group>")
+            */
 //            xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v2.3 20070202//EN" "journalpublishing.dtd">\n' + xmlData
             // Grab the xml and doctype tags from the oringal document because texture loses them
-            String[] doctype = originalXml.split("\n", 3)
-            xmlData = doctype[0] + "\n" + doctype[1] + "\n" + xmlData
+           // String[] doctype = originalXml.split("\n", 3)
+           // xmlData = doctype[0] + "\n" + doctype[1] + "\n" + xmlData
+       // }
+
+        def matcher = originalXml =~ /<!--([\s\S]*)-->/
+        if (matcher.find()) {
+            println matcher.group()
+            xmlData = xmlData.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n${matcher.group()}\n")
         }
 
         // * should be &#00X2A;
@@ -627,8 +640,12 @@ class PublicationService {
         // Probably a better way to do this, but one case had a line return in it
         xmlData = xmlData.replaceAll("</caption>\n</caption>", "</caption>")
 
-        xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
-        xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
+        // xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
+        // xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
+
+        xmlData = xmlData.replaceAll(/<!--\?/, "<")
+        xmlData = xmlData.replaceAll(/--\?>/, ">")
+        
         return xmlData
     }
 

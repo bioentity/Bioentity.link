@@ -35,8 +35,8 @@ export default {
   export: function (node, el, converter) { // eslint-disable-line
     el.attr({
       'ext-link-type': 'uri',
-      'xlink:href': node.attributes['xlink:href']
-      //	'entityType': 'mu'
+      'xlink:href': node.attributes['xlink:href'],
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink'
     })
 
   },

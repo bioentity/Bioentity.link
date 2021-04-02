@@ -35,7 +35,9 @@ export default {
     let children = el.getChildren()
     let iterator = new XMLIterator(children)
 
-
+    iterator.optional('title', function(child) {
+      node.title = converter.convertElement(child).id
+    })
     iterator.manyOf(JATS.PARA_LEVEL, function(child) {
       node.nodes.push(converter.convertElement(child).id)
     })
@@ -50,6 +52,9 @@ export default {
   export: function(node, el, converter) {
     let $$ = converter.$$
     el.attr(node.xmlAttributes)
+    if(node.title) {
+      el.append(converter.convertNode(node.title))
+    }
     node.nodes.forEach(function(nodeId) {
       el.append(converter.convertNode(nodeId))
     })

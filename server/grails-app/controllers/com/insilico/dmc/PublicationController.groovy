@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional
 
 import groovy.time.TimeCategory 
 import groovy.time.TimeDuration
+import groovy.xml.XmlUtil
 
 
 import static org.springframework.http.HttpStatus.*
@@ -81,9 +82,12 @@ class PublicationController extends RestfulController<Publication> {
 
 
 
-    def findByDoi(String doiPrefix, String doiSuffix) {
+    def findByDoi(String doiPrefix, String doiSuffix, String doiSuffix2) {
         println "finding by doi ${doiPrefix} ${doiSuffix} ${params}"
         String doiString = doiPrefix + "/" + doiSuffix
+        if (doiSuffix2) {
+            doiString += "/" + doiSuffix2
+        }
         Publication publication = Publication.findByDoi(doiString)
         try {
             if (publication) {
@@ -136,8 +140,8 @@ class PublicationController extends RestfulController<Publication> {
         println "publication found ${publication.fileName}"
          // Convert <!-- -->  comments in genetics to tags that can be read by texture
         String xmlData = publication.exportedData.value
-        xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
-        xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
+        // xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
+        // xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
 
         // Temp fix for XML parse error
         //        render publication.exportedData.value
@@ -296,7 +300,7 @@ class PublicationController extends RestfulController<Publication> {
 
     def downloadRaw(Publication publication) {
         response.setHeader("Content-disposition", "attachment; filename=raw-${publication.fileName}")
-        def xmlData = publication.exportedData.value
+        publication.exportedData.value
 
         if (publicationService.validatePubXml(xmlData)) {
             println "Valid Raw XML for ${publication.doi} / ${publication.title}"
@@ -335,19 +339,19 @@ class PublicationController extends RestfulController<Publication> {
         def xmlData = publication.exportedData.value
         String pubType = publicationService.getPubType(publication)
 
-        if (publicationService.validatePubXml(xmlData)) {
-            println "Valid Raw XML for ${publication.doi} / ${publication.title}"
-        } else {
-            println "BAD Raw XML for ${publication.doi} / ${publication.title}"
-        }
+        //if (publicationService.validatePubXml(xmlData)) {
+        //    println "Valid Raw XML for ${publication.doi} / ${publication.title}"
+        //} else {
+        //    println "BAD Raw XML for ${publication.doi} / ${publication.title}"
+        //}
 
-        xmlData = publicationService.filterXml(xmlData, pubType, publication.originalData.value)
+        xmlData = publicationService.filterXml(XmlUtil.serialize(xmlData), pubType, publication.originalData.value)
 
-        if (publicationService.validatePubXml(xmlData)) {
-            println "Valid filtered XML for ${publication.doi} / ${publication.title}"
-        } else {
-            println "BAD filtered XML for ${publication.doi} / ${publication.title}"
-        }
+        //if (publicationService.validatePubXml(xmlData)) {
+        //    println "Valid filtered XML for ${publication.doi} / ${publication.title}"
+        //} else {
+        //    println "BAD filtered XML for ${publication.doi} / ${publication.title}"
+        // }
 
         outputStream << xmlData
         //outputStream << publication.exportedData.value
