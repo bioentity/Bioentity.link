@@ -12,6 +12,7 @@ import BackPackage from './back/package'
 import BodyPackage from './body/package'
 import BoldPackage from './bold/package'
 import CaptionPackage from './caption/package'
+import DispQuotePackage from './disp-quote/package'
 import ExtLinkPackage from './ext-link/package'
 import FigurePackage from './figure/package'
 import FootnotePackage from './footnote/package'
@@ -47,6 +48,7 @@ export default {
     config.import(BackPackage)
     config.import(BodyPackage)
     config.import(BoldPackage)
+    config.import(DispQuotePackage)
     config.import(ItalicPackage)
     config.import(CaptionPackage)
     config.import(ExtLinkPackage)

@@ -555,7 +555,8 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/ id=\"abstract-\d\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"list-item-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"section-\d+\"/, "")
-        
+        xmlData = xmlData.replaceAll(/ id=\"disp-quote-\d+\"/, "") 
+
         // Fix count elements
         xmlData = xmlData.replaceAll(/(count=\"\d+\")>/, '$1/>')
         xmlData = xmlData.replaceAll(/<\/.+-count>/, "")
@@ -643,8 +644,8 @@ class PublicationService {
         // xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
         // xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
 
-        xmlData = xmlData.replaceAll(/<!--\?/, "<")
-        xmlData = xmlData.replaceAll(/--\?>/, ">")
+        xmlData = xmlData.replaceAll(/<!--\?/, "<?")
+        xmlData = xmlData.replaceAll(/\?-->/, "?>")
         
         return xmlData
     }
