@@ -1,6 +1,6 @@
-import { TextNode } from 'substance'
+import { Container } from 'substance'
 
-class DispQuote extends TextNode {}
+class DispQuote extends Container {}
 
 DispQuote.type = 'disp-quote'
 

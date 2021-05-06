@@ -1,10 +1,17 @@
-import { TextBlockComponent } from 'substance'
+import { Component, ContainerEditor } from "substance";
 
-class DispQuoteComponent extends TextBlockComponent {
+class DispQuoteComponent extends Component {
+  render($$) {
+    let node = this.props.node;
+    let el = $$("div").addClass("sc-disp-quote");
 
-  getClassNames() {
-    return 'sc-disp-quote'
+    el.append(
+      $$(ContainerEditor, { node: node })
+        .ref("contentEditor")
+        .addClass("se-content")
+    );
+    return el;
   }
 }
 
-export default DispQuoteComponent
+export default DispQuoteComponent;
