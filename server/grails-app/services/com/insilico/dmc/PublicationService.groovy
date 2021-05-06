@@ -493,9 +493,9 @@ class PublicationService {
 
     @NotTransactional
     String filterXml(String xmlData, String pubType, String originalXml) {
-        xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/specifications.silverchair.com\/xsd\/1\/24\/SCJATS-journalpublishing.xsd\"/, "")
+        xmlData = xmlData.replaceAll(/(?<!article) xmlns=\"http:\/\/specifications.silverchair.com\/xsd\/1\/2\d\/SCJATS-journalpublishing.xsd\"/, "")
         // Add it back
-        xmlData = xmlData.replaceAll(/<article /, "<article xmlns=\"http://specifications.silverchair.com/xsd/1/24/SCJATS-journalpublishing.xsd\" ") 
+        // xmlData = xmlData.replaceAll(/<article /, "<article xmlns=\"http://specifications.silverchair.com/xsd/1/24/SCJATS-journalpublishing.xsd\" ") 
         xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
 /*      xmlData = xmlData.replaceAll(/ xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\" id=\"unsupported-\d+\"/, "")
         xmlData = xmlData.replaceAll(/ id=\"unsupported-\d+\" xmlns=\"http:\/\/www\.w3\.org\/1999\/xhtml\"/, "")
