@@ -22,6 +22,11 @@ class UserService {
         return user
     }
 
+    def getKWGlobalPublisher() {
+        User user = User.findByUsername("KGLOUPGSA")
+        return user
+    }
+
     def getAdmin() {
         User user = User.findByUsername("kyook")
         return user

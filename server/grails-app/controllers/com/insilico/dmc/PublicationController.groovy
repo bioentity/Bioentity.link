@@ -37,7 +37,8 @@ class PublicationController extends RestfulController<Publication> {
     def githubService
     def markupService
     def userService
-    def sheridanService
+    // def sheridanService
+    def kwglobalService
 
 
     private Gson gson = new Gson()
@@ -962,9 +963,11 @@ class PublicationController extends RestfulController<Publication> {
         // get publisher
         User defaultPublisher = userService.getDefaultPublisher()
         if(publication.doi.toLowerCase().contains("genetics")) {
-            defaultPublisher = userService.getGeneticsPublisher()
+          //  defaultPublisher = userService.getGeneticsPublisher()
+          defaultPublisher = userService.getKWGlobalPublisher()
         } else if(publication.doi.toLowerCase().contains("g3")) {
-            defaultPublisher = userService.getG3Publisher()
+          //  defaultPublisher = userService.getG3Publisher()
+          defaultPublisher = userService.getKWGlobalPublisher()
         }
 
         String xml = publicationService.filterXml(
@@ -974,9 +977,11 @@ class PublicationController extends RestfulController<Publication> {
         )
 
         try {
-            sheridanService.sendToSheridan(xml, publication)
+            // sheridanService.sendToSheridan(xml, publication)
+            kwglobalService.sendToKWGlobal(xml, publication)
         } catch (e) {
-            println("Upload to Sheridan failed " + e)
+            // println("Upload to Sheridan failed " + e)
+            println("Upload to KW Global failed " + e)
         } //finally {
            // println("Upload to Sheridan succeeded")
        // }
