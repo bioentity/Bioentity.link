@@ -1,19 +1,19 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, NavigationEnd, Params, Route, Router} from "@angular/router";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, NavigationEnd, Params, Route, Router } from "@angular/router";
 
-import {environment} from "../../environments/environment";
-import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
-import {AuthenticationService} from "../authentication/authentication.service";
-import {Publication} from "../publication/publication";
-import {PublicationComponent} from "../publication/publication.component";
-import {KeyWordComponent} from "../key-word/key-word.component";
-import {LexiconComponent} from "../lexicon/lexicon.component";
-import {UserService} from "../user/user.service";
-import {User} from "../user/user";
-import {RoleEnum} from "../user/role.enum";
-import {UserComponent} from "../user/user.component";
-import {GoogleAnalyticsService} from "../google-analytics.service";
-import {Title} from "@angular/platform-browser";
+import { environment } from "../../environments/environment";
+import { NgbTabChangeEvent } from "@ng-bootstrap/ng-bootstrap";
+import { AuthenticationService } from "../authentication/authentication.service";
+import { Publication } from "../publication/publication";
+import { PublicationComponent } from "../publication/publication.component";
+import { KeyWordComponent } from "../key-word/key-word.component";
+import { LexiconComponent } from "../lexicon/lexicon.component";
+import { UserService } from "../user/user.service";
+import { User } from "../user/user";
+import { RoleEnum } from "../user/role.enum";
+import { UserComponent } from "../user/user.component";
+import { GoogleAnalyticsService } from "../google-analytics.service";
+import { Title } from "@angular/platform-browser";
 
 declare var ga: Function;
 
@@ -106,7 +106,7 @@ export class IndexComponent implements OnInit {
                 console.log(params);
                 this.titleService.setTitle("Bioentity.Link");
                 this.selectedPubId = params["pubId"]; // cast to number
-                this.selectedDoi = params.doiPrefix && params.doiSuffix ? params["doiPrefix"] + '/' + params["doiSuffix"] : ''; // cast to number
+                this.selectedDoi = params.doiPrefix && params.doiRoot && params.doiSuffix ? params["doiPrefix"] + '/' + params["doiRoot"] + '/' + params["doiSuffix"] : ''; // cast to number
                 this.kwSetId = params["kwSetId"]; // cast to number
                 this.lexicaId = params["lexicaId"]; // cast to number
                 this.username = params["username"]; // cast to number
