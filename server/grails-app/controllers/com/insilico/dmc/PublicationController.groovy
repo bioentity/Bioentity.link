@@ -964,10 +964,10 @@ class PublicationController extends RestfulController<Publication> {
         User defaultPublisher = userService.getDefaultPublisher()
         if(publication.doi.toLowerCase().contains("genetics")) {
           //  defaultPublisher = userService.getGeneticsPublisher()
-          defaultPublisher = userService.getKWGlobalPublisher()
+          defaultPublisher = userService.getKWGeneticsPublisher()
         } else if(publication.doi.toLowerCase().contains("g3")) {
           //  defaultPublisher = userService.getG3Publisher()
-          defaultPublisher = userService.getKWGlobalPublisher()
+          defaultPublisher = userService.getKWG3Publisher()
         }
 
         String xml = publicationService.filterXml(

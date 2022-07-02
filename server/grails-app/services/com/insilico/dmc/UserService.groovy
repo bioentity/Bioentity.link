@@ -27,6 +27,16 @@ class UserService {
         return user
     }
 
+    def getKWGeneticsPublisher() {
+        User user = User.findByUsername("KGLGENETICSOUP")
+        return user
+    }
+
+    def get KWG3Publisher() {
+        User user = User.findByUsername("KGLG3OUP")
+        return user
+    }
+
     def getAdmin() {
         User user = User.findByUsername("kyook")
         return user
