@@ -32,7 +32,7 @@ class UserService {
         return user
     }
 
-    def get KWG3Publisher() {
+    def getKWG3Publisher() {
         User user = User.findByUsername("KGLG3OUP")
         return user
     }
