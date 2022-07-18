@@ -56,7 +56,7 @@ class PublicationService {
             journal = "genetics"
             fileContent = fileContent.replaceAll(/(<\?RFR:.+\?>)/) { all, content -> "<!--${content}-->" }
             fileContent = fileContent.replaceAll(/(<\?RFL:.+\?>)/) { all, content -> "<!--${content}-->" }
-            fileContent = fileContent.replaceAll(/(<\?A3B2:.+\?>)/) { all, content -> "<!--${content}-->" }
+            fileContent = fileContent.replaceAll(/(<\?A3B2.+\?>)/) { all, content -> "<!--${content}-->" }
             fileContent = fileContent.replaceAll("custom-meta-wrap", "custom-meta-group")
 
         } else if (fileContent.toLowerCase().indexOf("genetics</publisher>") != -1) {
@@ -572,12 +572,13 @@ class PublicationService {
         xmlData = xmlData.replaceAll("&lt;", "&#x003C;")
         xmlData = xmlData.replaceAll("&gt;", "&#x003E;")
 
+/*
         // Tilde doesn't need to be escaped
-        xmlData = xmlData.replaceAll("&#x0223C;", "~")
+        xmlData = xmlData.replaceAll(/&#x0223C;/, "~")
 
         // Convert nbsp back to real space
-        xmlData = xmlData.replaceAll("&#x000A0;", " ")
-        
+        xmlData = xmlData.replaceAll(/&#x000A0;/, " ")
+*/        
         // Remove space in closing tags
        // xmlData = xmlData.replaceAll(" />", "/>")
         /*
@@ -622,13 +623,14 @@ class PublicationService {
            // String[] doctype = originalXml.split("\n", 3)
            // xmlData = doctype[0] + "\n" + doctype[1] + "\n" + xmlData
        // }
-
+        /*
         def matcher = originalXml =~ /<!--([\s\S]*)-->/
         if (matcher.find()) {
-            println matcher.group()
+           //  println matcher.group()
             xmlData = xmlData.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n${matcher.group()}\n")
         }
-
+        */
+        
         // * should be &#00X2A;
         xmlData = xmlData.replaceAll(/ \* /, " &#x002A; ")
         xmlData = xmlData.replaceAll(/>\*</, ">&#x002A;<")
