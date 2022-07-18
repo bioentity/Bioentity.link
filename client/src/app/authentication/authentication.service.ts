@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
-import {Router} from "@angular/router";
-import {environment} from "../../environments/environment";
-import {UserService} from "../user/user.service";
-import {Observable} from "rxjs/Observable";
-import {User} from "../user/user";
+import { Router } from "@angular/router";
+import { environment } from "../../environments/environment";
+import { UserService } from "../user/user.service";
+import { Observable } from "rxjs/Observable";
+import { User } from "../user/user";
 
 
 @Injectable()
@@ -13,7 +13,7 @@ export class AuthenticationService {
     userProfile: any;
     requestedScopes: string = 'openid profile';
     // _authenticatedUser: Observable<any>;
-    _authenticatedUser: User ;
+    _authenticatedUser: User;
 
     auth0 = new auth0.WebAuth({
         clientID: 'iPhUzXTm0fUQdEdAmxahWlV-1bTgQM9K',
@@ -21,7 +21,7 @@ export class AuthenticationService {
         responseType: 'token id_token',
         // audience: 'https://nathandunn.auth0.com/userinfo',
         audience: 'https://nathandunn.auth0.com/api/v2/',
-        redirectUri: environment.clientUrl +'callback',
+        redirectUri: environment.clientUrl + 'callback',
         scope: 'openid profile',
 
         // clientID: 'iPhUzXTm0fUQdEdAmxahWlV-1bTgQM9K',
@@ -30,10 +30,10 @@ export class AuthenticationService {
         // apiUrl: 'https://nathandunn.auth0.com/api/v2/'
     });
 
-    constructor(public router: Router,private userService: UserService) {}
+    constructor(public router: Router, private userService: UserService) { }
 
     isAdmin() {
-        let isAdmin = true ;
+        let isAdmin = true;
         // if(this.userProfile){
         //     this.userService.getUser(this.userProfile.nickname).subscribe( applicationData =>{
         //         isAdmin = applicationData.defaultRole.name==='ADMIN'
@@ -43,7 +43,7 @@ export class AuthenticationService {
         // else{
         //     alert('no user profile preset')
         // }
-        return isAdmin ;
+        return isAdmin;
         // let adminString = this.urlHelpService.getGlobalParameter("admin");
         // console.log("admin string: " + adminString);
         // let returnValue = this.urlHelpService.asBoolean(adminString);
@@ -118,8 +118,8 @@ export class AuthenticationService {
         this.auth0.client.userInfo(accessToken, (err, profile) => {
             if (profile) {
                 self.userProfile = profile;
-                this.userService.getUser(profile.nickname).subscribe( applicationData =>{
-                    this._authenticatedUser = applicationData ;
+                this.userService.getUser(profile.nickname).subscribe(applicationData => {
+                    this._authenticatedUser = applicationData;
                 });
             }
             cb(err, profile);
@@ -171,29 +171,29 @@ export class AuthenticationService {
     // }
 
 
-    getAuthenticatedUser(){
-        if(this._authenticatedUser) return this._authenticatedUser ;
+    getAuthenticatedUser() {
+        if (this._authenticatedUser) return this._authenticatedUser;
 
-        if(!this.userProfile){
-            let self = this ;
+        if (!this.userProfile) {
+            let self = this;
             this.getProfile((err, profile) => {
-                self.userProfile = profile ;
+                self.userProfile = profile;
                 // loadAuthenticatedUser();
-                if(self.userProfile){
-                    this.userService.getUser(self.userProfile.nickname).subscribe( applicationData =>{
-                        this._authenticatedUser = applicationData ;
+                if (self.userProfile) {
+                    this.userService.getUser(self.userProfile.nickname).subscribe(applicationData => {
+                        this._authenticatedUser = applicationData;
                         return this._authenticatedUser;
                     });
                 }
             });
         }
         else
-        if(!this._authenticatedUser && this.userProfile){
-            this.userService.getUser(this.userProfile.nickname).subscribe( applicationData =>{
-                this._authenticatedUser = applicationData ;
-                return this._authenticatedUser;
-            });
-        }
-        return null ;
+            if (!this._authenticatedUser && this.userProfile) {
+                this.userService.getUser(this.userProfile.nickname).subscribe(applicationData => {
+                    this._authenticatedUser = applicationData;
+                    return this._authenticatedUser;
+                });
+            }
+        return null;
     }
 }

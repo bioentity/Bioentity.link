@@ -340,6 +340,7 @@ export class PublicationDetailComponent implements OnInit {
                 });
         //  .add(() => {
 
+
         this.publicationService
             .applyKeyWordSet(this.selectedPub, this.selectedKeyWordSet)
             .subscribe(

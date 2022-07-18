@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Publication} from "../publication";
+import { Component, Input, OnInit } from '@angular/core';
+import { Publication } from "../publication";
 
 @Component({
     selector: 'publication-links',

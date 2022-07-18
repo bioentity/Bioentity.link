@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {Subscription} from "rxjs/Subscription";
-import {PublicationService} from "../publication.service";
+import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
+import { PublicationService } from "../publication.service";
 
 @Component({
     selector: 'publication-markup',
@@ -18,7 +18,7 @@ export class PublicationMarkupComponent implements OnInit {
     ngOnInit() {
         this.subscription = this.publicationService.getHighlightedWord().subscribe(
             highlightedWord => {
-                if(highlightedWord.text && highlightedWord.text.trim().length>0){
+                if (highlightedWord.text && highlightedWord.text.trim().length > 0) {
                     this.highlightedWord = highlightedWord;
                 }
             });

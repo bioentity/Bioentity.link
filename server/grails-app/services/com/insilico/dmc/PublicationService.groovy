@@ -56,6 +56,7 @@ class PublicationService {
             journal = "genetics"
             fileContent = fileContent.replaceAll(/(<\?RFR:.+\?>)/) { all, content -> "<!--${content}-->" }
             fileContent = fileContent.replaceAll(/(<\?RFL:.+\?>)/) { all, content -> "<!--${content}-->" }
+            fileContent = fileContent.replaceAll(/(<\?A3B2:.+\?>)/) { all, content -> "<!--${content}-->" }
             fileContent = fileContent.replaceAll("custom-meta-wrap", "custom-meta-group")
 
         } else if (fileContent.toLowerCase().indexOf("genetics</publisher>") != -1) {
@@ -570,6 +571,12 @@ class PublicationService {
         xmlData = xmlData.replaceAll("&amp;gt;", "&#x003E;")
         xmlData = xmlData.replaceAll("&lt;", "&#x003C;")
         xmlData = xmlData.replaceAll("&gt;", "&#x003E;")
+
+        // Tilde doesn't need to be escaped
+        xmlData = xmlData.replaceAll("&#x0223C;", "~")
+
+        // Convert nbsp back to real space
+        xmlData = xmlData.replaceAll("&#x000A0;", " ")
         
         // Remove space in closing tags
        // xmlData = xmlData.replaceAll(" />", "/>")
