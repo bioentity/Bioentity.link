@@ -54,10 +54,10 @@ class PublicationService {
         } else if (fileContent.toLowerCase().indexOf("genetics</journal-id>") != -1 || fileContent.toLowerCase().indexOf("g3journal</journal-id>") != -1) {
             println "journal is genetics, so USING: ${fileName}"
             journal = "genetics"
-            fileContent = fileContent.replaceAll(/(<\?RFR:.+\?>)/) { all, content -> "<!--${content}-->" }
-            fileContent = fileContent.replaceAll(/(<\?RFL:.+\?>)/) { all, content -> "<!--${content}-->" }
-            fileContent = fileContent.replaceAll(/(<\?A3B2.+\?>)/) { all, content -> "<!--${content}-->" }
-            fileContent = fileContent.replaceAll("custom-meta-wrap", "custom-meta-group")
+            // fileContent = fileContent.replaceAll(/(<\?RFR:.+\?>)/) { all, content -> "<!--${content}-->" }
+            // fileContent = fileContent.replaceAll(/(<\?RFL:.+\?>)/) { all, content -> "<!--${content}-->" }
+            // fileContent = fileContent.replaceAll(/(<\?A3B2 .+\?>)/) { all, content -> "<!--${content}-->" }
+            // fileContent = fileContent.replaceAll("custom-meta-wrap", "custom-meta-group")
 
         } else if (fileContent.toLowerCase().indexOf("genetics</publisher>") != -1) {
             // Old Genetics format, return null for now
@@ -650,11 +650,11 @@ class PublicationService {
         // Probably a better way to do this, but one case had a line return in it
         xmlData = xmlData.replaceAll("</caption>\n</caption>", "</caption>")
 
-        // xmlData = xmlData.replaceAll("<genetics-comment>", "<!--")
-        // xmlData = xmlData.replaceAll("</genetics-comment>", "-->")
+        xmlData = xmlData.replaceAll("<genetics-comment>", "")
+        xmlData = xmlData.replaceAll("</genetics-comment>", "")
 
-        xmlData = xmlData.replaceAll(/<!--\?/, "<?")
-        xmlData = xmlData.replaceAll(/\?-->/, "?>")
+        xmlData = xmlData.replaceAll(/<!--/, "<")
+        xmlData = xmlData.replaceAll(/-->/, ">")
         
         return xmlData
     }

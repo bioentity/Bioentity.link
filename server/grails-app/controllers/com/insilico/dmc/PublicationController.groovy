@@ -141,6 +141,7 @@ class PublicationController extends RestfulController<Publication> {
         println "publication found ${publication.fileName}"
          // Convert <!-- -->  comments in genetics to tags that can be read by texture
         String xmlData = publication.exportedData.value
+        xmlData = xmlData.replaceAll(/(<\?A3B2.+\?>)/) { all, content -> "<genetics-comment>${content}</genetics-comment>" }
         // xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
         // xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
 
@@ -300,7 +301,7 @@ class PublicationController extends RestfulController<Publication> {
 
 
     def downloadRaw(Publication publication) {
-        response.setHeader("Content-disposition", "attachment; filename=raw-${publication.fileName}")
+        response.setHeader("Content-disposition", "attachment; filename=unfiltered-${publication.fileName}")
         def xmlData = publication.exportedData.value
 
         if (publicationService.validatePubXml(xmlData)) {
@@ -317,7 +318,7 @@ class PublicationController extends RestfulController<Publication> {
     }
 
     def downloadOriginal(Publication publication) {
-        response.setHeader("Content-disposition", "attachment; filename=raw-${publication.fileName}")
+        response.setHeader("Content-disposition", "attachment; filename=unlinked-${publication.fileName}")
         def xmlData = publication.originalData.value
 
         if (publicationService.validatePubXml(xmlData)) {
@@ -334,7 +335,7 @@ class PublicationController extends RestfulController<Publication> {
     }
 
     def download(Publication publication) {
-        response.setHeader("Content-disposition", "attachment; filename=${publication.fileName}")
+        response.setHeader("Content-disposition", "attachment; filename=linked-${publication.fileName}")
         def outputStream = response.outputStream
         // Remove xmlns
         def xmlData = publication.exportedData.value
