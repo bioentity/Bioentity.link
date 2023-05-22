@@ -37,6 +37,10 @@ class UserService {
         return user
     }
 
+    def getNovaTechsetPublisher() {
+        User user = User.findByUsername("Benet1983")
+    }
+
     def getAdmin() {
         User user = User.findByUsername("kyook")
         return user
