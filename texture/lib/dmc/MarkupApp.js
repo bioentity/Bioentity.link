@@ -11,8 +11,7 @@ class MarkupApp {
   }
 
   searchWords(termData, linkItalics, caseInsensitive, callback) {
-  //  console.log(termData);
-    console.log(caseInsensitive);
+    //  console.log(termData);
     let documentSession = window.app.state.documentSession;
     let selectionState = documentSession.getSelectionState();
     let nodes = window.doc.getNodes();
@@ -38,7 +37,7 @@ class MarkupApp {
               startOffset: nodes[node].startOffset,
               endOffset: nodes[node].endOffset,
               term: termData[w],
-              type: "superscript"
+              type: "superscript",
             });
           }
           // Handle the word preceding the superscript
@@ -55,7 +54,7 @@ class MarkupApp {
               startOffset: nodes[node].startOffset - termData[w].value.length,
               endOffset: nodes[node].startOffset,
               term: termData[w],
-              type: "basesup"
+              type: "basesup",
             });
           }
         }
@@ -82,7 +81,7 @@ class MarkupApp {
             startOffset: nodes[node].startOffset,
             endOffset: nodes[node].endOffset,
             terms: terms,
-            type: "italic"
+            type: "italic",
           });
         }
       }
@@ -94,7 +93,7 @@ class MarkupApp {
       {
         action: "clearWords",
         words: termData,
-        xmlId: xmlId
+        xmlId: xmlId,
       },
       "*"
     );
@@ -111,12 +110,12 @@ class MarkupApp {
             "\\$&"
           );
 
-            let options = "g";
-            if(caseInsensitive) {
-                options = "gi";
-            }
+          let options = "g";
+          if (caseInsensitive) {
+            options = "gi";
+          }
 
-           // let regExp =  "^" +
+          // let regExp =  "^" +
           //  reWord +
           //  "[^A-Za-z0-9_]|[^A-Za-df-qs-z0-9_]" +
           //  reWord +
@@ -148,7 +147,7 @@ class MarkupApp {
               startOffset: startOffset,
               endOffset: endOffset,
               term: term,
-              type: "word"
+              type: "word",
             });
           }
         }
@@ -203,7 +202,7 @@ class MarkupApp {
             type: "property",
             path: entity.path,
             startOffset: entityStart,
-            endOffset: entityEnd
+            endOffset: entityEnd,
           });
 
           selectionState.setSelection(sel);
@@ -213,20 +212,20 @@ class MarkupApp {
 
           let cmdState = cmd.getCommandState({
             selectionState: selectionState,
-            documentSession: documentSession
+            documentSession: documentSession,
           });
           if (cmdState.mode == "create") {
             let res = cmd.execute({
               commandState: {
-                mode: "create"
+                mode: "create",
               },
               documentSession: documentSession,
-              selectionState: selectionState
+              selectionState: selectionState,
             });
 
             // Save ext-link ID
             term.extLinkId = res.anno.id;
-            documentSession.transaction(function(tx, args) {
+            documentSession.transaction(function (tx, args) {
               tx.set([res.anno.id, "hrefLink"], term.lexica[0].link);
               tx.set([res.anno.id, "entityType"], "mu");
             });
@@ -237,7 +236,7 @@ class MarkupApp {
                 action: "saveLink",
                 //  hit: hits,
                 term: saveTerm,
-                xmlId: xmlId
+                xmlId: xmlId,
               },
               "*"
             );
@@ -274,7 +273,7 @@ class MarkupApp {
           type: "property",
           path: entity.path,
           startOffset: startOffset,
-          endOffset: endOffset
+          endOffset: endOffset,
         });
         // populate the hit
         term.selection = sel;
@@ -284,7 +283,7 @@ class MarkupApp {
 
         let cmdState = cmd.getCommandState({
           selectionState: selectionState,
-          documentSession: documentSession
+          documentSession: documentSession,
         });
 
         //for(let node in subscriptNodes) {
@@ -302,7 +301,7 @@ class MarkupApp {
               type: "property",
               path: entity.path,
               startOffset: startOffset,
-              endOffset: endOffset
+              endOffset: endOffset,
             });
             selectionState.setSelection(sel);
           } else if (entity.type == "basesup") {
@@ -312,7 +311,7 @@ class MarkupApp {
               type: "property",
               path: entity.path,
               startOffset: startOffset,
-              endOffset: endOffset
+              endOffset: endOffset,
             });
             selectionState.setSelection(sel);
           }
@@ -320,26 +319,26 @@ class MarkupApp {
           try {
             let res = cmd.execute({
               commandState: {
-                mode: "create"
+                mode: "create",
               },
               documentSession: documentSession,
-              selectionState: selectionState
+              selectionState: selectionState,
             });
 
             // Save ext-link ID
             term.extLinkId = res.anno.id;
-            documentSession.transaction(function(tx, args) {
+            documentSession.transaction(function (tx, args) {
               tx.set([res.anno.id, "hrefLink"], term.lexica[0].link);
               tx.set([res.anno.id, "entityType"], "mu");
             });
 
             if (entityMatches[entityMatch].type == "superscript") {
-              documentSession.transaction(function(tx, args) {
+              documentSession.transaction(function (tx, args) {
                 tx.set([res.anno.id, "startOffset"], startOffset - 1);
                 tx.set([res.anno.id, "entityType"], "superscript");
               });
             } else if (entityMatches[entityMatch].type == "basesup") {
-              documentSession.transaction(function(tx, args) {
+              documentSession.transaction(function (tx, args) {
                 tx.set([res.anno.id, "endOffset"], endOffset + 1);
               });
             }
@@ -352,7 +351,7 @@ class MarkupApp {
                 action: "saveLink",
                 hit: hits,
                 term: saveTerm,
-                xmlId: xmlId
+                xmlId: xmlId,
               },
               "*"
             );
@@ -363,14 +362,14 @@ class MarkupApp {
         } else if (cmdState.mode == "create") {
           let res = cmd.execute({
             commandState: {
-              mode: "create"
+              mode: "create",
             },
             documentSession: documentSession,
-            selectionState: selectionState //documentSession.getSelectionState()
+            selectionState: selectionState, //documentSession.getSelectionState()
           });
           // Save ext-link ID
           term.extLinkId = res.anno.id;
-          documentSession.transaction(function(tx, args) {
+          documentSession.transaction(function (tx, args) {
             tx.set([res.anno.id, "hrefLink"], term.lexica[0].link);
             tx.set([res.anno.id, "entityType"], "mu");
           });
@@ -382,7 +381,7 @@ class MarkupApp {
                 action: "saveLink",
                 //   hit: hits,
                 term: saveTerm,
-                xmlId: xmlId
+                xmlId: xmlId,
               },
               "*"
             );
@@ -459,11 +458,11 @@ class MarkupApp {
       window.location.hostname +
       ":8080/keyWordSet/sampleKeyWordSet";
     console.log("server URL: " + serverURL);
-    request("GET", serverURL, null, function(err, data) {
+    request("GET", serverURL, null, function (err, data) {
       if (err) {
         console.error(err);
         this.setState({
-          error: new Error("Loading failed")
+          error: new Error("Loading failed"),
         });
         return;
       }
@@ -520,7 +519,7 @@ class MarkupApp {
               type: "property",
               path: italicNodes[italic].path,
               startOffset: italicNodes[italic].startOffset,
-              endOffset: italicNodes[italic].endOffset
+              endOffset: italicNodes[italic].endOffset,
             });
 
             selectionState.setSelection(sel);
@@ -528,25 +527,24 @@ class MarkupApp {
 
             let cmdState = cmd.getCommandState({
               selectionState: selectionState,
-              documentSession: documentSession
+              documentSession: documentSession,
             });
             if (cmdState.mode == "create") {
               let res = cmd.execute({
                 commandState: {
-                  mode: "create"
+                  mode: "create",
                 },
                 documentSession: documentSession,
-                selectionState: selectionState
+                selectionState: selectionState,
               });
-              documentSession.transaction(function(tx, args) {
+              documentSession.transaction(function (tx, args) {
                 //	tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
                 tx.set([res.anno.id, "entityType"], "nomu");
               });
             } else if (cmdState.mode == "delete") {
-              let extLinkId = selectionState.getAnnotationsForType(
-                "ext-link"
-              )[0].id;
-              documentSession.transaction(function(tx, args) {
+              let extLinkId =
+                selectionState.getAnnotationsForType("ext-link")[0].id;
+              documentSession.transaction(function (tx, args) {
                 //	tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
                 tx.set([extLinkId, "entityType"], "rule");
               });
@@ -588,7 +586,7 @@ class MarkupApp {
               type: "property",
               path: [paragraph.id, "content"],
               startOffset: hit.index,
-              endOffset: hit.index + hit[0].length
+              endOffset: hit.index + hit[0].length,
             });
 
             selectionState.setSelection(sel);
@@ -596,25 +594,24 @@ class MarkupApp {
 
             let cmdState = cmd.getCommandState({
               selectionState: selectionState,
-              documentSession: documentSession
+              documentSession: documentSession,
             });
             if (cmdState.mode == "create") {
               let res = cmd.execute({
                 commandState: {
-                  mode: "create"
+                  mode: "create",
                 },
                 documentSession: documentSession,
-                selectionState: selectionState
+                selectionState: selectionState,
               });
-              documentSession.transaction(function(tx, args) {
+              documentSession.transaction(function (tx, args) {
                 //	tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
                 tx.set([res.anno.id, "entityType"], "nomu");
               });
             } else if (cmdState.mode == "delete") {
-              let extLinkId = selectionState.getAnnotationsForType(
-                "ext-link"
-              )[0].id;
-              documentSession.transaction(function(tx, args) {
+              let extLinkId =
+                selectionState.getAnnotationsForType("ext-link")[0].id;
+              documentSession.transaction(function (tx, args) {
                 //	tx.set([res.anno.id, 'hrefLink'], term.lexica[0].link)
                 tx.set([extLinkId, "entityType"], "rule");
               });
@@ -678,7 +675,7 @@ class MarkupApp {
                 type: "property",
                 path: italicNodes[italic].path,
                 startOffset: italicNodes[italic].startOffset,
-                endOffset: italicNodes[italic].endOffset
+                endOffset: italicNodes[italic].endOffset,
               });
 
               selectionState.setSelection(sel);
@@ -686,15 +683,15 @@ class MarkupApp {
 
               let cmdState = cmd.getCommandState({
                 selectionState: selectionState,
-                documentSession: documentSession
+                documentSession: documentSession,
               });
               if (cmdState.mode == "create") {
                 let res = cmd.execute({
                   commandState: {
-                    mode: "create"
+                    mode: "create",
                   },
                   documentSession: documentSession,
-                  selectionState: selectionState
+                  selectionState: selectionState,
                 });
               } else {
                 console.log(hit);

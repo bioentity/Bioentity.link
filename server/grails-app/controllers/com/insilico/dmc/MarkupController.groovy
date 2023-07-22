@@ -123,7 +123,6 @@ class MarkupController extends RestfulController {
             Lexicon lexicon = Lexicon.findByUuid(termObject.lexica[0].uuid)
             JSONObject selectionObject = termObject.selection
 
-            println keyWord
 			def markup = [
                 publication: publication.fileName,
                 uuid: UUID.randomUUID().toString(),

@@ -159,26 +159,24 @@ export class PublicationDetailComponent implements OnInit {
             } else if (action == 'finishedLinking') {
                 // this.linking = false;
                 this.linkingMessage = "Linking complete. Saving to server."
-                this.markupService.saveBulkLinks(this.bulkLinks, this.selectedPub.fileName).subscribe(applicationData => {
+
+                this.markupService.saveLinks(this.bulkLinks, this.selectedPub.fileName).then(applicationData => {
+
                     this.selectedPub = applicationData;
                     if (this.modalRef) {
                         this.modalRef.close();
                     }
                     this.getLinkedTerms();
                     this.linkingMessage = "Done."
-                });
-                // if (eventData.totalHits == "0") {
-                //     this.modalRef.close();
-                // }
-                // console.log("Finished linking")
+                })
+
             }
         }
     };
 
     private populateUser() {
         if (this.profile && this.profile.nickname) {
-            // alert('User logged in: ' + JSON.stringify(this.profile))
-            // alert(JSON.stringify(this.profile))
+
             this.userService.getUser(this.profile.nickname).subscribe(applicationData => {
                 this.authenticatedUser = applicationData;
             });
@@ -324,6 +322,7 @@ export class PublicationDetailComponent implements OnInit {
         // this.modalRef = this.modalService.open(content);
 
         this.linkingMessage = "Setting curation on github"
+        /*
         this.publicationService
             .setCurationStatus(
                 this.selectedPub,
@@ -339,6 +338,7 @@ export class PublicationDetailComponent implements OnInit {
                     this.linkingMessage = "Setting curation failed."// Requesting keywords from server anyway."
                 });
         //  .add(() => {
+            */
 
 
         this.publicationService
@@ -364,6 +364,7 @@ export class PublicationDetailComponent implements OnInit {
                     //console.log("SENT");
                 },
                 error => {
+                    console.log(error)
                     this.linkingMessage = "There was an error. Please try again."
                 }
             );
@@ -533,7 +534,6 @@ export class PublicationDetailComponent implements OnInit {
 
         this.githubService.getComments(publication).subscribe(applicationData => {
             for (let comment of applicationData) {
-                console.log(comment.comment)
                 if (comment.comment.indexOf("publication") == -1) {
                     this.curationComments.push(comment)
                 }
