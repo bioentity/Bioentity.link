@@ -656,7 +656,7 @@ class PublicationService {
         xmlData = xmlData.replaceAll(/<!--/, "<")
         xmlData = xmlData.replaceAll(/-->/, ">")
 
-        xmlData = xmlData.replaceAll(/(\[AQ ID=AQ\d+\])[^?]/, '<?show $1?>')
+        xmlData = xmlData.replaceAll(/(\[AQ ID=AQ\d+\])([^?])/, '<?show $1?>$2')
         
         return xmlData
     }

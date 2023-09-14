@@ -322,7 +322,6 @@ export class PublicationDetailComponent implements OnInit {
         // this.modalRef = this.modalService.open(content);
 
         this.linkingMessage = "Setting curation on github"
-        /*
         this.publicationService
             .setCurationStatus(
                 this.selectedPub,
@@ -338,7 +337,6 @@ export class PublicationDetailComponent implements OnInit {
                     this.linkingMessage = "Setting curation failed."// Requesting keywords from server anyway."
                 });
         //  .add(() => {
-            */
 
 
         this.publicationService
@@ -364,7 +362,6 @@ export class PublicationDetailComponent implements OnInit {
                     //console.log("SENT");
                 },
                 error => {
-                    console.log(error)
                     this.linkingMessage = "There was an error. Please try again."
                 }
             );
