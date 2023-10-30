@@ -72,7 +72,8 @@
                             </span>
 
 						</p>
-                        <p class="card-text">http://identifiers.org/bioentitylink/{{selectedSource.prefix}}:{{lex.externalModId}}</p>
+                        <p *ngIf="!isPombase" class="card-text">https://identifiers.org/bioentitylink/{{selectedSource.prefix}}:{{lex.externalModId}}</p>
+                        <p *ngIf="isPombase" class="card-text">https://identifiers.org/pombase:{{lex.externalModId}}</p>
                         <button class="btn btn-sm btn-secondary" role="button" attr.aria-expanded="false"
                                 attr.aria-controls="edit{{lex.id}}" (click)="editLex=lex; editError=false">Edit
                         </button>

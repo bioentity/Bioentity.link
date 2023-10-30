@@ -23,6 +23,7 @@ export class LexiconContentComponent implements OnInit {
     editError = false;
     newAlert = "";
     newError = false;
+    isPombase = false;
 
     lexiconTypes = ["Gene", "Phenotype", "Anatomy", "Allele", "Abberation", "Anatomy",
         "Clone", "Equipment", "Fish", "Genotype", "Molecule", "Rearrangement", "Reagent",
@@ -36,11 +37,15 @@ export class LexiconContentComponent implements OnInit {
 
     ngOnChanges() {
         if (this.selectedSource) {
+            if (this.selectedSource.prefix == "pombase") {
+                this.isPombase = true;
+            }
             this.updateLexica();
         }
     }
 
     updateLexica() {
+        console.log(this.isPombase)
         this.lexica = new Array<Lexicon>();
         //        this.lexiconService.getLexicaCount(this.selectedSource, this.searchTerm).subscribe(applicationData => {
         //          this.lexicaSize = applicationData.lexicaCount;

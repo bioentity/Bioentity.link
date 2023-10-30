@@ -6,6 +6,7 @@ import { Lexicon } from "../lexicon/lexicon";
 import { Markup } from "./markup";
 import { Publication } from "../publication/publication";
 import { KeyWord } from "../key-word/key-word";
+import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
 
 @Injectable()
 export class MarkupService {
@@ -94,6 +95,10 @@ export class MarkupService {
     generateLink(prefix: string, externalModId: string, doi: string) {
         if (prefix == "WB" && !externalModId.startsWith("WB")) {
             return "https://www.wormbase.org/species/c_elegans/strain/" + externalModId;
+        }
+        if (prefix == "pombase") {
+
+            return "https://identifiers.org/pombase:" + externalModId;
         }
         return 'https://identifiers.org/bioentitylink/' + prefix + ":" + externalModId + "?doi=" + doi;
     }

@@ -36,6 +36,7 @@ export class MarkupModal {
     notIndexed: boolean;
     isNewLexicon: boolean;
     isChecking: boolean;
+    identifiersLink: string;
 
     constructor(public activeModal: NgbActiveModal,
         private lexiconService: LexiconService,
@@ -48,14 +49,18 @@ export class MarkupModal {
     ngOnInit() {
         if (this.isSaved) {
             this.markupService.getMarkupsForExtLinkId(this.extLinkId).subscribe(markup => {
-                console.log("got it")
                 this.markup = markup
-                console.log(this.markup)
 
                 //if (this.markup && this.markup.keyWordSet) {
                 this.isCollapsed = false;
                 // this.isSaved = true
                 // }
+                if (this.markup.finalLexicon.lexiconSource.prefix == "pombase") {
+                    this.identifiersLink = "http://identifiers.org/pombase:" + this.markup.finalLexicon.externalModId
+                } else {
+                    this.identifiersLink = "http://identifiers.org/bioentitylink/" + this.markup.finalLexicon.lexiconSource.prefix + ":" + this.markup.finalLexicon.externalModId + "?doi=" + this.markup.publication.doi
+                }
+
             }, error => {
                 console.log("not found")
                 this.notFound = true
@@ -117,7 +122,11 @@ export class MarkupModal {
         lexicon.externalModId = this.externalModId;
         lexicon.lexiconSource = this.selectedSource;
         //        lexicon.getLink();
-        lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
+        if (this.selectedSource.prefix == "pombase") {
+            lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
+        } else {
+            lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
+        }
         lexicon.curatorNotes = this.curatorComments;
         lexicon.getInternalLink();
         lexicon.reasonForAdding = this.reason;
@@ -129,13 +138,17 @@ export class MarkupModal {
             console.log(applicationData)
             lexicon = applicationData[0]
             // this.markup.keyWord = applicationData[1]
-            lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
+            if (this.selectedSource.prefix == "pombase") {
+                lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
+            } else {
+                lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
+            }
 
             this.markup.keyWord.uuid = applicationData[1].uuid
             this.markup.keyWord.keyWordSet = this.markup.keyWordSet;
             this.markup.keyWord.lexica = lexicon;
 
-            
+
 
             /*
             this.keyWordService.addKeyWord(this.markup.keyWord, this.markup.keyWordSet).subscribe(applicationData => {
