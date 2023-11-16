@@ -144,7 +144,10 @@ class LexiconController {
         if (!lexicon && id.contains(":")) {
  	    def splitId = id.split(":") as List
             String sourcePrefix = splitId.remove(0)
-            String modId = splitId.join("")        
+            String modId = splitId.join("")
+            if (params.format) {
+                modId += ".${params.format}"
+            }        
 //    String sourcePrefix = id.split(":")[0]
   //          String modId = id.split(":")[1]
             def lexiconSources = LexiconSource.findAllByPrefix(sourcePrefix)

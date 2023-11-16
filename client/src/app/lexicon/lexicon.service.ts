@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers,RequestOptions, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/publishReplay";
 
-import {environment} from '../../environments/environment';
-import {Lexicon} from './lexicon';
-import {LexiconSource} from './lexicon-source';
-import {Species} from '../species/species';
-import {UUID} from "angular2-uuid";
+import { environment } from '../../environments/environment';
+import { Lexicon } from './lexicon';
+import { LexiconSource } from './lexicon-source';
+import { Species } from '../species/species';
+import { UUID } from "angular2-uuid";
 
 @Injectable()
 export class LexiconService {
@@ -41,7 +41,7 @@ export class LexiconService {
     }
 
     getLexicaCount(lexSource: LexiconSource, search): Observable<any> {
-        return this.http.get(environment.serverUrl + 'lexiconSource/getLexicaCount/' + lexSource.id, {"params": {"search": search}})
+        return this.http.get(environment.serverUrl + 'lexiconSource/getLexicaCount/' + lexSource.id, { "params": { "search": search } })
             .map((res: Response) => res.json())
             .publishReplay()
             .refCount();
@@ -57,14 +57,13 @@ export class LexiconService {
 
     getLexiconbyIdLookup(id: any): Observable<any> {
         let headers = new Headers();
-        headers.append('Content-Type','application/json');
+        headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
         headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-
         let options = new RequestOptions({ headers: headers });
-        this._selectedLex = this.http.get(environment.serverUrl + 'lexicon/lookup/' + id,options)
+        this._selectedLex = this.http.get(environment.serverUrl + 'lexicon/lookup/' + id, options)
             .map((res: Response) => res.json())
             .publishReplay()
             .refCount();
@@ -73,7 +72,7 @@ export class LexiconService {
 
     getLexiconByModId(id: string) {
         return this.http.get(environment.serverUrl + 'lexicon/getLexicaByModId/' + id)
-          .map((res: Response) => res.json())
+            .map((res: Response) => res.json())
             .publishReplay()
             .refCount();
     }
@@ -138,7 +137,7 @@ export class LexiconService {
             .refCount();
     }
 
-		
+
 
     checkLexicon(lexicon: Lexicon) {
         return this.http.post(environment.serverUrl + 'lexicon/lexiconCheck', lexicon)
@@ -191,6 +190,6 @@ export class LexiconService {
     }
 
     downloadLexicon(selectedSource: LexiconSource) {
-        window.open(environment.serverUrl + 'lexiconSource/download/'+selectedSource.id,'_blank');
+        window.open(environment.serverUrl + 'lexiconSource/download/' + selectedSource.id, '_blank');
     }
 }
