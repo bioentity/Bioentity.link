@@ -91,6 +91,10 @@ class ExtLinkComponent extends AnnotationComponent {
       if (!match) {
         match = this.props.node.attributes["xlink:href"].match(/org\/(.+):/);
       }
+
+      if (!match) {
+        match = this.props.node.attributes["xlink:href"].match(/all\/(.+)/);
+      }
       el.attr(
         "onclick",
         'window.parent.postMessage({action: "editMarkup", term: "' +
