@@ -56,9 +56,11 @@ export class MarkupModal {
                 // this.isSaved = true
                 // }
                 if (this.markup.finalLexicon.lexiconSource.prefix == "pombase") {
-                    this.identifiersLink = "http://identifiers.org/pombase:" + this.markup.finalLexicon.externalModId
+                    this.identifiersLink = "https://identifiers.org/pombase:" + this.markup.finalLexicon.externalModId
+                } else if (this.markup.finalLexicon.lexiconSource.prefix == "WB" && !this.markup.finalLexicon.externalModId.startsWith("WB")) {
+                    this.identifiersLink = "https://wormbase.org/search/all/" + this.markup.finalLexicon.externalModId
                 } else {
-                    this.identifiersLink = "http://identifiers.org/bioentitylink/" + this.markup.finalLexicon.lexiconSource.prefix + ":" + this.markup.finalLexicon.externalModId + "?doi=" + this.markup.publication.doi
+                    this.identifiersLink = "https://identifiers.org/bioentitylink/" + this.markup.finalLexicon.lexiconSource.prefix + ":" + this.markup.finalLexicon.externalModId + "?doi=" + this.markup.publication.doi
                 }
 
             }, error => {
@@ -124,6 +126,8 @@ export class MarkupModal {
         //        lexicon.getLink();
         if (this.selectedSource.prefix == "pombase") {
             lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
+        } else if (this.selectedSource.prefix == "WB" && !this.externalModId.startsWith("WB")) {
+            lexicon.link = "https://wormbase.org/search/all/" + this.externalModId;
         } else {
             lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
         }
@@ -140,6 +144,8 @@ export class MarkupModal {
             // this.markup.keyWord = applicationData[1]
             if (this.selectedSource.prefix == "pombase") {
                 lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
+            } else if (this.selectedSource.prefix == "WB" && !this.externalModId.startsWith("WB")) {
+                lexicon.link = "https://wormbase.org/search/all/" + this.externalModId;
             } else {
                 lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
             }
