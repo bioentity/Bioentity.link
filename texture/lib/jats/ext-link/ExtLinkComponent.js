@@ -91,9 +91,10 @@ class ExtLinkComponent extends AnnotationComponent {
       if (!match) {
         match = this.props.node.attributes["xlink:href"].match(/org\/(.+):/);
       }
-
+      // WormBase IDs that don't start with "WB"
       if (!match) {
         match = this.props.node.attributes["xlink:href"].match(/all\/(.+)/);
+        match = ["", "wb"];
       }
       el.attr(
         "onclick",
@@ -103,7 +104,6 @@ class ExtLinkComponent extends AnnotationComponent {
           word.text +
           '"}, "*")'
       );
-      console.log(match);
       if (match) {
         el.addClass(match[1].toLowerCase());
       }
