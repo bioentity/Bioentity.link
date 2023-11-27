@@ -24,6 +24,10 @@ class MarkupApp {
         superscriptNodes.push(nodes[node]);
         let paragraph = window.doc.get(nodes[node].path[0]);
 
+        if (!paragraph.content) {
+          continue;
+        }
+
         for (let w in termData) {
           // Handle the superscript
           if (
