@@ -99,6 +99,9 @@ export class MarkupService {
         if (prefix == "pombase") {
             return "https://identifiers.org/pombase:" + externalModId;
         }
+        if (prefix == "DOID") {
+            return "https://www.alliancegenome.org/disease/" + externalModId
+        }
         return 'https://identifiers.org/bioentitylink/' + prefix + ":" + externalModId + "?doi=" + doi;
     }
 }

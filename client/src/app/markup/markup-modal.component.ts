@@ -59,6 +59,8 @@ export class MarkupModal {
                     this.identifiersLink = "https://identifiers.org/pombase:" + this.markup.finalLexicon.externalModId
                 } else if (this.markup.finalLexicon.lexiconSource.prefix == "WB" && !this.markup.finalLexicon.externalModId.startsWith("WB")) {
                     this.identifiersLink = "https://wormbase.org/search/all/" + this.markup.finalLexicon.externalModId
+                } else if (this.markup.finalLexicon.lexiconSource.prefix == "DOID") {
+                    this.identifiersLink = "https://www.alliancegenome.org/disease/" + this.markup.finalLexicon.externalModId
                 } else {
                     this.identifiersLink = "https://identifiers.org/bioentitylink/" + this.markup.finalLexicon.lexiconSource.prefix + ":" + this.markup.finalLexicon.externalModId + "?doi=" + this.markup.publication.doi
                 }
@@ -128,6 +130,8 @@ export class MarkupModal {
             lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
         } else if (this.selectedSource.prefix == "WB" && !this.externalModId.startsWith("WB")) {
             lexicon.link = "https://wormbase.org/search/all/" + this.externalModId;
+        } else if (this.selectedSource.prefix == "DOID") {
+            lexicon.link = "https://www.alliancegenome.org/disease/" + this.externalModId
         } else {
             lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
         }
@@ -146,6 +150,8 @@ export class MarkupModal {
                 lexicon.link = "https://identifiers.org/pombase:" + this.externalModId;
             } else if (this.selectedSource.prefix == "WB" && !this.externalModId.startsWith("WB")) {
                 lexicon.link = "https://wormbase.org/search/all/" + this.externalModId;
+            } else if (this.markup.finalLexicon.lexiconSource.prefix == "DOID") {
+                lexicon.link = "https://www.alliancegenome.org/disease/" + this.externalModId
             } else {
                 lexicon.link = "https://identifiers.org/bioentitylink/" + this.selectedSource.prefix + ":" + this.externalModId;
             }
