@@ -4,7 +4,7 @@
   "dependencies": {
     "lodash": "^4.17.11",
     "popper.js": "^1.14.3",
-    "substance": "^1.0.0-preview-111"
+    "substance": "^2.0.0-preview.32.1"
   },
   "devDependencies": {
     "font-awesome": "4.5.0",
