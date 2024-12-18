@@ -23,7 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.22",
     "angular-font-awesome": "^2.0.2",
     "angular2-uuid": "^1.1.1",
-    "auth0-js": "^8.12.1",
+    "auth0-js": "^9.13.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.5.0",
     "font-awesome": "^4.7.0",
