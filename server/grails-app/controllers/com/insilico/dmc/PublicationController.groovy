@@ -142,7 +142,7 @@ class PublicationController extends RestfulController<Publication> {
         println "publication found ${publication.fileName}"
          // Convert <!-- -->  comments in genetics to tags that can be read by texture
         String xmlData = publication.exportedData.value
-        xmlData = xmlData.replaceAll(/(<\?A3B2.+\?>)/) { all, content -> "<genetics-comment>${content}</genetics-comment>" }
+        xmlData = xmlData.replaceAll(/(<\?A3B2.+?\?>)/) { all, content -> "<genetics-comment>${content}</genetics-comment>" }
         // xmlData = xmlData.replaceAll("<!--", "<genetics-comment>")
         // xmlData = xmlData.replaceAll("-->", "</genetics-comment>")
 
